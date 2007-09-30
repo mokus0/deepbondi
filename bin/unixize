@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+
+$tmp = "/tmp/unixize.$1";
+
+while ($file = shift) {
+	open IN, $file;
+	open OUT, "> $tmp";
+	
+	while ($line = <IN>) {
+		$line =~ s/\r(\n)?/\n/g;
+		print OUT $line;
+	}
+	
+	close IN;
+	close OUT;
+
+	system "mv", $tmp, $file;
+}
