@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+#
+#	<watch>
+#		I have a much better version of this somewhere else.  I'll
+#		have to track it down...
+#
+
+my $clear = "[H[J";
+my $command = join " ", @ARGV;
+
+while (1) {
+	print $clear;
+	
+	print "Watch: $command\n\n";
+	
+	system @ARGV;
+	sleep(3);
+}
