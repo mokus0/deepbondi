@@ -1,0 +1,41 @@
+#!/usr/bin/perl
+#
+#   <arp>
+#       Wraps up system "arp" and highlight IP and MAC addresses.
+#       Also normalizes MAC addresses, to use 2 digits and lowercase only.
+#
+
+use strict;
+
+require "/deepbondi/pm/hilite.pm";
+
+my $arp = "/usr/sbin/arp";
+
+my $gr = $hilite::colors{"green"};
+my $bl = $hilite::colors{"black"};
+
+if (@ARGV) {
+	my $col = shift @ARGV;
+	
+	if (defined ($hilite::colors{lc $col})) {
+		$gr = $hilite::colors{lc $col};
+	} else {
+		unshift @ARGV, $col unless ($col eq "-");
+	}
+}
+
+if (@ARGV) {
+	open ARP, '-|', $arp, @ARGV;
+} else {
+	open ARP, '-|', $arp;
+}
+
+while (<ARP>) {
+	s{\(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)\) ((--)|(at))}{(${gr}$1${bl}) $2};
+	s{at \(incomplete\) on}{at ${gr}\(incomplete\)${bl} on};
+	s{-- no entry$}{-- ${gr}no entry${bl}};
+	s{\b([0-9a-fA-F]+):([0-9a-fA-F]+):([0-9a-fA-F]+):([0-9a-fA-F]+):([0-9a-fA-F]+):([0-9a-fA-F]+)\b}
+	 {$gr . sprintf("%02x:%02x:%02x:%02x:%02x:%02x", hex $1, hex $2, hex $3, hex $4, hex $5, hex $6) . $bl}egx;
+	print;
+}
+
