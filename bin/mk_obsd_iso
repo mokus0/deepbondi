@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+#  <mk_obsd_iso>
+#    Copyright 2002 James Cook - All Rights Reserved.
+#
+#
+
+version=${1:-`ls /home/Shared/OpenBSD | grep -e '[0-9]\.[0-9]' | tail -n1`}
+svers=`echo -n ${version} | sed 's/\.//'`
+
+if [ -d $version/i386 ]; then
+	echo Hmm... Ok...
+	cd=""
+elif [ -d /home/Shared/OpenBSD/$version/i386 ]; then
+	echo Good Enough...
+	cd="/home/Shared/OpenBSD/"
+else
+	echo Go somewhere else.  Read the script if you have to.
+	exit
+fi
+
+echo Making obsd${version}.iso in 3 seconds...
+sleep 3
+
+mkisofs -vrTJV "OpenBSD ${version}" -b $version/i386/cdrom${svers}.fs -c boot.catalog -o obsd${version}.iso -graft-points /${version}/=${cd}${version}
