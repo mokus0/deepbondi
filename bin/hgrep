@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+#
+#	<hgrep>
+#		(very) Simple grep-like tool that hilights regex matches.
+#
+
+use strict;
+
+require "/deepbondi/pm/hilite.pm";
+
+my $re = shift @ARGV;
+
+if (not defined $re) {
+	print "Enter regex:  ";
+	$re = <>;
+}
+chomp $re;
+
+my $col = shift @ARGV;
+my $gr;
+my $bl = hilite::color();
+
+if (defined $col) {
+	$gr = hilite::color($col, undef, "bold");
+} else {
+	$gr = hilite::color("green", undef, "bold");
+}
+
+$gr = $gr . hilite::color(undef, undef, "underline");
+
+while (<>) {
+ 	s/${re}/${gr}$&${bl}/g;
+	print;
+}
+
