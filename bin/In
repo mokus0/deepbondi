@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+#
+#  <In>
+#    Copyright 2002 James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+
+exec "at", "now", "+", @ARGV;
