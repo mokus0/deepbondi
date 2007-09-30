@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+#
+#  <emails>
+#    Copyright 2006 James Cook - All Rights Reserved.
+#
+#  Quick hack, at request of tindrum I think, to make a regexp to
+#  munge email addresses out of a text stream
+#
+
+use strict;
+
+open STDOUT, "| sort | uniq";
+
+while (<>) {
+	while(m/([-_.0-9a-zA-Z]+@([-_0-9a-zA-Z]+\.)+([-_0-9a-zA-Z]+))/g) {
+		print $1;
+		print "\n";
+	}
+}
