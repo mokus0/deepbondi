@@ -1,0 +1,218 @@
+#!/usr/bin/perl
+#
+#  <dict>
+#    Copyright 2005 James Cook - All Rights Reserved.
+#
+#    This whole thing could use some cleanup.
+#
+
+use strict;
+
+my $dict = "/deepbondi/dict/words";
+
+my %modemap = (
+	"-a" => \&addWords,
+	"-d" => \&delWords,
+	"-D" => \&delGrep,
+	"-r" => \&grepWords,
+	"-g" => \&grepWords,
+	"-n" => \&anagram,	# requires "an" anagram generator in /deepbondi/bin
+);
+
+my $mode = "-g";
+
+
+sub addWords {
+	my @words = @_;
+	chomp @words;
+	
+	@words = sort @words;
+	
+	my $oldSigInt = $SIG{INT};
+	
+	system "cp", $dict, "$dict.old";
+	$SIG{INT} = \&catch_INT_restore_old;
+	open DICT, "$dict.old";
+	open NEWDICT, ">", $dict;
+	
+	my $next = shift @words;
+	
+	while (<DICT>) {
+		my $word = $_;
+		
+		my $chomped = $word;
+		chomp $chomped;
+		
+		if ($next eq $chomped) {
+			$next = shift @words;
+		}
+		
+		while ($next && ($next lt $chomped)) {
+			print NEWDICT "$next\n";
+			
+			print qq/"$next" added before "$chomped"\n/;
+			$next = shift @words;
+		}
+		
+		print NEWDICT $word;
+	}
+	
+	$SIG{INT} = $oldSigInt;
+	close DICT;
+	close NEWDICT;
+}
+
+sub delWords {
+	my @words = @_;
+	chomp @words;
+	
+	@words = sort @words;
+	
+	my $oldSigInt = $SIG{INT};
+	
+	system "cp", $dict, "$dict.old";
+	$SIG{INT} = \&catch_INT_restore_old;
+	open DICT, "$dict.old";
+	open NEWDICT, ">", $dict;
+	
+	my $next = shift @words;
+	
+	while (<DICT>) {
+		my $word = $_;
+		
+		my $chomped = $word;
+		chomp $chomped;
+		
+		while ($next && ($next lt $chomped)) {
+			$next = shift @words;
+		}
+		
+		if ($next ne $chomped) {
+			print NEWDICT $word;
+		} else {
+			while ($next && ($next eq $chomped)) {
+				$next = shift @words;
+			}
+			print qq/"$chomped" dropped\n/;
+		}
+	}
+	
+	$SIG{INT} = $oldSigInt;
+	close DICT;
+	close NEWDICT;
+}
+
+sub delGrep {
+	print STDERR "WARNING: About to delete all words matching given regex(es)!\n";
+	sleep 3;
+	
+	
+	my @patterns;
+	
+	for my $pattern (@_) {
+		push @patterns, qr/$pattern/;
+	}
+	
+	my $oldSigInt = $SIG{INT};
+	
+	system "cp", $dict, "$dict.old";
+	$SIG{INT} = \&catch_INT_restore_old;
+	open DICT, "$dict.old";
+	open NEWDICT, ">", $dict;
+	
+	while (<DICT>) {
+		my $hit = 0;
+		for my $pattern (@patterns) {
+			if (/$pattern/) {
+				print $_;
+				$hit = 1;
+				last;
+			}
+		}
+		if ($hit == 0) {
+			print NEWDICT $_;
+		}
+	}
+	
+	$SIG{INT} = $oldSigInt;
+	close DICT;
+	close NEWDICT;
+}
+
+sub grepWords {
+	my @patterns;
+	
+	for my $pattern (@_) {
+		push @patterns, qr/$pattern/i;
+	}
+	
+	open DICT, $dict;
+	while (<DICT>) {
+		for my $pattern (@patterns) {
+			if (/$pattern/) {
+				print $_;
+				last;
+			}
+		}
+	}
+	close DICT;
+}
+
+sub catch_INT_restore_old {
+    system "mv", "-f", "$dict.old", $dict;
+    die "SIGTERM: check integrity of dictfile!";
+}
+
+my $an = "/deepbondi/bin/an";
+my $ct = "4";
+my $grepPipe = "";
+
+my $an_last = $ENV{HOME} . "/.an.last";
+
+sub anagram {
+	my @args = @_;
+	
+	if ($args[0] =~ /^([\d]+)$/) {
+		$ct = $1;
+		shift @args;
+	}
+	
+	if ($args[0] =~ m{^/(.*)/$}) {
+		$grepPipe = "grep -e \"^$1\"|";
+		shift @args;
+	}
+	
+	if ($args[0] eq undef) {
+		open LAST, $an_last;
+		@args = <LAST>;
+		chomp @args;
+		close LAST;
+	} else {
+		open LAST, ">", $an_last;
+		for my $i (@args) {
+			print LAST $i . "\n";
+		}
+		close LAST;
+		
+		if ($ENV{CLEAR_ON_NEW_AN}) {
+			system "/usr/bin/clear";
+		}
+	}
+	
+	open OUT, "|/usr/bin/sort|/usr/bin/uniq | grep -v \"'\" | $grepPipe /usr/bin/column";
+	open IN, "-|", $an, "-d", $dict, "-w", "-m", "$ct", @args;
+		while (<IN>) {print OUT;}
+	close OUT;
+	close IN;
+}
+
+
+
+
+
+if ($ARGV[0] =~ /^(-[adDrgn])$/) {
+  $mode = $1;
+  shift @ARGV;
+}
+
+&{$modemap{$mode}}(@ARGV);
