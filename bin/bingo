@@ -1,0 +1,92 @@
+#!/usr/bin/perl
+#
+#  <bingo>
+#    Copyright 2002 James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+
+my $template = "/Volumes/The Tape/tringo/bingo.ps";
+
+my $output = "|lpr -l";
+#my $output = ">tringo.ps";
+
+#$/ = '\r';
+my @numbers;
+
+my $nCards = 0;
+
+sub random {
+	my ($card, $row, $col) = @_;
+	
+	my @card = getCard($card);
+	
+	return $numbers[$card][$row][$col];
+}
+
+sub getCard {
+	my ($card) = @_;
+	
+	while ($card >= $nCards) {
+		$numbers[$card] = genCard($nCards);
+		$nCards += 1;
+	}
+	
+	return $numbers[$card];
+}
+
+
+my @column_base = (
+		1,
+		16,
+		31,
+		46,
+		61
+	);
+
+srand (time ^ $$ ^ unpack "%L*", `ps axww | gzip`);
+
+sub genCard {
+	my @card;
+	my %numbers;
+	
+	my $x;
+	my $y;
+	
+	$numbers{0} = 1;
+	
+	for ($x = 0; $x < 5; $x++) {
+		for ($y = 0; $y < 5; $y++) {
+			my $number = 0;
+			
+			while ($numbers{$number}) {
+				$number = $column_base[$y] + int (rand 15);
+			}
+			
+			$numbers{$number} = 1;
+			
+			$card[$x][$y] = $number;
+		}
+	}
+	
+	return \@card;
+}
+
+open BINGO, $template or die "barf!";
+open LPR, $output;
+
+while (<BINGO>) {
+	if (m/(perl_(\d)_(\d)(\d))/) {
+		my ($tag, $card, $x, $y) = ($1, $2, $3, $4);
+		
+		my $number = random($card, $x, $y);
+		
+		s/$tag/$number/;
+	}
+	
+	print LPR;
+}
+
+close BINGO;
+close LPR;
