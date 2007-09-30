@@ -1,0 +1,62 @@
+#! /usr/bin/perl
+#
+#	<file>
+#		wrapper to "file" that hilights file names.  needs some work.
+#
+
+use strict;
+
+require "/deepbondi/pm/hilite.pm";
+
+my $gr = hilite::color("green");
+my $bl = hilite::color();
+
+my @ls = ("/bin/ls", "-d");
+my $file = "/usr/bin/file";
+
+sub printLine {
+	my ($file, $rest) = @_;
+	print $gr . $file . $bl . $rest . "\n";
+	
+	return
+	
+	#  the rest is currently unused; there should be a
+	#  test for availability of color ls, and use it if available
+	open LIST, '-|', @ls, $file;
+	
+	$file = <LIST>;
+	chomp $file;
+	
+	close LIST;
+	
+	print $file . $rest . "\n";
+}
+
+if (@ARGV) {
+	open FILE, "-|", $file, @ARGV;
+} else {
+	open FILE, "-|", "$file *";
+}
+
+# should also catch "symbolic link to `...'"
+
+while (<FILE>) {
+	if (m/^([^:]+)( \(for architecture [^)]*\):.*)$/) {
+		# special case for the subpieces of darwin universal binaries
+		my $file = $1;
+		my $descrip = $2;
+		
+		printLine ($file, $descrip)
+	} elsif (m/^([^:]+)(:.*)$/) {
+		# normal case
+		my $file = $1;
+		my $descrip = $2;
+		
+		printLine ($file, $descrip)
+	} else {
+		# probably never reached, but just in case...
+		print;
+	}
+}
+
+close FILE;
