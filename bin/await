@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+#
+#  <await>
+#    Copyright 2005 James Cook - All Rights Reserved.
+#    
+#    block until all files given on command-line exist
+#
+
+use strict;
+
+my $maxWait = 2;
+
+my @files = @ARGV;
+
+while (scalar @files) {
+	@files = grep {! -e} @files;
+	
+	# wait n/25 seconds, up to $maxWait
+	# gotta use 'select' for fractional values to work
+	my $time = (scalar @files) / 25;
+	if ($time > $maxWait) {$time = $maxWait};
+	
+	select (undef, undef, undef, $time);
+}
