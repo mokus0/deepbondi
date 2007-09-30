@@ -21,6 +21,10 @@ export CVS_RSH=ssh
 # files created are -rw-r--r-- by default
 umask 022
 
+# colorls settings
+export LSCOLORS="GxFxCxDxBxEgEdabagacad"
+export CLICOLOR=yes
+
 #
 # Setup Fink, if installed
 #
