@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+#
+#   <beep>
+#       make a noise, using Applescript if possible.
+#
+
+use strict;
+
+my $osascript = "/usr/bin/osascript";
+
+if (-x $osascript) {
+	close STDERR;
+	system $osascript, "-e", "Tell application \"Finder\" to beep";
+	
+	if ($?) {print "\007"};
+} else {
+	print "\007";
+}
