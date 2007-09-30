@@ -11,14 +11,14 @@ require "/deepbondi/pm/hilite.pm";
 
 my $arp = "/usr/sbin/arp";
 
-my $gr = $hilite::colors{"green"};
-my $bl = $hilite::colors{"black"};
+my $gr = hilite::color("green");
+my $bl = hilite::color();
 
 if (@ARGV) {
 	my $col = shift @ARGV;
 	
-	if (defined ($hilite::colors{lc $col})) {
-		$gr = $hilite::colors{lc $col};
+	if (defined (hilite::color(lc $col))) {
+		$gr = hilite::color(lc $col);
 	} else {
 		unshift @ARGV, $col unless ($col eq "-");
 	}
