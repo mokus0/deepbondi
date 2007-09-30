@@ -1,4 +1,11 @@
 #!/usr/bin/perl
+#
+#	<unixize>
+#		for each file listed on the command line, converts its line endings
+#		to '\n' only.  this is one of my very old scripts, and is not
+#		very well written.  at some point it ought to get revised / replaced.
+#
+
 
 $tmp = "/tmp/unixize.$1";
 
