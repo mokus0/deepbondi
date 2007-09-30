@@ -1,0 +1,26 @@
+#!/usr/bin/perl
+#
+#  <chomp>
+#    Copyright 2002 James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+
+my $started = 0;
+my $blanksQueued = 0;
+
+while (<>) {
+	if (/^$/) {
+		if ($started) {
+			$blanksQueued++;
+		}
+	} else {
+		while ($blanksQueued) {
+			print "\n";
+			$blanksQueued--;
+		}
+		$started = 1;
+		print;
+	}
+}
