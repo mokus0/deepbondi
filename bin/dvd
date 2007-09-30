@@ -1,0 +1,268 @@
+#!/usr/bin/perl
+#
+#  <dvd>
+#    Copyright 2002 James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+
+my $mencoder = "mencoder";
+
+my %modules = (
+	"preview" => "dvd_preview(\@ARGV);",
+	"rip" => "dvd_rip(\@ARGV);",
+	"info" => "dvd_info(\@ARGV);",
+	"help" => "usage();"
+);
+
+my $op = shift @ARGV;
+$op = lc $op;
+
+usage() if not defined($modules{$op});
+
+
+
+eval $modules{$op};
+
+
+sub usage {
+	print <<__Usage__ ;
+
+	Usage:  dvd rip
+	   or:	dvd info
+	   or:	dvd preview
+	
+__Usage__
+	
+	exit 1;
+}
+
+
+sub dvd_info {
+	my @args = @_;
+	
+	print "Which device has the DVD [/dev/disk1]?  ";
+	my $dev = <>;
+	$dev = fix_dev($dev);
+	
+	print "Which title to get info for [1]?  ";
+	my $title = <>;
+	if ($title !~ /[0-9]/) {
+		$title = 1;
+	}
+	$title = int $title;
+	
+	print "\n";
+	
+	open STDERR, "| egrep \"$dev\"";
+	exec "$mencoder -dvd $title -dvd-device $dev | egrep \"There\"";
+}
+
+sub dvd_preview {
+	my @args = @_;
+	
+	print "Me don't do this yet\n";
+	
+	exit 0;
+}
+
+sub dvd_rip {
+	my @args = @_;
+	
+	print "Which device has the DVD [/dev/disk1]?  ";
+	my $dev = <>;
+	$dev = fix_dev($dev);
+	
+	print "Which titles to record [1]?  ";
+	my $title = <>;
+	my @titles = ($title =~ /([0-9]+)/g);
+	if (scalar @titles == 0) {
+		@titles = (1);
+	}
+	
+	print "Split titles by chapter [n]?  ";
+	my $splitChapters = <>;
+	$splitChapters = interpret_yesno($splitChapters);
+	
+	my @audioOpts;
+	
+	print "Output Audio Codec [mp3lame]?  ";
+	my $oac = <>;
+	chomp $oac;
+	if ($oac eq "") {
+		$oac = "mp3lame"
+	}
+	
+	if ($oac eq "mp3lame") {
+		print "MP3 audio bitrate [vbr]?  ";
+		my $bitrate = <>;
+		$bitrate = int $bitrate;
+		@audioOpts = qw/-oac mp3lame/;
+		if ($bitrate != 0) {
+			push @audioOpts, "-lameopts", "br=$bitrate";
+		}
+	} else {
+		@audioOpts = ("-oac", $oac);
+	}
+	
+	print "Rip video [N]?  ";
+	my $getVideo = <>;
+	my $ovc = interpret_yesno($getVideo) ? "lavc" : "frameno";
+	
+	my ($vCodec, $vBitrate, $keyInt) = ("mpeg4", 800, 240);
+	
+	my @videoOpts = ("-ovc", $ovc);
+	if ($ovc eq "lavc") {
+		print "Use high-quality (slower) encoding?  ";
+		my $hq = <>;
+		$hq = interpret_yesno($hq);
+		$hq = $hq ? "vhq:vme=1" : "";
+		
+		push @videoOpts, "-lavcopts", "vcodec=$vCodec:vbitrate=$vBitrate:$hq:vqmin=2:vqmax=10:keyint=$keyInt";
+	}
+	
+	
+	print "\n";
+	
+	print "Any other options for MEncoder []?  ";
+	my $extras = <>;
+	chomp $extras;
+	
+	print "\n";
+	
+	print "Name of output file(s) [dvd]?  ";
+	my $basename = <>;
+	$basename = fix_basename($basename);
+	
+	print "Encode now [n]?  ";
+	my $encode = <>;
+	$encode = interpret_yesno($encode);
+	
+	print "\n\n";
+	
+	for my $title (@titles) {
+		my @sourceOpts = ("-dvd", $title, "-dvd-device", $dev, "-vc", "ffmpeg12", "-alang", "en");
+		my @extraOpts = split / /, $extras;
+		my $outFile = $basename . ".avi";
+		my $chapters = $splitChapters ? lookup_chapters($dev, $title) : 1;
+		my @chapterOpts;
+		
+		if (((scalar @titles) > 1)) {
+			$outFile = sprintf "%s-%02d.avi", $basename, $title;
+		}
+		
+		my $chapter;
+		for ($chapter = 1; $chapter <= $chapters; $chapter++) {
+			if ($splitChapters) {
+					$outFile = sprintf "%s-%02d-%02d.avi", $basename, $title, $chapter;
+					
+					@chapterOpts = ("-chapter", "$chapter-$chapter");
+			}
+			
+			my @outputOpts = ("-o", $outFile);
+			
+			print "$mencoder " . (join " ", @sourceOpts)		
+						. " " . (join " ", @chapterOpts)		
+						. " " . (join " ", @audioOpts)		
+						. " " . (join " ", @videoOpts)		
+						. " " . (join " ", @extraOpts)		
+						. " " . (join " ", @outputOpts)		
+						. "\n";
+			
+			if ($encode) {
+				system $mencoder,
+					@chapterOpts,
+					@sourceOpts,
+					@audioOpts,
+					@videoOpts,
+					@extraOpts,
+					@outputOpts;
+			}
+		}
+	}
+	
+	exit 0;
+}
+
+sub fix_dev {
+	my ($dev) = @_;
+	
+	# remove leading and trailing whitespace
+	chomp $dev;
+	$dev =~ s/\s+$//;
+	$dev =~ s/^\s+//;
+	
+	
+	# if no reasonable characters are found, make some up
+	if ($dev !~ /[0-9A-Za-z]/) {
+		$dev = "/dev/disk1";
+	}
+	
+	# strip leading path components
+	$dev =~ s[.*/][]g;
+	
+	# convert 'rdisk' refs to 'disk'
+	$dev =~ s[^rdisk][disk];
+	
+	# remove 'disk' from beginning, if present
+	$dev =~ s[^disk][];
+	
+	# if now we're left with a number, make it back into a path
+	if ($dev =~ /^[0-9]+$/) {
+		$dev = "disk" . $dev;
+	}
+	
+	$dev = "/dev/" . $dev;
+	
+	# all this, mostly so I can say '2' as shorthand for '/dev/disk2'
+	
+	return $dev;
+}
+
+
+sub fix_basename {
+	my ($name) = @_;
+	
+	chomp $name;
+	
+	$name =~ s/\.avi$//i;
+	
+	if ($name eq "") {
+		$name = "dvd";
+	}
+	
+	$name =~ s[^~][$ENV{HOME}];
+	
+	return $name;
+}
+
+
+sub interpret_yesno {
+	my ($text) = @_;
+	
+	if ($text =~ /y/i) {
+		return 1;
+	}
+	
+	return 0;
+}
+
+sub lookup_chapters {
+	my ($dev, $title) = @_;
+	my $chapters = 0;
+	
+	open STDERR, "> /dev/null";
+	open PROG, "$mencoder -dvd $title -dvd-device $dev |";
+	
+	while (<PROG>) {
+		if (/There are ([0-9]+) chapters/) {
+			$chapters = $1;
+			last;
+		}
+	}
+	
+	close PROG;
+	
+	return $chapters;
+}
