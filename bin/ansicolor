@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+#
+#  <ansicolor>
+#    Copyright 2007 James Cook - All Rights Reserved.
+#
+#    Emit ANSI terminal color control codes.  Usage:
+#       ansicolor [fg [bg [mode]]]
+#    
+#    valid color names:
+#       red, green, yellow, blue, magenta, cyan, white
+#    
+#    valid mode names:
+#       default, bold
+#    
+#    "" may be used as a placeholder
+#
+
+use strict;
+
+require "/deepbondi/pm/hilite.pm";
+
+my ($fg, $bg, $mode) = map {if ($_ eq "") {undef} else {$_}} @ARGV;
+
+print hilite::color($fg, $bg, $mode);
