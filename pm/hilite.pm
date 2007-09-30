@@ -9,27 +9,80 @@ use strict;
 
 package hilite;
 
-our $st = "\033[7m";
-our $en = "\033[m";
+our $st = "\033[";
+our $en = "m";
 
-our %colors = (
-	"red" => "\033[01;31m",
-	"green" => "\033[01;32m",
-	"yellow" => "\033[01;33m",
-	"blue" => "\033[01;34m",
-	"purple" => "\033[01;35m",
-	"cyan" => "\033[01;36m",
-	"white" => "\033[01;37m",
-	"black" => "\033[0m",
+our %modes = (
+	"default" => "0",
+	"normal" => "0",
+	"bold" => "1",
+	"nobold" => "22",
+	"underline" => "4",
+	"nounderline" => "24",
+	"blink" => "5",
+	"noblink" => "25",
+	"inverse" => "7",
+	"noinverse" => "27",
 );
 
-our $bl = $colors{"black"};
+our $fgBase = "3";
+our $bgBase = "4";
+
+our %colors = (
+	"red" => "1",
+	"green" => "2",
+	"yellow" => "3",
+	"blue" => "4",
+	"purple" => "5",
+	"cyan" => "6",
+	"white" => "7",
+);
+
+our $resetColor = color();
+
+sub color {
+	my ($fgName, $bgName, $modeName) = @_;
+	
+	my $fg;
+	if (defined $fgName) {
+		if (defined $colors{lc $fgName}) {
+			$fg = $fgBase . $colors{lc $fgName};
+		} else {
+			return undef;
+		}
+	}
+	
+	my $bg;
+	if (defined $bgName) {
+		if (defined $colors{lc $bgName}) {
+			$bg = $bgBase . $colors{lc $bgName};
+		} else {
+			return undef;
+		}
+	}
+	
+	my $mode;
+	if (defined $modeName){
+		if (defined $modes{lc $modeName}) {
+			$mode = $modes{lc $modeName};
+		} else {
+			return undef;
+		}
+	} else {
+		$mode = "0;";
+	}
+	
+	my @seq = grep {defined} ($mode, $fg, $bg);
+	my $seq = join ";", @seq;
+	
+	return "${st}${seq}${en}";
+}
 
 sub hilite {
 	my ($colorName, $text) = @_;
-	my $col = $colors{lc $colorName};
+	my $col = color (lc $colorName);
 	
-	return ($col . $text . $bl);
+	return ($col . $text . $resetColor);
 }
 
 1;
