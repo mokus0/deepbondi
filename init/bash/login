@@ -41,7 +41,7 @@ for manpath in ~/man ; do
 done
 
 # append these...
-for manpath in {/usr/,/usr/X11/,/usr/local/}{,share/}{man} ; do
+for manpath in {/usr/,/usr/X11/,/usr/local/}{,share/}man ; do
         if [ -d "$manpath" ]; then
                 MANPATH="$MANPATH":"$manpath"
         fi
