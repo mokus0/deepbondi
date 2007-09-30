@@ -1,0 +1,47 @@
+#!/usr/bin/perl
+#
+#  <guess>
+#    Copyright 2002 James Cook - All Rights Reserved.
+#
+#  Guess-the-number game.  Maximizes play time by not actually
+#  having chosen a number - just forces the user to reduce the
+#  possibility-space to 1, then pretends to have been thinking
+#  of the remaining number all along.
+#
+
+use strict;
+
+my $max = 10000;
+my $min = 0;
+
+my $range = $max - $min;
+my $rrange = $range / 10;
+
+my $guess;
+my $hi = $max + 1;
+my $lo = $min - 1;
+
+print "Guess a number between $min and $max (inclusive): ";
+
+
+while (($hi - $lo) > 1) {
+	$guess = int <>;
+	
+	if ($rrange > ($hi - $lo)) {
+		$rrange = 0;
+	}
+	
+	my $mid = ($hi + $lo) / 2 + (rand $rrange) - ($rrange/2);
+	
+	if ($guess > $mid) {
+		$hi = $guess unless $guess > $hi;
+		
+		print "Lower:  ";
+	} else {
+		$lo = $guess unless $guess < $lo;
+		
+		print "Higher: ";
+	}
+}
+
+print "You got it - the number was $guess.  Now go home.\n";
