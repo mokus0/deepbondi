@@ -1,0 +1,14 @@
+#!/bin/sh
+
+touch $1
+chmod +x $1
+
+cat > $1 <<EOF
+#!/bin/sh
+#
+#  <$1>
+#    Copyright `date +%Y` James Cook - All Rights Reserved.
+#
+#
+
+EOF
