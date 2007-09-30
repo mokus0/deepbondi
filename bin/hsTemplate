@@ -1,0 +1,42 @@
+#!/usr/bin/perl
+#
+#  <hsTemplate>
+#    Copyright 2007 James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+
+my ($file, $module) = @ARGV;
+
+my $year = `date +%Y`;
+chomp $year;
+
+my @moduleparts;
+
+if (!defined($module)) {
+	my $noExt = $file;
+	$noExt =~ s/.[Hh][Ss]$//;
+	
+	@moduleparts = split m{/}, $noExt;
+} else {
+	@moduleparts = split m{\.}, $module;
+}
+
+@moduleparts = grep {$_ ne ""} @moduleparts;
+@moduleparts = map {ucfirst} @moduleparts;
+@moduleparts = map {s/\s/_/g; $_} @moduleparts;
+
+$module = join ".", @moduleparts;
+
+open OUTFILE, ">", $file;
+
+print OUTFILE <<EOF
+	{-
+	 -  <$file>
+	 -    Copyright $year James Cook - All Rights Reserved.
+	 -}
+
+module $module where
+
+EOF

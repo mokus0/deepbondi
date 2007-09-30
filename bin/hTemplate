@@ -1,0 +1,19 @@
+#!/bin/sh
+# C header template
+
+defname=`echo $1 | sed 's/[^A-Za-z0-9]/_/g'`
+
+cat > $1 <<EOF
+	/*
+	 *  <$1>
+	 *    Copyright `date +%Y` James Cook - All Rights Reserved.
+	 */
+
+#ifndef __${defname}__
+#define __${defname}__
+
+
+
+
+
+#endif /* __${defname}__ */

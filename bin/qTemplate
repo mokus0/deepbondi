@@ -1,0 +1,11 @@
+#!/bin/sh
+# Quence template.  Yes, that's right; quence.  The vTree assembler language.
+
+
+cat > $1 <<EOF
+	/*
+	 *  <$1>
+	 *    Copyright `date +%Y` James Cook - All Rights Reserved.
+	 *
+	 */
+

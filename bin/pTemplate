@@ -1,0 +1,16 @@
+#!/bin/sh
+# perl template
+
+touch $1
+chmod +x $1
+
+cat > $1 <<EOF
+#!/usr/bin/perl
+#
+#  <$1>
+#    Copyright `date +%Y` James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+

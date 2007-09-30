@@ -1,0 +1,19 @@
+#!/bin/sh
+# C source file template
+
+hFile=`echo $1 | sed 's/\.[cmCM]$/.h/'`
+hFile=`echo $hFile | sed 's/\.cp$/.h/'`
+hFile=`echo $hFile | sed 's/\.cpp$/.h/'`
+hFile=`echo $hFile | sed 's/\.c\+\+$/.h/'`
+
+if [ -f $hFile ]; then
+	include="#include \"$hFile\""
+fi
+
+cat > $1 <<EOF
+	/*
+	 *  <$1>
+	 *    Copyright `date +%Y` James Cook - All Rights Reserved.
+	 */
+
+$include
