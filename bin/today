@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+#	<today>
+#		Redirect STDIN to a file named "YYYY-MM-DD".
+#		Optionally also adds an extension (do not include the '.')
+#
+
+datestamp=`date +'%Y-%m-%d'`
+extension=${1:+.}$1
+file=$datestamp$extension
+
+exec cat > $file
