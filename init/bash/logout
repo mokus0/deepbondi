@@ -1,0 +1,14 @@
+#
+#  <login>
+#    Copyright 2007 James Cook - All Rights Reserved.
+#
+#  Originally based on MIT Project Athena's TCSH scripts, circa 1990.
+#  These have long since taken on a life of their own.
+#
+
+#
+# Read user's logout script
+#
+if [ -r "${user_bash_initdir}/logout" ]; then
+	source "${user_bash_initdir}/logout"
+fi

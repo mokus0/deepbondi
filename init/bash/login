@@ -1,0 +1,67 @@
+#
+#  <login>
+#    Copyright 2007 James Cook - All Rights Reserved.
+#
+#  Originally based on MIT Project Athena's TCSH scripts, circa 1990.
+#  These have long since taken on a life of their own.
+#
+
+#
+# Set $PATH.  Starts with /deepbondi/bin, and glues bits on.
+#
+
+PATH='/deepbondi/bin'
+
+# prepend these...
+for path in ~/bin ; do
+        if [ -d "$path" ]; then
+                PATH="$path":"$PATH"
+        fi
+done
+
+# append these...
+for path in /Developer/Tools {/,/usr/,/usr/X11/,/usr/local/}{bin,sbin} ; do
+        if [ -d "$path" ]; then
+                PATH="$PATH":"$path"
+        fi
+done
+
+export PATH
+
+#
+#  Similar treatment for MANPATH
+#
+MANPATH="/usr/man"
+
+# prepend these...
+for manpath in ~/man ; do
+        if [ -d "$manpath" ]; then
+                PATH="$manpath":"$MANPATH"
+        fi
+done
+
+# append these...
+for manpath in {/usr/,/usr/X11/,/usr/local/}{,share/}{man} ; do
+        if [ -d "$manpath" ]; then
+                MANPATH="$MANPATH":"$manpath"
+        fi
+done
+
+export MANPATH
+
+#
+# Read user's custom path script
+#   (this could go in 'login', but 'path' is easier to remember)
+#
+if [ -r "${user_bash_initdir}/path" ]; then
+	source "${user_bash_initdir}/path"
+fi
+
+#
+# Read user's login script
+#
+if [ -r "${user_bash_initdir}/login" ]; then
+	source "${user_bash_initdir}/login"
+fi
+
+

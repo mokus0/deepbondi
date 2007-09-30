@@ -1,0 +1,36 @@
+#
+#  <login>
+#    Copyright 2007 James Cook - All Rights Reserved.
+#
+#  Originally based on MIT Project Athena's TCSH scripts, circa 1990.
+#  These have long since taken on a life of their own.
+#
+
+alias l='ls -lg'
+alias ll='ls -lag'
+alias hexdump='hexdump -C'
+
+# toggle keymaps in X11 by typing 'aoeu' or 'asdf'
+alias asdf='xmodmap /deepbondi/init/X11/keymaps/dvorak.pke >&/dev/null'
+alias aoeu='xmodmap /deepbondi/init/X11/keymaps/qwerty.pke >&/dev/null'
+
+#
+# various conditionally defined aliases
+#
+if [ X`ls --color=auto >/dev/null 2>&1; echo $?` == X0 ]; then
+  alias ls='ls --color=auto'
+elif [ X`which colorls >/dev/null 2>&1; echo $?` == X0 ]; then
+  alias ls='colorls'
+fi
+
+if [ X`which gnome-terminal >/dev/null 2>&1; echo $?` == X0 ]; then
+  alias gterm='gnome-terminal'
+fi
+
+
+#
+# Read user's aliases
+#
+if [ -r "${user_bash_initdir}/aliases" ]; then
+  source "${user_bash_initdir}/aliases"
+fi

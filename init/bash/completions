@@ -1,0 +1,64 @@
+#
+#  <login>
+#    Copyright 2007 James Cook - All Rights Reserved.
+#
+#  Originally based on MIT Project Athena's TCSH scripts, circa 1990.
+#  These have long since taken on a life of their own.
+#
+#  Some of these are borrowed from complete.tcsh in the tcsh source tree
+#  and from several other sources.
+#
+
+# Directories
+complete -A directory cd chdir popd pushd rmdir mkdir
+
+# Commands
+complete -A command man
+complete -A command where which exec trace strace
+
+# Aliases
+complete -A alias alias unalias
+
+# Jobs, Processes
+complete -A job fg jobs
+complete -A signal kill
+complete -A stopped bg
+
+# Variables
+complete -A variable printenv env export unexport
+complete -A shopt shopt
+complete -A setopt -A variable set unset
+
+# Key Bindings
+complete -A binding bind
+
+# Files by extension
+complete -o dirnames -A file -X '!*gz' gunzip
+complete -o dirnames -A file -X '!*[g.][Zz]' uncompress zcat gzcat
+complete -o dirnames -A file -X '!*t[ga][zr]*' tar gtar gnutar
+complete -o dirnames -A file -X '!*.zip' unzip
+
+# Hosts
+complete -A hostname ftp ncftp telnet ping traceroute ssh rlogin rsh
+
+# Users and Groups
+complete -A user -o filenames chown
+complete -A user su
+
+#
+# Misc
+#
+
+complete -G '*.java' -o dirnames javac
+
+# darcs completions, if darcs is installed
+if [ X`which darcs | awk '{print $1}'` != Xno ]; then
+	source /deepbondi/init/bash/darcs_completion
+fi
+
+#
+# Read user's completions
+#
+if [ -r "${user_bash_initdir}/completions" ]; then
+	source "${user_bash_initdir}/completions"
+fi

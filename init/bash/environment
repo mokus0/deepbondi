@@ -1,0 +1,37 @@
+#
+#  <login>
+#    Copyright 2007 James Cook - All Rights Reserved.
+#
+#  Originally based on MIT Project Athena's TCSH scripts, circa 1990.
+#  These have long since taken on a life of their own.
+#
+
+export ENV_SET=yes
+export PAGER=less
+
+# make the prompt !suck.
+if [ ${#PS1} != 0 ]; then
+	PS1='[\u@\h \W]\$ '
+fi
+
+# preload CVSROOT with deepbondi's main repo, and make cvs use ssh
+export CVSROOT=:ext:archive.deepbondi.net:/archive/cvs
+export CVS_RSH=ssh
+
+# files created are -rw-r--r-- by default
+umask 022
+
+#
+# Setup Fink, if installed
+#
+
+if [ -r "/sw/bin/init.sh" ]; then
+	source /sw/bin/init.sh
+fi
+
+#
+# Read user's environment
+#
+if [ -r "${user_bash_initdir}/environment" ]; then
+	source "${user_bash_initdir}/environment"
+fi
