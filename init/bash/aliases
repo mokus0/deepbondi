@@ -8,11 +8,18 @@
 
 alias l='ls -lg'
 alias ll='ls -lag'
+alias lsd='ls -ld'
+
 alias hexdump='hexdump -C'
 
 # toggle keymaps in X11 by typing 'aoeu' or 'asdf'
 alias asdf='xmodmap /deepbondi/init/X11/keymaps/dvorak.pke >&/dev/null'
 alias aoeu='xmodmap /deepbondi/init/X11/keymaps/qwerty.pke >&/dev/null'
+
+# 'c;ear -> clear' hack
+alias c='echo "bash: c: command not found"; touch ~/.foo.bucket.c'
+alias ear='if [ -f ~/.foo.bucket.c ]; then clear; rm ~/.foo.bucket.c ; else echo "bash: ear: command not found"; fi'
+
 
 #
 # various conditionally defined aliases
