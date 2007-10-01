@@ -32,10 +32,11 @@ $module = join ".", @moduleparts;
 open OUTFILE, ">", $file;
 
 print OUTFILE <<EOF
-	{-
-	 -  <$file>
-	 -    Copyright $year James Cook - All Rights Reserved.
-	 -}
+#!runhaskell
+{-
+ -	"$file"
+ -	(c) $year James Cook
+ -}
 
 module $module where
 
