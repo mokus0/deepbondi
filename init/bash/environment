@@ -9,11 +9,6 @@
 export ENV_SET=yes
 export PAGER=less
 
-# make the prompt !suck.
-if [ ${#PS1} != 0 ]; then
-	PS1='[\u@\h \W]\$ '
-fi
-
 # preload CVSROOT with deepbondi's main repo, and make cvs use ssh
 export CVSROOT=:ext:archive.deepbondi.net:/archive/cvs
 export CVS_RSH=ssh

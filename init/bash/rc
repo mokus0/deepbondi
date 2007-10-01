@@ -6,6 +6,11 @@
 #  These have long since taken on a life of their own.
 #
 
+# make the prompt !suck.
+if [ ${#PS1} != 0 ]; then
+	PS1='[\u@\h \W]\$ '
+fi
+
 if [ "${BASHRC:-foo}" != "/deepbondi/init/bash/rc" ]; then
 	BASHRC=/deepbondi/init/bash/rc
 	
