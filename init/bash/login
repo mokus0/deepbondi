@@ -10,7 +10,11 @@
 # Set $PATH.  Starts with /deepbondi/bin, and glues bits on.
 #
 
-PATH='/deepbondi/bin'
+if [ X`uname | head -c6` = XCYGWIN ]; then
+	PATH='/deepbondi/bin':"$PATH"
+else
+	PATH='/deepbondi/bin'
+fi
 
 # prepend these...
 for path in ~/bin ; do
