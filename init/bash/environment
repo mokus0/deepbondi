@@ -21,14 +21,6 @@ export LSCOLORS="GxFxCxDxBxEgEdabagacad"
 export CLICOLOR=yes
 
 #
-# Setup Fink, if installed
-#
-
-if [ -r "/sw/bin/init.sh" ]; then
-	source /sw/bin/init.sh
-fi
-
-#
 # Read user's environment
 #
 if [ -r "${user_bash_initdir}/environment" ]; then
