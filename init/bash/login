@@ -10,7 +10,7 @@
 # Set $PATH.  Starts with /deepbondi/bin, and glues bits on.
 #
 
-if [ X`uname | head -c6` = XCYGWIN ]; then
+if [ X`uname | grep -qe ^CYGWIN; echo $?` == X0 ]; then
 	PATH='/deepbondi/bin':"$PATH"
 else
 	PATH='/deepbondi/bin'
