@@ -1,0 +1,73 @@
+#!/usr/bin/perl
+#
+#  <changeExt>
+#    Copyright 2007 James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+use Getopt::Std;
+
+our %opts;
+
+exit main();
+
+
+sub usage {
+	my ($msg) = @_;
+	
+	if (defined $msg) {
+		print STDERR $msg;
+		print STDERR "\n";
+	}
+
+	print STDERR <<EOF;
+
+	Usage:  changeExt	{options} file [file ...] ext
+	
+	Options:
+		-f		force overwriting of existing files
+
+EOF
+	exit -1;
+}
+
+sub changeExt {
+	my ($file, $ext) = @_;
+	
+	if ( ! -f $file ) {
+		usage("File not found: $file");
+	}
+	
+	# All but the last ".xxx" will end up in $1 here
+	$file =~ m/^(.*?)(\.[^.]+)?$/;
+	my $newFile = "$1.$ext";
+	
+	if ($opts{"f"} || (! -f $newFile)) {
+		rename $file, $newFile or die "Failed to create $newFile: $!";
+	} else {
+		die "changeExt: File already exists: $newFile";
+	}
+}
+
+sub main {
+	getopts("f", \%opts);
+	
+	usage() if (@ARGV < 2);
+
+	my $ext = pop @ARGV;
+	my @files = @ARGV;
+
+	my @missing = grep { ! -e } @files;
+	if (@missing > 0) {
+		my $missing = join ", ", @missing;
+		
+		usage("Files not found: $missing");
+	}
+	
+	for my $file (@files) {
+		changeExt($file, $ext);
+	}
+	
+	return 0;
+}
