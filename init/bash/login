@@ -4,6 +4,9 @@
 #
 #  Originally based on MIT Project Athena's TCSH scripts, circa 1990.
 #  These have long since taken on a life of their own.
+#  
+#  Login runs before RC, and only once (on the "login" shell)
+#  RC is run for every interactive shell that starts.
 #
 
 #
