@@ -11,6 +11,8 @@
 
 #
 # Set $PATH.  Starts with /deepbondi/bin, and glues bits on.
+#   If this is CYGWIN, preserves existing $PATH too, since
+#   there's so much crap there
 #
 
 if [ X`uname | grep -qe ^CYGWIN; echo $?` == X0 ]; then
