@@ -25,6 +25,7 @@ if [ "${BASHRC:-foo}" != "/deepbondi/init/bash/rc" ]; then
 	
 	if [ -d ~/Library/init/bash ]; then
 		# nicer place, for mac users - easier to remember to back up
+		# (or to back up without specifically remembering)
 		user_bash_initdir=~/Library/init/bash
 	fi
 	
