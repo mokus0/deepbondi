@@ -49,4 +49,5 @@ _darcs()
 
 }
 complete -F _darcs -o default darcs
+complete -F _darcs -o default ./darcs-all
 
