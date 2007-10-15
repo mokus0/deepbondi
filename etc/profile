@@ -1,5 +1,6 @@
 # System-wide profile for bash
 
+. /deepbondi/init/bash/initdirs
 . /deepbondi/init/bash/login
 . /deepbondi/init/bash/rc
 

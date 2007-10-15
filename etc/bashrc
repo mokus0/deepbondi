@@ -1,3 +1,4 @@
 # System-wide bashrc file for interactive bash shells.
 
+. /deepbondi/init/bash/initdirs
 . /deepbondi/init/bash/rc
