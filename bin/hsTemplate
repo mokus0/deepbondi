@@ -16,7 +16,7 @@ my @moduleparts;
 
 if (!defined($module)) {
 	my $noExt = $file;
-	$noExt =~ s/.[Hh][Ss]$//;
+	$noExt =~ s/.[Ll]?[Hh][Ss]$//;
 	
 	@moduleparts = split m{/}, $noExt;
 } else {
@@ -31,6 +31,26 @@ $module = join ".", @moduleparts;
 
 open OUTFILE, ">", $file;
 
+if ($file =~ m/\.lhs$/i) {
+print OUTFILE <<EOF
+\\documentclass[10pt]{article}
+%include polycode.fmt
+
+\\begin{document}
+
+\\title{\@$file\@}
+\\author{James Cook}
+\\date{$year}
+
+\\maketitle
+
+\\begin{code}
+
+module $module where
+
+\\end{code}
+EOF
+} else {
 print OUTFILE <<EOF
 #!runhaskell
 {-
@@ -41,3 +61,4 @@ print OUTFILE <<EOF
 module $module where
 
 EOF
+}
