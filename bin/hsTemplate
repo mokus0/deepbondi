@@ -49,6 +49,7 @@ print OUTFILE <<EOF
 module $module where
 
 \\end{code}
+\\end{document}
 EOF
 } else {
 print OUTFILE <<EOF
