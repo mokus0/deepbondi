@@ -1,11 +1,12 @@
 #!/bin/sh
 # C header template
 
-defname=`echo $1 | sed 's/[^A-Za-z0-9]/_/g'`
+hFile=`basename "$1"`
+defname=`echo -n "$hFile" | sed 's/[^A-Za-z0-9]/_/g'`
 
-cat > $1 <<EOF
+cat > "$1" <<EOF
 	/*
-	 *  <$1>
+	 *  <$hFile>
 	 *    Copyright `date +%Y` James Cook - All Rights Reserved.
 	 */
 

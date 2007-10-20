@@ -1,18 +1,21 @@
 #!/bin/sh
 # C source file template
 
-hFile=`echo $1 | sed 's/\.[cmCM]$/.h/'`
-hFile=`echo $hFile | sed 's/\.cp$/.h/'`
-hFile=`echo $hFile | sed 's/\.cpp$/.h/'`
-hFile=`echo $hFile | sed 's/\.c\+\+$/.h/'`
+hFile=`echo -n "$1" | sed 's/\.[cmCM]$/.h/'`
+hFile=`echo -n "$hFile" | sed 's/\.cp$/.h/'`
+hFile=`echo -n "$hFile" | sed 's/\.cpp$/.h/'`
+hFile=`echo -n "$hFile" | sed 's/\.c\+\+$/.h/'`
+
+cFile=`basename "$1"`
+includeFile=`basename "$hFile"`
 
 if [ -f $hFile ]; then
-	include="#include \"$hFile\""
+	include="#include \"$includeFile\""
 fi
 
-cat > $1 <<EOF
+cat > "$1" <<EOF
 	/*
-	 *  <$1>
+	 *  <$cFile>
 	 *    Copyright `date +%Y` James Cook - All Rights Reserved.
 	 */
 
