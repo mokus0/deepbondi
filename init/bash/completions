@@ -15,6 +15,7 @@ complete -A directory cd chdir popd pushd rmdir mkdir
 # Commands
 complete -A command man
 complete -A command where which exec trace strace
+complete -A command sudo
 
 # Aliases
 complete -A alias alias unalias
@@ -35,8 +36,9 @@ complete -A binding bind
 # Files by extension
 complete -o dirnames -A file -X '!*gz' gunzip
 complete -o dirnames -A file -X '!*[g.][Zz]' uncompress zcat gzcat
-complete -o dirnames -A file -X '!*t[ga][zr]*' tar gtar gnutar
+complete -o dirnames -A file -X '!*t[gba][zr]*' tar gtar gnutar
 complete -o dirnames -A file -X '!*.zip' unzip
+complete -o dirnames -A file -X '!*[.l]hs' runhaskell runghc ghc ghci runhugs hugs
 
 # Hosts
 complete -A hostname ftp ncftp telnet ping traceroute ssh rlogin rsh
