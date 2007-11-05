@@ -1,0 +1,214 @@
+#!/usr/bin/perl
+#
+#  <manifest>
+#    Copyright 2007 James Cook - All Rights Reserved.
+#
+#  This is a strange tool, to solve a strange (but not uncommon) problem:
+#    I have about 30 GB of data backed up from my laptop (in NY) to my
+#  server (in CA).  I have about 15 more GB that I need to back up.
+#  Unfortunately, Aperture has added a great new feature, the use of which
+#  required me to restructure my data (in a way not trivially repeatable).
+#  So, the problem is this:  I have most of my files on the server, but
+#  in the wrong place.  This tool is a hack to allow me to recover some of
+#  them into the "new" structure.
+#
+
+use strict;
+
+our %mode = (
+	"send" => \&sendManifest,
+	"receive" => \&receiveManifest,
+	);
+
+
+my $exitCode = main(@ARGV);
+exit $exitCode;
+
+sub main {
+	my @args = @_;
+	
+	my $mode = shift @args;
+	
+	if ($mode{$mode} != undef) {
+		return &{$mode{$mode}}(@args);
+	} else {
+		usage();
+	}
+}
+
+sub usage {
+	print STDERR <<EOF;
+	
+	usage: 
+		manifest send src
+		manifest receive src target
+	
+	send produces a manifest on STDOUT, from the files in src
+	receive consumes a manifest on STDIN, and rearranges the files
+		in src into a structure matching the manifest at target
+	
+EOF
+	
+	exit 1;
+}
+
+sub sendManifest {
+	my ($src) = @_;
+	
+	if (-d $src) {
+		createManifest($src, 1);
+	} else {
+		usage();
+	}
+}
+
+sub receiveManifest {
+	my ($src, $target) = @_;
+	
+	if (-e $target) {
+		usage();
+	}
+	
+	if (-d $src) {
+		print "--- reading received target manifest...\n";
+		my $manifest1 = readManifest(*STDIN,1);
+		print "--- done\n";
+		
+		print "--- constructing local source manifest...\n";
+		my $manifest2 = createManifest($src, 1);
+		print "--- done\n";
+		
+		print "--- merging and building target...\n";
+		buildTarget($manifest2, $manifest1, $src, $target);
+		print "--- done\n";
+	} else {
+		usage();
+	}
+}
+
+sub createManifest {
+	my ($dir, $print) = @_;
+	my %manifest;
+	
+	open FIND, "-|", "find", $dir;
+	
+	while (my $file = <FIND>) {
+		chomp $file;
+		
+		$file = substr $file, ((length $dir) + 1);
+		next if (length $file == 0);
+		next if (-d "$dir/$file");
+		
+		my $key = createManifestKey($dir, $file);
+		$manifest{$key} = $file;
+		
+		if ($print) {
+			print "$key:$file\n";
+		}
+	}
+	
+	close FIND;
+	
+	return \%manifest;
+}
+
+sub createManifestKey {
+	my ($dir, $file) = @_;
+	
+	open MD5, "-|", "md5", "-q", "$dir/$file";
+	
+	my $md5 = <MD5>;
+	chomp $md5;
+	
+	close MD5;
+	
+	return $md5;
+}
+
+sub printManifest {
+	my ($manifest) = @_;
+	my %manifest = %$manifest;
+	
+	for my $key (keys %manifest) {
+		my $value = $manifest{$key};
+		print "$key:$value\n";
+	}
+}
+
+sub readManifest {
+	my ($fh, $print) = @_;
+	
+	my %manifest;
+	while (<$fh>) {
+		if (m/^([0-9A-Fa-f]+):(.*)$/) {
+			$manifest{$1} = $2;
+			
+			if ($print) {
+				print "$1:$2\n";
+			}
+		}
+	}
+	
+	return \%manifest;
+}
+
+sub buildTarget {
+	my ($srcManifest, $targetManifest, $sDir, $tDir) = @_;
+	my %srcManifest = %$srcManifest;
+	my %targetManifest = %$targetManifest;
+	
+	for my $key (keys %srcManifest) {
+		next unless (defined $targetManifest{$key});
+		
+		my $sFile = $srcManifest{$key};
+		my $tFile = $targetManifest{$key};
+		
+		my $sBase = basename ($sFile);
+		my $tBase = basename ($tFile);
+		
+		if ($sBase eq $tBase) {
+			next unless (userWantsToMove($sFile, $tFile));
+		}
+		
+		migrateFile ($sDir, $sFile, $tDir, $tFile);
+		
+	}
+}
+
+sub basename {
+	my ($path) = @_;
+	
+	$path =~ s{[^/]+/}{}g;
+	
+	return $path;
+}
+
+sub dirname {
+	my ($path) = @_;
+	
+	if ($path =~ m{(([^/]+/)+)}) {
+		return $1;
+	} else {
+		return "";
+	}
+}
+
+sub userWantsToMove {
+	my ($a, $b);
+	
+	return ($a eq $b);
+}
+
+sub migrateFile {
+	my ($sDir, $sFile, $tDir, $tFile) = @_;
+	my $s = "$sDir/$sFile";
+	my $t = "$tDir/$tFile";
+	
+	my $tFileDir = dirname ($tFile);
+	my $tFullDir = "$tDir/$tFileDir";
+	print "mkdir -p $tFullDir\n";
+	system "mkdir", "-p", $tFullDir;
+	
+	print "ln $s $t\n";
+	link $s, $t;
+}
