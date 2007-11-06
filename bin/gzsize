@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+#
+#  <gzsize>
+#    Copyright 2007 James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+
+our $gz = "gzip";
+our $wc = "wc";
+
+for my $file (@ARGV) {
+	printf "%20s: ", $file;
+	
+	open Z, "-|", $gz, "-c", $file;
+	open W, "|-", $wc, "-c";
+
+	while (<Z>) {
+		print W;
+	}
+	
+	close Z;
+	close W;
+}
