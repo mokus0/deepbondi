@@ -24,7 +24,9 @@ alias ear='if [ -f ~/.foo.bucket.c ]; then clear; rm ~/.foo.bucket.c ; else echo
 #
 # various conditionally defined aliases
 #
-if [ X`ls --color=auto >/dev/null 2>&1; echo $?` == X0 ]; then
+if [ X`gls >/dev/null 2>&1; echo $?` == X0 ]; then
+  alias ls='gls --color=auto'
+elif [ X`ls --color=auto >/dev/null 2>&1; echo $?` == X0 ]; then
   alias ls='ls --color=auto'
 elif [ X`colorls >/dev/null 2>&1; echo $?` == X0 ]; then
   alias ls='colorls'
