@@ -20,6 +20,13 @@ umask 022
 export LSCOLORS="GxFxCxDxBxEgEdabagacad"
 export CLICOLOR=yes
 
+# configure darcs ssh id, if suitable things exist
+if [ X`darcs -v >/dev/null 2>&1; echo $?` == X0 ]; then
+	if [ -f ~/.ssh/darcs-id ]; then
+		export DARCS_SSH="ssh -i ~/.ssh/darcs-id"
+	fi
+fi
+
 # enable darcs-client, if installed
 if [ X`darcs-client >/dev/null 2>&1; echo $?` == X0 ]; then
 	darcsclient=`which darcs-client`
