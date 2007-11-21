@@ -9,9 +9,9 @@ if [ -d /Users/Shared/OpenBSD ]; then
 	downloadDir=/Users/Shared/OpenBSD
 fi
 
-arch=amd64
+arch={$arch:-i386}
+version=${version:-`ls $downloadDir | grep -e '^[0-9]\.[0-9]$' | tail -n1`}
 
-version=${1:-`ls $downloadDir | grep -e '^[0-9]\.[0-9]$' | tail -n1`}
 svers=`/bin/echo -n ${version} | sed 's/\.//'`
 
 echo "Using version ${version} (arch = ${arch}, svers=${svers})"
