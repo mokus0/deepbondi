@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+#  <uptime.atcrash.update>
+#    Copyright 2002 James Cook - All Rights Reserved.
+#
+#
+
+
+/bin/rm -f /deepbondi/etc/uptime.tmp
+/usr/bin/uptime > /deepbondi/etc/uptime.tmp
+
+/bin/mv -f /deepbondi/etc/uptime.tmp /deepbondi/etc/uptime.atcrash
+
