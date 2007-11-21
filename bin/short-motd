@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+#
+#  <short-motd>
+#    Copyright 2002 James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+
+use Getopt::Std;
+
+my %opts;
+getopts("s:", \%opts);
+
+my $size = (defined ($opts{'s'})) ? ($opts{'s'}) : 8;
+
+sub getMotd {
+	open MOTD, "/deepbondi/bin/motd | /deepbondi/bin/chomp |";
+	
+	my @motd = <MOTD>;
+	
+	close MOTD;
+	
+	return @motd;
+}
+
+my @motd = getMotd();
+
+while (scalar @motd > $size) {
+	@motd = getMotd();
+}
+
+print @motd;
