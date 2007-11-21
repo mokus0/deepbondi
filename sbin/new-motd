@@ -1,0 +1,11 @@
+#!/bin/sh
+
+motd_file=/deepbondi/etc/past-motds
+
+echo '%' 	>>	"$motd_file"
+echo ''  	>>	"$motd_file"
+
+cat 		>>	"$motd_file"
+echo ''		>>	"$motd_file"
+
+/usr/sbin/strfile	"$motd_file"
