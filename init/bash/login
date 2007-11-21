@@ -29,7 +29,7 @@ for path in ~/bin ; do
 done
 
 # append these...
-for path in /Developer/Tools {/,/usr/,/usr/X11/,/usr/local/}{bin,sbin} ; do
+for path in /Developer/Tools {/,/usr/,/usr/X11/,/usr/X11R6/,/usr/local/}{bin,sbin} ; do
         if [ -d "$path" ]; then
                 PATH="$PATH":"$path"
         fi
