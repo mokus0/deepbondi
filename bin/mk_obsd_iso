@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 #  <mk_obsd_iso>
-#    Copyright 2002 James Cook - All Rights Reserved.
+#    Copyright 2002-2007 James Cook - All Rights Reserved.
 #
 
 downloadDir=/home/Shared/OpenBSD
@@ -9,15 +9,17 @@ if [ -d /Users/Shared/OpenBSD ]; then
 	downloadDir=/Users/Shared/OpenBSD
 fi
 
+arch=amd64
+
 version=${1:-`ls $downloadDir | grep -e '^[0-9]\.[0-9]$' | tail -n1`}
 svers=`/bin/echo -n ${version} | sed 's/\.//'`
 
-echo "Using version ${version} (svers=${svers})"
+echo "Using version ${version} (arch = ${arch}, svers=${svers})"
 
-if [ -d $version/i386 ]; then
+if [ -d "$version/$arch" ]; then
 	echo Hmm... Ok...
-	cd=""
-elif [ -d "$downloadDir/$version/i386" ]; then
+	cd="."
+elif [ -d "$downloadDir/$version/$arch" ]; then
 	echo Good Enough...
 	cd="$downloadDir"
 else
@@ -28,6 +30,13 @@ fi
 echo Making obsd${version}.iso in 3 seconds...
 sleep 3
 
-bootfile="$version/i386/cdrom${svers}.fs"
+stage1boot="$version/$arch/cdbr"
+stage2boot="$version/$arch/cdboot"
 
-mkisofs -vrTJV "OpenBSD ${version}" -b $bootfile -c boot.catalog -o obsd${version}.iso -graft-points /${version}/=${cd}/${version}
+mkisofs -vrTJV "OpenBSD ${version} (${arch})"					\
+	-no-emul-boot -b "${stage1boot}" -c boot.catalog			\
+	-o "obsd${version}.${arch}.iso"						\
+	-m "install${svers}.iso"						\
+	-graft-points	"/${version}/"="${cd}/${version}/"			\
+			"/cdboot"="${cd}/${stage2boot}"				\
+
