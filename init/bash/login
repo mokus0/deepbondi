@@ -15,6 +15,11 @@
 #   there's so much crap there
 #
 
+# Print message of the day
+if [ -r /etc/motd ]; then
+	cat /etc/motd
+fi
+
 if [ X`uname | grep -qe ^CYGWIN; echo $?` == X0 ]; then
 	PATH='/deepbondi/bin':"$PATH"
 else
