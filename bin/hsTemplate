@@ -12,12 +12,16 @@ my ($file, $module) = @ARGV;
 my $year = `date +%Y`;
 chomp $year;
 
+my $noExt = $file;
+$noExt =~ s/.[Ll]?[Hh][Ss]$//;
+
+if ($noExt eq $file) {
+	$file = $file . ".hs"
+}
+
 my @moduleparts;
 
 if (!defined($module)) {
-	my $noExt = $file;
-	$noExt =~ s/.[Ll]?[Hh][Ss]$//;
-	
 	@moduleparts = split m{/}, $noExt;
 } else {
 	@moduleparts = split m{\.}, $module;
