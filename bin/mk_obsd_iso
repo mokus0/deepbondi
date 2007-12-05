@@ -35,7 +35,7 @@ sleep 3
 stage1boot="$version/$arch/cdbr"
 stage2boot="$version/$arch/cdboot"
 
-mkisofs -vrTJV "OpenBSD ${version} (${arch})"					\
+mkisofs -vrTJV "OpenBSD-${arch} ${version}"					\
 	-no-emul-boot -b "${stage1boot}" -c boot.catalog			\
 	-o "$outfile"						\
 	-m "install${svers}.iso"						\
