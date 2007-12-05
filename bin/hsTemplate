@@ -52,8 +52,10 @@ module $module where
 \\end{document}
 EOF
 } else {
+if ($module eq "Main") {
+print OUTFILE "#!runhaskell\n";
+}
 print OUTFILE <<EOF
-#!runhaskell
 {-
  -	"$file"
  -	(c) $year James Cook
