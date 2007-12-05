@@ -35,6 +35,10 @@ $module = join ".", @moduleparts;
 
 open OUTFILE, ">", $file;
 
+if ($module eq "Main") {
+	chmod 0755, $file;
+}
+
 if ($file =~ m/\.lhs$/i) {
 print OUTFILE <<EOF
 \\documentclass[10pt]{article}
@@ -57,7 +61,7 @@ module $module where
 EOF
 } else {
 if ($module eq "Main") {
-print OUTFILE "#!runhaskell\n";
+print OUTFILE "#!/usr/bin/env runhaskell\n";
 }
 print OUTFILE <<EOF
 {-
