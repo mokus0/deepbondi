@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cat /deepbondi/etc/motd.header > /etc/motd
+/deepbondi/bin/motd >> /etc/motd
+
+cat /deepbondi/etc/motd.irc.header /etc/motd /deepbondi/etc/rules > /etc/motd.irc
+
