@@ -19,6 +19,10 @@ unless (@names) {
 for my $name (@names) {
 	my ($name,$passwd,$uid,$gid,
 		$quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam $name;
-
-	print "$gcos\n";
+	
+	if (defined $gcos and $gcos ne "") {
+		print "$gcos\n";
+	} else {
+		print "$name\n";
+	}
 }
