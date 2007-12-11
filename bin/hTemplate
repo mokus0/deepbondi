@@ -4,10 +4,13 @@
 hFile=`basename "$1"`
 defname=`echo -n "$hFile" | sed 's/[^A-Za-z0-9]/_/g'`
 
+fullName=`fullName`
+fullName=`echo -n $fullName`
+
 cat > "$1" <<EOF
 	/*
 	 *  <$hFile>
-	 *    Copyright `date +%Y` James Cook - All Rights Reserved.
+	 *    Copyright `date +%Y` $fullName - All Rights Reserved.
 	 */
 
 #ifndef __${defname}__

@@ -12,6 +12,9 @@ my ($file, $module) = @ARGV;
 my $year = `date +%Y`;
 chomp $year;
 
+my $fullName = `fullName`;
+chomp $fullName;
+
 my $noExt = $file;
 $noExt =~ s/.[Ll]?[Hh][Ss]$//;
 
@@ -47,7 +50,7 @@ print OUTFILE <<EOF
 \\begin{document}
 
 \\title{\@$file\@}
-\\author{James Cook}
+\\author{$fullName}
 \\date{$year}
 
 \\maketitle
@@ -66,7 +69,7 @@ print OUTFILE "#!/usr/bin/env runhaskell\n";
 print OUTFILE <<EOF
 {-
  -	"$file"
- -	(c) $year James Cook
+ -	(c) $year $fullName
  -}
 
 module $module where

@@ -6,6 +6,9 @@ hFile=`echo -n "$hFile" | sed 's/\.cp$/.h/'`
 hFile=`echo -n "$hFile" | sed 's/\.cpp$/.h/'`
 hFile=`echo -n "$hFile" | sed 's/\.c\+\+$/.h/'`
 
+fullName=`fullName`
+fullName=`echo -n $fullName`
+
 cFile=`basename "$1"`
 includeFile=`basename "$hFile"`
 
@@ -16,7 +19,7 @@ fi
 cat > "$1" <<EOF
 	/*
 	 *  <$cFile>
-	 *    Copyright `date +%Y` James Cook - All Rights Reserved.
+	 *    Copyright `date +%Y` $fullName - All Rights Reserved.
 	 */
 
 $include
