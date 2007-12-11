@@ -55,11 +55,20 @@ print OUTFILE <<EOF
 
 \\maketitle
 
+%if 0
 \\begin{code}
-
-module $module where
-
+	
+	-- code in here won't end up in the TeX document
+	module $module where
+	
 \\end{code}
+%endif
+
+\\begin{code}
+\\end {code}
+	
+	-- your code here
+	
 \\end{document}
 EOF
 } else {
