@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>command</key>
+	<string>if [[ ! -f "$TM_NEW_FILE" ]]; then
+	if [ x"$TM_SELECTED_FILE" != x ]; then
+		/Users/mokus/Projects/SFB/bin/newship -t "$TM_SELECTED_FILE" "$TM_NEW_FILE"
+	else
+		/Users/mokus/Projects/SFB/bin/newship "$TM_NEW_FILE"
+	fi
+fi</string>
+	<key>name</key>
+	<string>SFB Ship</string>
+	<key>uuid</key>
+	<string>93B99701-F75F-4EF5-9099-D9D6344E8FDB</string>
+</dict>
+</plist>

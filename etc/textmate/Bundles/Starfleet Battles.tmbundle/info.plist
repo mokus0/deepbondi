@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Starfleet Battles</string>
+	<key>ordering</key>
+	<array>
+		<string>93B99701-F75F-4EF5-9099-D9D6344E8FDB</string>
+		<string>55E0379B-F753-4B13-A6EE-3004DF39A1FA</string>
+	</array>
+	<key>uuid</key>
+	<string>0A258B3C-999F-4D89-8FC1-E15285F73FF6</string>
+</dict>
+</plist>

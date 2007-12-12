@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>command</key>
+	<string>printenv &gt; $TM_NEW_FILE</string>
+	<key>extension</key>
+	<string>txt</string>
+	<key>name</key>
+	<string>printenv</string>
+	<key>uuid</key>
+	<string>55E0379B-F753-4B13-A6EE-3004DF39A1FA</string>
+</dict>
+</plist>

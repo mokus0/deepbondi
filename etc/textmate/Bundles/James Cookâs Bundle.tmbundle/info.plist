@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>James Cook’s Bundle</string>
+	<key>ordering</key>
+	<array>
+		<string>E2777529-C193-445E-AE98-D36CBC4AD94C</string>
+		<string>99895425-C3A5-47EF-9792-7984962486A4</string>
+		<string>ED644FEC-DACA-41A7-B189-D493B26410FF</string>
+		<string>2258D46A-7D83-4876-8B26-C18D270368A4</string>
+		<string>771C31EB-FB0B-4979-BCF0-4136B8E05A5A</string>
+		<string>D2C592BD-8931-4509-B21D-A592702EAE54</string>
+		<string>01B4869E-1691-4A46-A4A9-C858D728FCB3</string>
+	</array>
+	<key>uuid</key>
+	<string>4DB92932-E679-461E-B142-25E9F218C002</string>
+</dict>
+</plist>

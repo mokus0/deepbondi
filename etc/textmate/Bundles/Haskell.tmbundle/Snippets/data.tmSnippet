@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>data $1 = $2
+	deriving (${3:Eq, Show})</string>
+	<key>name</key>
+	<string>data</string>
+	<key>scope</key>
+	<string>source.haskell</string>
+	<key>tabTrigger</key>
+	<string>data</string>
+	<key>uuid</key>
+	<string>8AFA44C4-8CDA-4C31-BE3A-FEAFAD5D423C</string>
+</dict>
+</plist>

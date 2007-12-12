@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>command</key>
+	<string>if [[ ! -f "$TM_NEW_FILE" ]]; then
+   /deepbondi/bin/pTemplate "$TM_NEW_FILE"
+fi	</string>
+	<key>name</key>
+	<string>pTemplate</string>
+	<key>uuid</key>
+	<string>ED644FEC-DACA-41A7-B189-D493B26410FF</string>
+</dict>
+</plist>
