@@ -5,26 +5,29 @@
 #
 #
 
+tmPrefs="$HOME/Library/Preferences"
 tmSupport="$HOME/Library/Application Support/TextMate"
-bundlePath="$tmSupport/Bundles"
 here=`pwd`
 
-mkdir -p "$bundlePath"
-if [ X"$?" != X0 ]; then
-	echo unable to make directory "$bundlePath"
-	exit 1
-fi
-
-for bundle in Bundles/*; do
-	echo "$here/$bundle"
-	if [ -e "$tmSupport/$bundle" ]; then
+function link () {
+	echo "$1"
+	if [ -e "$2" ]; then
 		echo '  target exists: skipping'
 	else
-		echo '  -->' "$tmSupport/$bundle"
-		ln -s "$here/$bundle" "$tmSupport/$bundle"
+		echo '  -->' "$2"
+		ln -s "$1" "$2"
 		if [ X"$?" != X0 ]; then
-			echo Failed to link "$bundle": exiting.
+			echo Failed to link: exiting.
 			exit 2
 		fi
 	fi
-done
+}
+
+mkdir -p "$tmSupport"
+if [ X"$?" != X0 ]; then
+	echo unable to make directory "$tmSupport"
+	exit 1
+fi
+
+link "$here/Bundles" "$tmSupport/Bundles"
+link "$here/com.macromates.textmate.plist" "$tmPrefs/com.macromates.textmate.plist"
