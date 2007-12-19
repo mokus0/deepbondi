@@ -30,7 +30,7 @@ done
 
 # append these...
 for path in /deepbondi/sbin /Developer/Tools \
-	{/usr/local/,/,/usr/}{,X11*/,mysql/}{bin,sbin,texbin}; do
+	{/usr/local/,/opt/local/,/,/usr/}{,X11*/,mysql/}{bin,sbin,texbin}; do
         if [ -d "$path" ]; then
                 PATH="$PATH":"$path"
         fi
@@ -51,7 +51,7 @@ for manpath in ~/man ; do
 done
 
 # append these...
-for manpath in {/usr/,/usr/X11/,/usr/local/}{,X11*/,mysql/,share/}man ; do
+for manpath in {/usr/,/usr/X11/,/usr/local/,/opt/local/}{,X11*/,mysql/,share/}man ; do
         if [ -d "$manpath" ]; then
                 MANPATH="$MANPATH":"$manpath"
         fi
