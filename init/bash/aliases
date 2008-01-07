@@ -21,6 +21,11 @@ alias c='echo "bash: c: command not found"; touch ~/.foo.bucket.c'
 alias ear='if [ -f ~/.foo.bucket.c ]; then clear; rm ~/.foo.bucket.c ; else echo "bash: ear: command not found"; fi'
 
 
+if [ X`expr \`uname\` : Darwin` == X6 ]; then
+	alias eject='disktool -e'
+fi
+
+
 #
 # various conditionally defined aliases
 #
