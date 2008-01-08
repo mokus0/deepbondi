@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>y</string>
+	</array>
+	<key>keyEquivalent</key>
+	<string>^~H</string>
+	<key>name</key>
+	<string>Happy</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>begin</key>
+			<string>{</string>
+			<key>contentName</key>
+			<string>source.haskell.embedded.happy</string>
+			<key>end</key>
+			<string>}</string>
+			<key>name</key>
+			<string>meta.function.embedded.haskell.happy</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>source.haskell</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.happy</string>
+	<key>uuid</key>
+	<string>42A705F1-D2FC-4153-A3B9-8733AA25E5CD</string>
+</dict>
+</plist>
