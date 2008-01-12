@@ -31,6 +31,7 @@ if [ "${BASHRC:-foo}" != "/deepbondi/init/bash/rc" ]; then
 	# interactive shell stuff
 	if [ ${#PS1} != 0 ]; then
 		shopt -s extglob
+		shopt -s checkwinsize
 		
 		if [ -r "${bash_initdir}/aliases" ]; then
 			source "${bash_initdir}/aliases"
