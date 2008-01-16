@@ -28,8 +28,8 @@ if [ X`darcs -v >/dev/null 2>&1; echo $?` == X0 ]; then
 fi
 
 # enable darcs-client, if installed
-if [ -x /deepbondi/bin/darcs-client.`uname`.`uname -p` ]; then
-	darcsclient=/deepbondi/bin/darcs-client.`uname`.`uname -p`
+darcsclient=/deepbondi/bin/darcs-client.`uname`.`uname -p`
+if [ -x "$darcsclient" ]; then
 	export DARCS_APPLY_HTTP="$darcsclient apply"
 	export DARCS_APPLY_DARCS="$darcsclient apply"
 	export DARCS_GET_DARCS="$darcsclient get"
