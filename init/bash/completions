@@ -58,6 +58,11 @@ if [ X`which darcs | awk '{print $1}'` != Xno ]; then
 	source /deepbondi/init/bash/darcs_completion
 fi
 
+# svn completions, if svn is installed
+if [ X`which svn | awk '{print $1}'` != Xno ]; then
+	source /deepbondi/init/bash/svn_completion
+fi
+
 #
 # Read user's completions
 #
