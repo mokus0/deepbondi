@@ -65,9 +65,10 @@ print OUTFILE <<EOF
 %endif
 
 \\begin{code}
-\\end {code}
-	
-	-- your code here
+        
+        -- your code here
+        
+\\end{code}
 	
 \\end{document}
 EOF
