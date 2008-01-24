@@ -1,0 +1,32 @@
+#!/usr/bin/perl
+#
+#  <hs2tex>
+#    Copyright 2008 James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+
+open LHS2TEX, "|-", "lhs2tex" or die "lhs2tex not found";
+
+print LHS2TEX <<EOT;
+\\documentclass[10pt]{article}
+%include polycode.fmt
+
+\\begin{document}
+\\begin{code}
+EOT
+
+<>;
+print LHS2TEX unless /^#/;
+
+while (<>) {
+        print LHS2TEX
+}
+
+print LHS2TEX <<EOT;
+\\end{code}
+\\end{document}
+EOT
+
+close LHS2TEX;
