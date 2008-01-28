@@ -1,12 +1,12 @@
 #!/bin/sh
 
-touch $1
-chmod +x $1
+touch "$1"
+chmod +x "$1"
 
 fullName=`fullName`
 fullName=`echo -n $fullName`
 
-cat > $1 <<EOF
+cat > "$1" <<EOF
 #!/bin/sh
 #
 #  <$1>
