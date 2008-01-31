@@ -16,7 +16,7 @@ my $fullName = `fullName`;
 chomp $fullName;
 
 my $noExt = $file;
-$noExt =~ s/.[Ll]?[Hh][Ss]$//;
+$noExt =~ s/\.[Ll]?[Hh][Ss]$//;
 
 if ($noExt eq $file) {
 	$file = $file . ".hs"
