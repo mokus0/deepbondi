@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>changed</key>
@@ -8,7 +8,7 @@
 		<array>
 			<dict>
 				<key>begin</key>
-				<string>^((\\)begin)({)code(})(\s*\n)?</string>
+				<string>^((\\)begin)({)(code|spec)(})(\s*\n)?</string>
 				<key>captures</key>
 				<dict>
 					<key>1</key>
@@ -26,7 +26,7 @@
 						<key>name</key>
 						<string>punctuation.definition.arguments.begin.latex</string>
 					</dict>
-					<key>4</key>
+					<key>5</key>
 					<dict>
 						<key>name</key>
 						<string>punctuation.definition.arguments.end.latex</string>
@@ -35,7 +35,7 @@
 				<key>contentName</key>
 				<string>source.haskell.embedded.latex</string>
 				<key>end</key>
-				<string>^((\\)end)({)code(})</string>
+				<string>^((\\)end)({)(\4)(})</string>
 				<key>name</key>
 				<string>meta.function.embedded.haskell.latex</string>
 				<key>patterns</key>
@@ -62,6 +62,49 @@
 						<string>source.haskell</string>
 					</dict>
 				</array>
+			</dict>
+			<dict>
+				<key>begin</key>
+				<string>\|</string>
+				<key>captures</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>name</key>
+						<string>meta.tag.inline.code.lhs2tex</string>
+					</dict>
+				</dict>
+				<key>contentName</key>
+				<string>source.haskell.embedded.lhs2tex</string>
+				<key>end</key>
+				<string>\|</string>
+				<key>name</key>
+				<string>meta.function.embedded.haskell.lhs2tex</string>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>include</key>
+						<string>source.haskell</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>begin</key>
+				<string>@</string>
+				<key>captures</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>name</key>
+						<string>meta.tag.inline.verbatim.lhs2tex</string>
+					</dict>
+				</dict>
+				<key>contentName</key>
+				<string>markup.raw.verbatim.latex</string>
+				<key>end</key>
+				<string>@</string>
+				<key>name</key>
+				<string>meta.function.verbatim.latex</string>
 			</dict>
 			<dict>
 				<key>include</key>
