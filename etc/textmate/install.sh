@@ -30,4 +30,5 @@ if [ X"$?" != X0 ]; then
 fi
 
 link "$here/Bundles" "$tmSupport/Bundles"
+link "$here/Themes" "$tmSupport/Themes"
 link "$here/com.macromates.textmate.plist" "$tmPrefs/com.macromates.textmate.plist"
