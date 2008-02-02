@@ -5,7 +5,7 @@
 	<key>author</key>
 	<string>Chris Thomas</string>
 	<key>name</key>
-	<string>Espresso Libre</string>
+	<string>Moku Dark</string>
 	<key>settings</key>
 	<array>
 		<dict>
@@ -20,7 +20,7 @@
 				<key>invisibles</key>
 				<string>#BFBFBF</string>
 				<key>lineHighlight</key>
-				<string>#3A312C</string>
+				<string>#FFD8C242</string>
 				<key>selection</key>
 				<string>#C3DCFF</string>
 			</dict>
@@ -303,11 +303,24 @@
 			<key>name</key>
 			<string>Embedded source</string>
 			<key>scope</key>
-			<string>text source, string.unquoted</string>
+			<string>text source, comment source, string.unquoted</string>
 			<key>settings</key>
 			<dict>
 				<key>background</key>
 				<string>#F5AA7730</string>
+				<key>foreground</key>
+				<string>#BDAE9D</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Embedded Comment</string>
+			<key>scope</key>
+			<string>comment comment</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#FF1C197A</string>
 			</dict>
 		</dict>
 		<dict>
@@ -362,6 +375,19 @@
 		</dict>
 		<dict>
 			<key>name</key>
+			<string>Markup Raw</string>
+			<key>scope</key>
+			<string>markup.raw, meta.tag.inline.verbatim</string>
+			<key>settings</key>
+			<dict>
+				<key>fontStyle</key>
+				<string></string>
+				<key>foreground</key>
+				<string>#FFFFFF</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>name</key>
 			<string>Markup name of tag</string>
 			<key>scope</key>
 			<string>entity.name.tag</string>
@@ -393,19 +419,6 @@
 				<string></string>
 				<key>foreground</key>
 				<string>#00AD14</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>TeX Comment</string>
-			<key>scope</key>
-			<string>comment.line.percentage</string>
-			<key>settings</key>
-			<dict>
-				<key>fontStyle</key>
-				<string>italic</string>
-				<key>foreground</key>
-				<string>#0EC0FC</string>
 			</dict>
 		</dict>
 	</array>
