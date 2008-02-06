@@ -100,11 +100,11 @@
 					</dict>
 				</dict>
 				<key>contentName</key>
-				<string>markup.raw.verbatim.latex</string>
+				<string>markup.raw.verbatim.embedded.lhs2tex</string>
 				<key>end</key>
 				<string>@</string>
 				<key>name</key>
-				<string>meta.function.verbatim.latex</string>
+				<string>meta.function.embedded.verbatim.lhs2tex</string>
 			</dict>
 			<dict>
 				<key>captures</key>
