@@ -36,6 +36,17 @@ if (!defined($module)) {
 
 $module = join ".", @moduleparts;
 
+open DIRNAME, "-|", "dirname", $file or die "Can't open `dirname` utility";
+my $dirname = <DIRNAME>;
+chomp $dirname;
+close DIRNAME;
+
+if (! -d $dirname) {
+    system "mkdir", "-p", $dirname;
+    
+    die "Failed to make dir $dirname" if (! -d $dirname);
+}
+
 open OUTFILE, ">", $file;
 
 if ($module eq "Main") {
@@ -43,7 +54,7 @@ if ($module eq "Main") {
 }
 
 if ($file =~ m/\.lhs$/i) {
-print OUTFILE <<EOF
+print OUTFILE <<LITERATE_HASKELL
 \\documentclass[10pt]{article}
 %include polycode.fmt
 
@@ -57,10 +68,10 @@ print OUTFILE <<EOF
 
 %if 0
 \\begin{code}
-	
-	-- code in here won't end up in the TeX document
-	module $module where
-	
+        
+        -- code in here won't end up in the TeX document
+        module $module where
+        
 \\end{code}
 %endif
 
@@ -71,18 +82,18 @@ print OUTFILE <<EOF
 \\end{code}
 	
 \\end{document}
-EOF
+LITERATE_HASKELL
 } else {
 if ($module eq "Main") {
 print OUTFILE "#!/usr/bin/env runhaskell\n";
 }
-print OUTFILE <<EOF
+print OUTFILE <<HASKELL
 {-
- -	"$file"
- -	(c) $year $fullName
+ -      ``$file''
+ -      (c) $year $fullName
  -}
 
 module $module where
 
-EOF
+HASKELL
 }
