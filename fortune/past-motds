@@ -1407,3 +1407,12 @@ The pursuit of complexity is easy, and the implementation of complexity can safe
 <BombScare> i beat the internet
 <BombScare> the end guy is hard
 
+%
+
+enum Bool 
+{ 
+    True, 
+    False, 
+    FileNotFound 
+};
+
