@@ -30,10 +30,8 @@ fi
 export arch
 
 # configure darcs ssh id, if suitable things exist
-if [ X`darcs -v >/dev/null 2>&1; echo $?` == X0 ]; then
-	if [ -f ~/.ssh/darcs-id ]; then
-		export DARCS_SSH="ssh -i ~/.ssh/darcs-id"
-	fi
+if [ -f ~/.ssh/darcs-id ]; then
+	export DARCS_SSH="ssh -i ~/.ssh/darcs-id"
 fi
 
 # enable darcs-client, if installed
