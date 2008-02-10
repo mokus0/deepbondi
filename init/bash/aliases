@@ -24,6 +24,10 @@ if [ X"$os" == XDarwin ]; then
 	alias eject='disktool -e'
 fi
 
+# aliases for ghci addicts
+alias :i=man
+alias :t=apropos
+alias :q=exit
 
 #
 # various conditionally defined aliases
@@ -35,11 +39,6 @@ elif [ X`ls --color=auto >/dev/null 2>&1; echo $?` == X0 ]; then
 elif [ X`colorls >/dev/null 2>&1; echo $?` == X0 ]; then
   alias ls='colorls'
 fi
-
-if [ X`which gnome-terminal >/dev/null 2>&1; echo $?` == X0 ]; then
-  alias gterm='gnome-terminal'
-fi
-
 
 #
 # Read user's aliases
