@@ -54,12 +54,12 @@ complete -A user su
 complete -G '*.java' -o dirnames javac
 
 # darcs completions, if darcs is installed
-if [ X`which darcs | awk '{print $1}'` != Xno ]; then
+if [ X`darcs -v >/dev/null 2>&1; echo $?` == X0 ]; then
 	source /deepbondi/init/bash/darcs_completion
 fi
 
 # svn completions, if svn is installed
-if [ X`which svn | awk '{print $1}'` != Xno ]; then
+if [ X`svn --version >/dev/null 2>&1; echo $?` == X0 ]; then
 	source /deepbondi/init/bash/svn_completion
 fi
 

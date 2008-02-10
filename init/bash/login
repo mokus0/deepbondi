@@ -15,7 +15,8 @@
 #   there's so much crap there
 #
 
-if [ X`uname | grep -qe ^CYGWIN; echo $?` == X0 ]; then
+# can't use $os here; this runs before "environment"
+if uname | grep -q ^CYGWIN; then
 	PATH='/deepbondi/bin':"$PATH"
 else
 	PATH='/deepbondi/bin'

@@ -20,8 +20,7 @@ alias aoeu='xmodmap /deepbondi/init/X11/keymaps/qwerty.pke >&/dev/null'
 alias c='echo "bash: c: command not found"; touch ~/.foo.bucket.c'
 alias ear='if [ -f ~/.foo.bucket.c ]; then clear; rm ~/.foo.bucket.c ; else echo "bash: ear: command not found"; fi'
 
-
-if [ X`expr \`uname\` : Darwin` == X6 ]; then
+if [ X"$os" == XDarwin ]; then
 	alias eject='disktool -e'
 fi
 
