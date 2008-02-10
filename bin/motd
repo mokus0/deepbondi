@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec /usr/games/fortune /deepbondi/fortune/past-motds | tee ~/.last_motd
+exec fortune /deepbondi/fortune/past-motds | tee ~/.last_motd

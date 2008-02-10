@@ -30,6 +30,7 @@ done
 
 # append these...
 for path in /deepbondi/sbin /Developer/Tools \
+	/usr/games \
 	{/usr/local/,/opt/local/,/,/usr/}{,X11*/,mysql/}{bin,sbin,texbin}; do
         if [ -d "$path" ]; then
                 PATH="$PATH":"$path"
