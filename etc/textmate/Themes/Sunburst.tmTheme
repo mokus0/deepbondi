@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>author</key>
@@ -24,7 +24,7 @@
 				<key>lineHighlight</key>
 				<string>#FFFFFF0D</string>
 				<key>selection</key>
-				<string>#DDF0FF33</string>
+				<string>#FF13BB96</string>
 			</dict>
 		</dict>
 		<dict>
@@ -283,7 +283,7 @@
 			<key>name</key>
 			<string>c C/C++ Preprocessor Line</string>
 			<key>scope</key>
-			<string>meta.preprocessor.c</string>
+			<string>meta.preprocessor</string>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
@@ -294,7 +294,7 @@
 			<key>name</key>
 			<string>c C/C++ Preprocessor Directive</string>
 			<key>scope</key>
-			<string>meta.preprocessor.c keyword</string>
+			<string>meta.preprocessor keyword</string>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
