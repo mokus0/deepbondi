@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array/>
+	<key>keyEquivalent</key>
+	<string>^~H</string>
+	<key>name</key>
+	<string>Template Haskell</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>match</key>
+			<string>'[a-z_](?!')[A-Za-z_]*</string>
+			<key>name</key>
+			<string>meta.preprocessor.quoted.variable.value.th</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>'[A-Z](?!')[A-Za-z_]*</string>
+			<key>name</key>
+			<string>meta.preprocessor.quoted.constructor.value.th</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>''[a-z_][A-Za-z_]*</string>
+			<key>name</key>
+			<string>meta.preprocessor.quoted.variable.type.th</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>''[A-Z][A-Za-z_]*</string>
+			<key>name</key>
+			<string>meta.preprocessor.quoted.constructor.type.th</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>source.haskell</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.haskell.th</string>
+	<key>uuid</key>
+	<string>4063D3C0-917C-478D-9D14-CF357C3C5228</string>
+</dict>
+</plist>

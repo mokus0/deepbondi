@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>changed</key>
@@ -20,6 +20,8 @@
 			<string>18F43074-566D-4AD9-8DCE-9C26B8516B64</string>
 			<string>CE424A97-E486-4DE7-9328-C6ADB99B4ABD</string>
 			<string>5C034675-1F6D-497E-8073-369D37E2FD7D</string>
+			<string>40F312D7-9951-4AA4-8814-1DBC54FC9B07</string>
+			<string>4063D3C0-917C-478D-9D14-CF357C3C5228</string>
 			<string>439807F5-7129-487D-B5DC-95D5272B43DD</string>
 			<string>D9FDF362-A48C-4119-8E69-F193E5F55A69</string>
 			<string>DEB388C8-A42F-40C3-86F9-D3A2A2E7888D</string>
@@ -31,6 +33,7 @@
 			<string>C5E8294D-E708-4FB7-88CB-EDC387CBE097</string>
 			<string>8AFA44C4-8CDA-4C31-BE3A-FEAFAD5D423C</string>
 			<string>42A705F1-D2FC-4153-A3B9-8733AA25E5CD</string>
+			<string>0C39B945-E2C0-4E43-8A5B-332F6FA73C67</string>
 		</array>
 	</dict>
 	<key>deleted</key>
