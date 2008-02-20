@@ -48,7 +48,6 @@ if [ -x "$darcsclient" ]; then
 	export DARCS_MGET_DARCS="$darcsclient mget"
 fi
 
-
 #
 # Read user's environment
 #
