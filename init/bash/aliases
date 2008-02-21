@@ -16,15 +16,29 @@ alias hexdump='hexdump -C'
 alias asdf='xmodmap /deepbondi/init/X11/keymaps/dvorak.pke >&/dev/null'
 alias aoeu='xmodmap /deepbondi/init/X11/keymaps/qwerty.pke >&/dev/null'
 
-# 'c;ear -> clear' hack
-alias c='echo "bash: c: command not found"; touch ~/.foo.bucket.c'
-alias ear='if [ -f ~/.foo.bucket.c ]; then clear; rm ~/.foo.bucket.c ; else echo "bash: ear: command not found"; fi'
+#
+# aliases to catch various common typos
+#
+# "r/eal" = "clear" with right hand off-by-one on dvorak
+alias r/eal=clear
 
+# "c;ear" = "clear" with right hand off-by-one on qwerty
+alias c='echo "$0: c: command not found"; touch ~/.foo.bucket.c'
+alias ear='if [ -f ~/.foo.bucket.c ]; then clear; rm ~/.foo.bucket.c ; else echo "$0: ear: command not found"; fi'
+
+# "je" = "cd" when accidentally typing in qwerty on a dvorak keyboard
+alias je=cd
+
+#
+# Platform-specific aliases
+#
 if [ X"$os" == XDarwin ]; then
 	alias eject='disktool -e'
 fi
 
+#
 # aliases for ghci addicts
+#
 alias :i=man
 alias :t=apropos
 alias :q=exit
