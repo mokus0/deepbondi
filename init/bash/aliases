@@ -27,7 +27,7 @@ function r/eal { clear; }
 # "c;ear" = "clear" with right hand off-by-one on qwerty
 function c {
 	# if there's a real program called "c", call it
-	if which -s c; then
+	if cmdExists c; then
 		`which c` "$@"
 	# otherwise, if we were called without args, rig up the trap door
 	elif [ X"$*" == X ]; then
@@ -48,7 +48,7 @@ alias je=cd
 #
 if [ X"$os" == XDarwin ]; then
 	function disktool {
-		if which -s diskutil; then
+		if cmdExists diskutil; then
 			echo "disktool is depracted; use diskutil instead"
 			echo
 		fi
@@ -70,11 +70,11 @@ alias :q=exit
 #
 # various conditionally defined aliases
 #
-if [ X`gls >/dev/null 2>&1; echo $?` == X0 ]; then
+if cmdExists gls; then
   alias ls='gls --color=auto'
 elif [ X`ls --color=auto >/dev/null 2>&1; echo $?` == X0 ]; then
   alias ls='ls --color=auto'
-elif [ X`colorls >/dev/null 2>&1; echo $?` == X0 ]; then
+elif cmdExists colorls; then
   alias ls='colorls'
 fi
 

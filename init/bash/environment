@@ -34,6 +34,12 @@ if echo $arch | grep -q ' ' ; then
 fi
 export arch
 
+# create a "which"-like function, because 'which -s' isn't available
+# everywhere, and the redirects are annoying
+function cmdExists {
+	which "$@" > /dev/null 2>&1
+}
+
 # configure darcs ssh id, if suitable things exist
 if [ -f ~/.ssh/darcs-id ]; then
 	export DARCS_SSH="ssh -i ~/.ssh/darcs-id"
