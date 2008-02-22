@@ -47,7 +47,7 @@ fi
 
 # enable darcs-client, if installed
 darcsclient=darcs-client."$os"."$arch"
-if which -s "$darcsclient"; then
+if cmdExists "$darcsclient"; then
 	export DARCS_APPLY_HTTP="$darcsclient apply"
 	export DARCS_APPLY_DARCS="$darcsclient apply"
 	export DARCS_GET_DARCS="$darcsclient get"
