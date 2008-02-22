@@ -62,8 +62,9 @@ fi
 #
 # aliases for ghci addicts
 #
-alias :i=man
-alias :t=apropos
+function :b { ghci -e ":browse $*"; }
+function :i { ghci -e ":info $*"; }
+function :t { ghci -e ":type $*"; }
 alias :q=exit
 
 #
