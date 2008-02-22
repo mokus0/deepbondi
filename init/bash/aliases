@@ -35,7 +35,8 @@ alias je=cd
 # Platform-specific aliases
 #
 if [ X"$os" == XDarwin ]; then
-	alias eject='disktool -e'
+	alias disktool='echo disktool is depracted\; use diskutil; disktool'
+	alias eject='diskutil eject'
 fi
 
 #
