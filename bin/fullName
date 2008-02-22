@@ -1,11 +1,22 @@
 #!/usr/bin/perl
 #
-#  <fullName>
-#    Copyright 2007 James Cook - All Rights Reserved.
+#	 <fullName>
+#		 Copyright 2007 James Cook - All Rights Reserved.
 #
 #
 
 use strict;
+
+use Getopt::Std;
+
+my %opts;
+getopts('ns:', \%opts);
+
+my $join = defined $opts{'s'} 
+	? $opts{'s'}
+	: $opts{'n'} 
+		? ":"
+		: "\n";
 
 my @names = @ARGV;
 
@@ -16,13 +27,37 @@ unless (@names) {
 	@names = ($name);
 }
 
+my @fullNames;
+
 for my $name (@names) {
 	my ($name,$passwd,$uid,$gid,
 		$quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam $name;
 	
 	if (defined $gcos and $gcos ne "") {
-		print "$gcos\n";
+		push @fullNames, $gcos;
 	} else {
-		print "$name\n";
+		push @fullNames, $name;
 	}
+}
+
+print (join $join, @fullNames);
+print "\n" unless $opts{'n'};
+
+exit 0;
+
+####
+# help & version messages, triggered as needed by getopts
+
+sub HELP_MESSAGE {
+	print <<END;
+usage:
+	$0 [-n] [-s separator] [username ...]
+
+END
+	
+	exit 1;
+}
+
+sub VERSION_MESSAGE {
+	print "fullName 1.0: Copyright 2007-2008 James Cook.\n";
 }

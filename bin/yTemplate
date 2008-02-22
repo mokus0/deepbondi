@@ -1,13 +1,10 @@
 #!/bin/sh
 # yacc template
 
-fullName=`fullName`
-fullName=`echo -n $fullName`
-
 cat > $1 <<EOF
 %{	/*
 	 *  <$1>
-	 *    Copyright `date +%Y` $fullName - All Rights Reserved.
+	 *    Copyright `date +%Y` `fullName -s` - All Rights Reserved.
 	 */
 	
 	
