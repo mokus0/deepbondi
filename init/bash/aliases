@@ -66,10 +66,12 @@ fi
 #
 # aliases for ghci addicts
 #
-function :b { ghci -e ":browse $*"; }
-function :i { ghci -e ":info $*"; }
-function :t { ghci -e ":type $*"; }
-alias :q=exit
+if cmdExists ghci; then
+	function :b { ghci -e ":browse $*"; }
+	function :i { ghci -e ":info $*"; }
+	function :t { ghci -e ":type $*"; }
+	alias :q=exit
+fi
 
 #
 # various conditionally defined aliases
