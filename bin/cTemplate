@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # C source file template
 
 hFile=`echo -n "$1" | sed 's/\.[cmCM]$/.h/'`
