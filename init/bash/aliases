@@ -25,8 +25,20 @@ alias aoeu='xmodmap /deepbondi/init/X11/keymaps/qwerty.pke >&/dev/null'
 function r/eal { clear; }
 
 # "c;ear" = "clear" with right hand off-by-one on qwerty
-alias c='echo "$0: c: command not found"; touch ~/.foo.bucket.c'
-alias ear='if [ -f ~/.foo.bucket.c ]; then clear; rm ~/.foo.bucket.c ; else echo "$0: ear: command not found"; fi'
+function c {
+	# if there's a real program called "c", call it
+	if which -s c; then
+		`which c` "$@"
+	# otherwise, if we were called without args, rig up the trap door
+	elif [ X"$*" == X ]; then
+		echo "$0: c: command not found"
+		
+		function ear {
+			clear
+			unset -f ear
+		}
+	fi
+}
 
 # "je" = "cd" when accidentally typing in qwerty on a dvorak keyboard
 alias je=cd
