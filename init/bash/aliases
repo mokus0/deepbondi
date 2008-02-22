@@ -1,9 +1,13 @@
 #
 #  <aliases>
-#    Copyright 2007 James Cook - All Rights Reserved.
+#    Copyright 2007-2008 James Cook - All Rights Reserved.
 #
 #  Originally based on MIT Project Athena's TCSH scripts, circa 1990.
 #  These have long since taken on a life of their own.
+#
+#  Note that some of these things are not alaises, but shell functions;
+#  I'm leaving them here, though, because they basically serve the same
+#  purpose as was originally intended by these things.
 #
 
 alias l='ls -lg'
