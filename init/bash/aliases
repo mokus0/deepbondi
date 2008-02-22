@@ -20,7 +20,9 @@ alias aoeu='xmodmap /deepbondi/init/X11/keymaps/qwerty.pke >&/dev/null'
 # aliases to catch various common typos
 #
 # "r/eal" = "clear" with right hand off-by-one on dvorak
-alias r/eal=clear
+# some versions of bash forbid '/' in alias names, so this
+# is a function instead.
+function r/eal { clear; }
 
 # "c;ear" = "clear" with right hand off-by-one on qwerty
 alias c='echo "$0: c: command not found"; touch ~/.foo.bucket.c'
