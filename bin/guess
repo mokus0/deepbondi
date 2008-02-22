@@ -36,11 +36,11 @@ while (($hi - $lo) > 1) {
 	if ($guess > $mid) {
 		$hi = $guess unless $guess > $hi;
 		
-		print "Lower:  ";
+		print "Lower:  " unless $hi - $lo == 1;
 	} else {
 		$lo = $guess unless $guess < $lo;
 		
-		print "Higher: ";
+		print "Higher: " unless $hi - $lo == 1;
 	}
 }
 
