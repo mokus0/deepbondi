@@ -76,7 +76,7 @@ alias :q=exit
 #
 if cmdExists gls; then
   alias ls='gls --color=auto'
-elif [ X`ls --color=auto >/dev/null 2>&1; echo $?` == X0 ]; then
+elif ls --color=auto >/dev/null 2>&1; then
   alias ls='ls --color=auto'
 elif cmdExists colorls; then
   alias ls='colorls'
