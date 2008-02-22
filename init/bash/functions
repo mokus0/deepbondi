@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+#  <functions>
+#    Copyright 2008 James Cook - All Rights Reserved.
+#
+#
+
+# create a "which"-like function, because 'which -s' isn't available
+# everywhere, and the redirects are annoying
+function cmdExists {
+	which "$@" > /dev/null
+}
+
+#
+# Read user's functions
+#
+if [ -r "${user_bash_initdir}/functions" ]; then
+	source "${user_bash_initdir}/functions"
+fi
