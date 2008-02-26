@@ -7,11 +7,11 @@
 
 # create a "which"-like function, because 'which -s' isn't available
 # everywhere, and the redirects are annoying
-if which _this_name_better_not_exist_ > /dev/null; then
+if which _this_name_better_not_exist_ > /dev/null 2>&1; then
 	# which is not reliable; use alternate means
-	if which _this_name_better_not_exist_ | grep -qv '^/'; then
+	if which _this_name_better_not_exist_ 2> /dev/null | grep -qv '^/'; then
 		function cmdExists {
-			which "$@" | grep -q '^/'
+			which "$@" 2> /dev/null | grep -q '^/'
 		}
 	else
 		echo Warning: don\'t know how to make a reliable \"cmdExists\"
@@ -24,7 +24,7 @@ if which _this_name_better_not_exist_ > /dev/null; then
 else
 	# which is ok, use it
 	function cmdExists {
-		which "$@" > /dev/null
+		which "$@" > /dev/null 2>&1
 	}
 fi
 
