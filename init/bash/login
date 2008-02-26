@@ -15,6 +15,9 @@
 #   there's so much crap there
 #
 
+# minimal PATH so that uname and grep are found
+PATH=/bin:/usr/bin
+
 # can't use $os here; this runs before "environment"
 if uname | grep -q ^CYGWIN; then
 	PATH='/deepbondi/bin':"$PATH"
