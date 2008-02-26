@@ -16,7 +16,7 @@
 #
 
 # minimal PATH so that uname and grep are found
-PATH=/bin:/usr/bin
+PATH="/bin:/usr/bin:$PATH"
 
 # can't use $os here; this runs before "environment"
 if uname | grep -q ^CYGWIN; then
