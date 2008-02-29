@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+#
+#  <join>
+#    Copyright 2008 Cook, J. MR  SSD, Inc. - All Rights Reserved.
+#
+#
+
+use strict;
+use Getopt::Std;
+
+sub usage {
+	print STDERR <<EOF;
+	
+Usage:
+	$0 [-s separator] [string1 [string2 [...]]]
+
+EOF
+	exit 2;
+}
+
+sub getSep {
+	my $os = $ENV{"os"} || `uname`;
+	
+	if ($os =~ /cygwin/i) {
+		return ";" 
+	} else {
+		return ":";
+	}
+}
+
+our %opts;
+getopts("s:", \%opts) || usage;
+
+my $separator = $opts{"s"} || getSep;
+
+print (join $separator, @ARGV);
+print "\n";
