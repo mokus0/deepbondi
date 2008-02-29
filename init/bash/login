@@ -21,6 +21,11 @@ PATH="/bin:/usr/bin:$PATH"
 # can't use $os here; this runs before "environment"
 if uname | grep -q ^CYGWIN; then
 	PATH='/deepbondi/bin':"$PATH"
+	
+	if [ X"$JAVA_HOME" != X ]; then
+		JAVA_HOME=`cygpath "$JAVA_HOME"`
+		PATH="$PATH:$JAVA_HOME/bin"
+	fi
 else
 	PATH='/deepbondi/bin'
 fi
