@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>changed</key>
@@ -39,7 +39,7 @@
 			</dict>
 			<dict>
 				<key>match</key>
-				<string>\b(otherwise|module|where|import(\s+qualified)?|data|type|case|of|let|in|instance|deriving|class|newtype|default|hiding|as)\b</string>
+				<string>\b(module|where|import(\s+qualified)?|data|type|case|of|let|in|instance|deriving|class|newtype|default|hiding|as)\b</string>
 				<key>name</key>
 				<string>keyword.other.haskell</string>
 			</dict>
@@ -283,6 +283,12 @@
 				<string>\b[A-Z]\w*\b</string>
 				<key>name</key>
 				<string>constant.other.haskell</string>
+			</dict>
+			<dict>
+				<key>match</key>
+				<string>otherwise</string>
+				<key>name</key>
+				<string>entity.name.constant.builtin.prelude.haskell</string>
 			</dict>
 			<dict>
 				<key>match</key>
