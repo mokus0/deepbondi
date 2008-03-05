@@ -4,15 +4,40 @@
 #		I have a much better version of this somewhere else.  I'll
 #		have to track it down...
 #
+#   UPDATE: I never found it, so now I fixed this one up a bit.
+#
 
-my $clear = "[H[J";
+use strict;
+use Getopt::Std;
+
+my %opts;
+getopts("t:", \%opts);
+
+# default sleep time is 1 sec
+$opts{'t'} ||= 1;
+
+# call the existing "clear" command to capture its terminal control codes
+my $clear = `clear`;
+
+# format the command for the header
 my $command = join " ", @ARGV;
 
+# no input record separator; we want to the whole output of the command
+# all in one go.
+undef $/;
+
 while (1) {
+	# read the command output to an internal buffer.  We really ought
+	# to limit the length of this to something sensible, but we'll assume
+	# instead that the user will be sensible.  If they aren't, sucks for them.
+	open CMD, "-|", @ARGV;
+	my $output = <CMD>;
+	close CMD;
+	
+	# clear screen and update all at once
 	print $clear;
-	
 	print "Watch: $command\n\n";
+	print $output;
 	
-	system @ARGV;
-	sleep(3);
+	sleep($opts{'t'});
 }
