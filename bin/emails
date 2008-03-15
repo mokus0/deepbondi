@@ -17,3 +17,5 @@ while (<>) {
 		print "\n";
 	}
 }
+
+close STDOUT;
