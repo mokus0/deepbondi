@@ -4,6 +4,11 @@
 <dict>
 	<key>changed</key>
 	<dict>
+		<key>fileTypes</key>
+		<array>
+			<string>hs</string>
+			<string>hs-boot</string>
+		</array>
 		<key>patterns</key>
 		<array>
 			<dict>
