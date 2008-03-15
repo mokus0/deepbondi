@@ -1,0 +1,137 @@
+#!/usr/bin/perl
+#
+#  <inplace>
+#    Copyright 2008 James Cook - All Rights Reserved.
+#
+#  USAGE: 
+#    inplace [-b] file [command] [args ...]
+#  
+#  where 'command' is a command which will read from stdin and write to
+#  stdout.  Its stdin and stdout will both be connected to 'file', in
+#  such a way that file is not destroyed (as it would be with
+#  'command <file >file').
+#  
+#  if '-b' is specified, a backup will be made as "${file}~"
+#
+#  This script has not been extensively tested, and its basic mode of
+#  operation is potentially destructive.  USE AT YOUR OWN RISK ;-)
+#
+
+use strict;
+use Getopt::Std;
+
+sub main {
+  my ($backup, $src, @cmd) = @_;
+  
+  my $cmd = @cmd[0];
+  
+  # catch as many errors as possible before
+  # potentially destroying the input file
+  die "no such file: $src" unless -f $src;
+  die "no $cmd in ${ENV{'PATH'}}" unless cmdExists($cmd);
+  
+  my $dst = $src;
+  $src = doBackup($src) if $backup;
+  
+  if ($src eq $dst) {
+    if (canUseUnlink($src)) {
+      withUnlink($src, @cmd);
+    } else {
+      withBuffer($src, @cmd);
+    }
+  } else {
+    withNothingTricky($src, $dst, @cmd);
+  }
+  
+  # the 'withX' functions should not return.
+  exit 42;
+}
+
+sub cmdExists {
+  my ($cmd) = @_;
+  my @path = split /[:;]/, $ENV{"PATH"};
+  
+  for my $path (@path) {
+    return 1 if -x "$path/$cmd";
+  }
+  
+  return undef;
+}
+
+sub doBackup {
+  my ($file) = @_;
+  
+  my $bk = $file . "~";
+  rename $file, $bk;
+  
+  return $bk;
+}
+
+# when (src ne dst) use this
+sub withNothingTricky {
+  my ($src, $dst, @cmd) = @_;
+  
+  my $cmd = join " ", @cmd;
+  print "withNothingTricky: $src -> $dst ($cmd)\n";
+  
+  open STDIN,  "<", $src or die "can't open '$src' for reading";
+  open STDOUT, ">", $dst or die "can't open '$dst' for writing";
+  
+  exec @cmd;
+}
+
+# when (the directory is writable) and (src eq dst), use this version,
+# which opens the file, unlinks it, recreates it, and points its output there
+sub withUnlink {
+  my ($src, @cmd) = @_;
+  
+  open STDIN,  "<", $src or die "can't open '$src' for reading";
+  unlink $src;
+  
+  open STDOUT, ">", $src or die "can't open '$src' for writing; file is lost :( :( :(";
+  exec @cmd;
+}
+
+sub canUseUnlink {
+  my ($file) = @_;
+  
+  my $dir = `dirname "$file"`;
+  chomp $dir;
+  
+  # for now, the condition is: $dir is a directory, and $dir is writable
+  return (-d $dir && -w $dir);
+}
+
+# when (the directory is not writable) and (src eq dst), use this version, which
+# uses a variable as a buffer:
+sub withBuffer {
+  my ($src, @cmd) = @_;
+  my $cmd = join " ", @cmd; # used only in case of error invoking cmd
+  
+  local $/ = undef;
+  
+  open FILE, "<", $src or die "can't open '$src' for reading";
+  my $text = <FILE>;
+  close FILE;
+  
+  open STDOUT, ">", $src or die "can't open '$src' for writing; file is lost :( :( :(";
+  if (open PIPE, "|-", @cmd) {
+    print PIPE $text;
+    
+    close PIPE;
+    exit;
+  } else {
+    # the file has been truncated by the open operation, and opening
+    # the output pipe has failed.  Try to fix things by printing the
+    # buffer back into it, then alert the user that something bad happened.
+    print $text;
+    
+    die "failed to execute command: $cmd.  I did my best to put things back as they were.";
+  }
+}
+
+my %opts;
+getopts("b", \%opts);
+my $src = shift @ARGV;
+
+main($opts{'b'}, $src, @ARGV);
