@@ -5,17 +5,29 @@
 #
 #  Quick hack, at request of tindrum I think, to make a regexp to
 #  munge email addresses out of a text stream
+#  
+#  15 Mar 2008: slightly expanded: is now more of a general regexp-munger
+#     with default regexp designed to pick out emails
 #
 
 use strict;
 
-open STDOUT, "| sort | uniq";
+use Getopt::Std;
+
+my %opts;
+getopts('ap:', \%opts);
+
+# -a says to display all matches; 
+# default is to pipe through sort and uniq
+open STDOUT, "| sort | uniq" unless $opts{'a'};
+
+# -p sets the regexp pattern to use;  default is set here too.
+my $re;
+$re  =  qr/$opts{'p'}/ if defined $opts{'p'};
+$re ||= qr/[-_.0-9a-zA-Z]+@([-_0-9a-zA-Z]+\.)+([-_0-9a-zA-Z]+)/;
 
 while (<>) {
-	while(m/([-_.0-9a-zA-Z]+@([-_0-9a-zA-Z]+\.)+([-_0-9a-zA-Z]+))/g) {
-		print $1;
-		print "\n";
-	}
+	print "$1\n" while m/($re)/g;
 }
 
 close STDOUT;
