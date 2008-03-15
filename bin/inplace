@@ -27,6 +27,8 @@ sub main {
   
   # catch as many errors as possible before
   # potentially destroying the input file
+  # the only other error that comes to mind that would be Very Bad
+  # is a full disk.  
   die "no such file: $src" unless -f $src;
   die "no $cmd in ${ENV{'PATH'}}" unless cmdExists($cmd);
   
@@ -106,7 +108,6 @@ sub canUseUnlink {
 # uses a variable as a buffer:
 sub withBuffer {
   my ($src, @cmd) = @_;
-  my $cmd = join " ", @cmd; # used only in case of error invoking cmd
   
   local $/ = undef;
   
@@ -119,14 +120,16 @@ sub withBuffer {
     print PIPE $text;
     
     close PIPE;
-    exit;
+    exit 0;
   } else {
     # the file has been truncated by the open operation, and opening
     # the output pipe has failed.  Try to fix things by printing the
     # buffer back into it, then alert the user that something bad happened.
     print $text;
     
-    die "failed to execute command: $cmd.  I did my best to put things back as they were.";
+    my $cmd = join " ", @cmd;
+    print STDERR "Failed to execute command: $cmd.\nI did my best to put things back as they were.\n";
+    exit 1;
   }
 }
 
