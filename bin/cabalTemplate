@@ -1,0 +1,43 @@
+#!/usr/bin/perl
+#
+#  <cabalTemplate>
+#    Copyright 2008 James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+
+my ($file) = @ARGV;
+
+my $year = `date +%Y`;
+chomp $year;
+
+my $fullName = `fullName -n`;
+
+my $noExt = $file;
+$noExt =~ s/\.cabal$//i;
+
+if ($noExt eq $file) {
+	$file = $file . ".cabal"
+}
+
+open OUTFILE, ">", $file;
+
+print OUTFILE <<CABAL
+name:                   $noExt
+version:                0.001
+stability:              experimental
+
+cabal-version:          >= 1.2
+build-type:             Simple
+
+author:                 $fullName <your email here>
+maintainer:             $fullName <your email here>
+
+description:            I'm too lame to describe my project
+
+Library
+  hs-source-dirs:       .
+  exposed-modules:      
+  build-depends:        base >= 3
+CABAL
