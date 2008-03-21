@@ -15,7 +15,7 @@ chomp $year;
 my $fullName = `fullName -n`;
 
 my $noExt = $file;
-$noExt =~ s/\.[Ll]?[Hh][Ss]$//;
+$noExt =~ s/\.[Ll]?[Hh][Ss](-boot)?$//;
 
 if ($noExt eq $file) {
 	$file = $file . ".hs"
@@ -65,7 +65,7 @@ print OUTFILE <<LITERATE_HASKELL
 
 \\maketitle
 
-%if 0
+%if codeOnly || showAllCode
 \\begin{code}
         
         -- code in here won't end up in the TeX document
