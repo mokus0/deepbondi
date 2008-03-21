@@ -15,7 +15,7 @@ chomp $year;
 my $fullName = `fullName -n`;
 
 my $noExt = $file;
-$noExt =~ s/\.[Ll]?[Hh][Ss](-boot)?$//;
+$noExt =~ s/\.l?hs(-boot)?$//i;
 
 if ($noExt eq $file) {
 	$file = $file . ".hs"
