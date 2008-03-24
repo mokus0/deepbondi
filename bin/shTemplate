@@ -3,8 +3,7 @@
 touch "$1"
 chmod +x "$1"
 
-fullName=`fullName`
-fullName=`echo -n $fullName`
+fullName=`fullName -n`
 
 cat > "$1" <<EOF
 #!/bin/sh
