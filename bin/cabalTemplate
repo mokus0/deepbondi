@@ -14,6 +14,11 @@ chomp $year;
 
 my $fullName = `fullName -n`;
 
+open DIRNAME, "-|", "dirname", $file or die "Can't open dirname command";
+my $dirname = <DIRNAME>;
+chomp $dirname;
+close DIRNAME;
+
 my $noExt = $file;
 $noExt =~ s/\.cabal$//i;
 
@@ -21,9 +26,23 @@ if ($noExt eq $file) {
 	$file = $file . ".cabal"
 }
 
+my $setup = "$dirname/Setup.lhs";
+if (! -e $setup) {
+        open SETUP, ">", $setup;
+        
+        print SETUP <<HASKELL;
+#!/usr/bin/env runhaskell
+
+> import Distribution.Simple
+> main = defaultMain
+
+HASKELL
+        close SETUP;
+}
+
 open OUTFILE, ">", $file;
 
-print OUTFILE <<CABAL
+print OUTFILE <<CABAL;
 name:                   $noExt
 version:                0.001
 stability:              experimental
@@ -41,3 +60,5 @@ Library
   exposed-modules:      
   build-depends:        base >= 3
 CABAL
+
+close OUTFILE;
