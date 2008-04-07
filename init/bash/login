@@ -22,9 +22,18 @@ PATH="/bin:/usr/bin:$PATH"
 if uname | grep -q ^CYGWIN; then
 	PATH='/deepbondi/bin':"$PATH"
 	
+	if [ X"$GHC_HOME" != X ]; then
+		GHC_HOME=`cygpath "$GHC_HOME"`
+		PATH="$PATH:$GHC_HOME/bin"
+		
+		export GHC_HOME
+	fi
+	
 	if [ X"$JAVA_HOME" != X ]; then
 		JAVA_HOME=`cygpath "$JAVA_HOME"`
 		PATH="$PATH:$JAVA_HOME/bin"
+		
+		export JAVA_HOME
 	fi
 else
 	PATH='/deepbondi/bin'
