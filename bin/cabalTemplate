@@ -40,6 +40,12 @@ HASKELL
         close SETUP;
 }
 
+my $srcDir = ".";
+
+if (-d "$dirname/src") {
+        $srcDir = "src";
+}
+
 open OUTFILE, ">", $file;
 
 print OUTFILE <<CABAL;
@@ -56,7 +62,7 @@ maintainer:             $fullName <your email here>
 description:            I'm too lame to describe my project
 
 Library
-  hs-source-dirs:       .
+  hs-source-dirs:       $srcDir
   exposed-modules:      
   build-depends:        base >= 3
 CABAL
