@@ -1464,3 +1464,9 @@ enum Bool
     FileNotFound 
 };
 
+%
+
+<dfranke|#haskell> algebra is doomed when we run out of synonyms for "bunch"
+                   that haven't already been assigned special meanings.
+
+
