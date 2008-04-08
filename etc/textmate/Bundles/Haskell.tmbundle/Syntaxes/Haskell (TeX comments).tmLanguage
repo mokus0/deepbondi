@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>fileTypes</key>
-	<array>
-		<string>hs</string>
-	</array>
+	<array/>
 	<key>keyEquivalent</key>
 	<string>^~H</string>
 	<key>name</key>
@@ -318,7 +316,7 @@
 				</dict>
 			</dict>
 			<key>contentName</key>
-			<string>text.tex.latex.haskell</string>
+			<string>text.tex.latex.haskell.lhs2tex</string>
 			<key>end</key>
 			<string>-}</string>
 			<key>name</key>
@@ -327,7 +325,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>text.tex.latex.haskell</string>
+					<string>text.tex.latex.haskell.lhs2tex</string>
 				</dict>
 			</array>
 		</dict>
@@ -344,7 +342,7 @@
 				</dict>
 			</dict>
 			<key>contentName</key>
-			<string>text.tex.latex.haskell</string>
+			<string>text.tex.latex.haskell.lhs2tex</string>
 			<key>end</key>
 			<string>$</string>
 			<key>name</key>
@@ -353,7 +351,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>text.tex.latex.haskell</string>
+					<string>text.tex.latex.haskell.lhs2tex</string>
 				</dict>
 			</array>
 		</dict>

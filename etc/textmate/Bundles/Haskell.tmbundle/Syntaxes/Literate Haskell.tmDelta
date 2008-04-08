@@ -144,6 +144,8 @@
 				<string>text.tex.latex</string>
 			</dict>
 		</array>
+		<key>scopeName</key>
+		<string>text.tex.latex.haskell.lhs2tex</string>
 	</dict>
 	<key>deleted</key>
 	<array/>
