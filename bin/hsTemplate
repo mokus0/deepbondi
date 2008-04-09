@@ -9,32 +9,33 @@ use strict;
 
 my ($file, $module) = @ARGV;
 
-my $year = `date +%Y`;
-chomp $year;
+# strip extension, set default ext
+$file =~ s/\.(l?hs(-boot)?)$//i;
+my $ext = $1 || "hs";
 
-my $fullName = `fullName -n`;
+# convert '.'s to '/'s in filename
+$file =~ s{\.}{/}g;
 
-my $noExt = $file;
-$noExt =~ s/\.l?hs(-boot)?$//i;
-
-if ($noExt eq $file) {
-	$file = $file . ".hs"
-}
+# construct module name for import declaration;
+#   use ARGV[2] ($module) if defined, otherwise use $file
 
 my @moduleparts;
 
 if (!defined($module)) {
-	@moduleparts = split m{/}, $noExt;
+	@moduleparts = split m{/}, $file;
 } else {
 	@moduleparts = split m{\.}, $module;
 }
 
+# mangle the name components to make sure they're valid haskell
+# module identifiers
 @moduleparts = grep {$_ ne ""} @moduleparts;
 @moduleparts = map {ucfirst} @moduleparts;
 @moduleparts = map {s/[^a-zA-Z0-9]/_/g; $_} @moduleparts;
 
 $module = join ".", @moduleparts;
 
+# create the enclosing directory if needed
 open DIRNAME, "-|", "dirname", $file or die "Can't open `dirname` utility";
 my $dirname = <DIRNAME>;
 chomp $dirname;
@@ -46,13 +47,22 @@ if (! -d $dirname) {
     die "Failed to make dir $dirname" if (! -d $dirname);
 }
 
-open OUTFILE, ">", $file;
+open OUTFILE, ">", "$file.$ext";
 
+# get info that will appear in the output header comments
+my $year = `date +%Y`;
+chomp $year;
+
+my $fullName = `fullName -n`;
+
+# if this is a "Main" make it executable
 if ($module eq "Main") {
 	chmod 0755, $file;
 }
 
-if ($file =~ m/\.lhs$/i) {
+# finally, write the file
+
+if ($ext =~ m/lhs/i) {
 print OUTFILE <<LITERATE_HASKELL
 \\documentclass[10pt]{article}
 %include polycode.fmt
