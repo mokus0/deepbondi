@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+#  <undv>
+#    Copyright 2008 James Cook - All Rights Reserved.
+#
+#
+
+dv="[]',.pyfgcrl/=\\aoeuidhtns-;qjkxbmwvz"
+qw="-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./"
+
+ds="{}\"<>PYFGCRL?+|AOEUIDHTNS_:QJKXBMWVZ"
+qs="_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?"
+
+exec tr "$dv$ds" "$qw$qs"
