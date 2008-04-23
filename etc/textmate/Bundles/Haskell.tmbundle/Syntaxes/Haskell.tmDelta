@@ -234,10 +234,15 @@
 			</dict>
 			<dict>
 				<key>begin</key>
-				<string>^\s*(\|)(?!.*?=)</string>
+				<string>^\s*([a-z_][a-zA-Z0-9'_]*|\([|!%$+\-.,=&lt;/&gt;]+\))\s*(::)</string>
 				<key>beginCaptures</key>
 				<dict>
 					<key>1</key>
+					<dict>
+						<key>name</key>
+						<string>entity.name.function.haskell</string>
+					</dict>
+					<key>2</key>
 					<dict>
 						<key>name</key>
 						<string>punctuation.separator.double-colon.haskell</string>
@@ -246,7 +251,134 @@
 				<key>end</key>
 				<string>^</string>
 				<key>name</key>
-				<string>meta.fuction.type-declaration.haskell.continuation</string>
+				<string>meta.function.type-declaration.haskell</string>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>match</key>
+						<string>-&gt;</string>
+						<key>name</key>
+						<string>punctuation.separator.arrow.haskell</string>
+					</dict>
+					<dict>
+						<key>match</key>
+						<string>=&gt;</string>
+						<key>name</key>
+						<string>punctuation.separator.big-arrow.haskell</string>
+					</dict>
+					<dict>
+						<key>match</key>
+						<string>\b[a-z][a-zA-Z0-9,()_]*\b</string>
+						<key>name</key>
+						<string>variable.other.generic-type.haskell</string>
+					</dict>
+					<dict>
+						<key>match</key>
+						<string>\b[A-Z][a-zA-Z0-9,()_]*\b</string>
+						<key>name</key>
+						<string>constant.other.haskell</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#dashComment</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#blockComment</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>begin</key>
+				<string>^\s*(foreign\s+export\s+ccall)\s+([a-z_][a-zA-Z0-9'_]*|\([|!%$+\-.,=&lt;/&gt;]+\))\s*(::)</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>1</key>
+					<dict>
+						<key>name</key>
+						<string>keyword.other.haskell</string>
+					</dict>
+					<key>2</key>
+					<dict>
+						<key>name</key>
+						<string>entity.name.function.haskell</string>
+					</dict>
+					<key>3</key>
+					<dict>
+						<key>name</key>
+						<string>punctuation.separator.double-colon.haskell</string>
+					</dict>
+				</dict>
+				<key>end</key>
+				<string>^</string>
+				<key>name</key>
+				<string>meta.fuction.type-declaration.haskell.ffi.export</string>
+				<key>patterns</key>
+				<array>
+					<dict>
+						<key>match</key>
+						<string>-&gt;</string>
+						<key>name</key>
+						<string>punctuation.separator.arrow.haskell</string>
+					</dict>
+					<dict>
+						<key>match</key>
+						<string>=&gt;</string>
+						<key>name</key>
+						<string>punctuation.separator.big-arrow.haskell</string>
+					</dict>
+					<dict>
+						<key>match</key>
+						<string>\b[a-z][a-zA-Z0-9,()_]*\b</string>
+						<key>name</key>
+						<string>variable.other.generic-type.haskell</string>
+					</dict>
+					<dict>
+						<key>match</key>
+						<string>\b[A-Z][a-zA-Z0-9,()_]*\b</string>
+						<key>name</key>
+						<string>constant.other.haskell</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#dashComment</string>
+					</dict>
+					<dict>
+						<key>include</key>
+						<string>#blockComment</string>
+					</dict>
+				</array>
+			</dict>
+			<dict>
+				<key>begin</key>
+				<string>^\s*(foreign\s+import\s+ccall)\s*("[^"]*")\s*([a-z_][a-zA-Z0-9'_]*|\([|!%$+\-.,=&lt;/&gt;]+\))\s*(::)</string>
+				<key>beginCaptures</key>
+				<dict>
+					<key>1</key>
+					<dict>
+						<key>name</key>
+						<string>keyword.other.haskell</string>
+					</dict>
+					<key>2</key>
+					<dict>
+						<key>name</key>
+						<string>string.quoted.double.haskell</string>
+					</dict>
+					<key>3</key>
+					<dict>
+						<key>name</key>
+						<string>entity.name.function.haskell</string>
+					</dict>
+					<key>4</key>
+					<dict>
+						<key>name</key>
+						<string>punctuation.separator.double-colon.haskell</string>
+					</dict>
+				</dict>
+				<key>end</key>
+				<string>^</string>
+				<key>name</key>
+				<string>meta.fuction.type-declaration.haskell.ffi.import</string>
 				<key>patterns</key>
 				<array>
 					<dict>
