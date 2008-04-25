@@ -88,7 +88,7 @@ sub withUnlink {
   my ($src, @cmd) = @_;
   
   open STDIN,  "<", $src or die "can't open '$src' for reading";
-  unlink $src;
+  unlink $src or die "can't unlink '$src'";
   
   open STDOUT, ">", $src or die "can't open '$src' for writing; file is lost :( :( :(";
   exec @cmd;
@@ -100,8 +100,8 @@ sub canUseUnlink {
   my $dir = `dirname "$file"`;
   chomp $dir;
   
-  # for now, the condition is: $dir is a directory, and $dir is writable
-  return (-d $dir && -w $dir);
+  # for now, the condition is: $dir is a directory, and $dir is writable, and OS isn't windows
+  return (`uname` !~ /CYGWIN/i && -d $dir && -w $dir);
 }
 
 # when (the directory is not writable) and (src eq dst), use this version, which
