@@ -51,7 +51,8 @@ if uname | grep -q ^CYGWIN; then
 	PATH="$PATH:$WINDOWS_PATH"
 fi
 
-export PATH
+# strip the leading :
+export PATH="${PATH#:}"
 
 #
 #  Similar treatment for MANPATH
@@ -64,7 +65,8 @@ for manpath in ~/man {/usr/local/,/opt/local/,/,/usr/}{,X11*/,mysql/}man ; do
         fi
 done
 
-export MANPATH
+# strip the leading :
+export MANPATH="${MANPATH#:}"
 
 #
 # Setup Fink, if installed
