@@ -53,12 +53,12 @@ complete -ufo plusdirs inplace
 
 # darcs completions, if darcs is installed
 if cmdExists darcs; then
-	source /deepbondi/init/bash/completions.darcs
+	source ${deepbondi}/init/bash/completions.darcs
 fi
 
 # svn completions, if svn is installed
 if cmdExists svn; then
-	source /deepbondi/init/bash/completions.svn
+	source ${deepbondi}/init/bash/completions.svn
 fi
 
 #

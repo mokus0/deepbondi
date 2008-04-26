@@ -1,6 +1,6 @@
 # System-wide profile for bash
 
-. /deepbondi/init/bash/preflight
-. /deepbondi/init/bash/path
-. /deepbondi/init/bash/interactive
+. ${deepbondi:-/deepbondi}/init/bash/preflight
+. ${deepbondi:-/deepbondi}/init/bash/path
+. ${deepbondi:-/deepbondi}/init/bash/interactive
 

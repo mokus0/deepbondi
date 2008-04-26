@@ -1,4 +1,4 @@
 # System-wide bashrc file for interactive bash shells.
 
-. /deepbondi/init/bash/preflight
-. /deepbondi/init/bash/interactive
+. ${deepbondi:-/deepbondi}/init/bash/preflight
+. ${deepbondi:-/deepbondi}/init/bash/interactive
