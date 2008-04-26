@@ -1,7 +1,12 @@
 #!/bin/sh
 
-cat /deepbondi/etc/motd.header > /etc/motd
-/deepbondi/bin/motd >> /etc/motd
+deepbondi="${deepbondi:-/deepbondi}"
 
-cat /deepbondi/etc/motd.irc.header /etc/motd /deepbondi/etc/rules > /etc/motd.irc
+if [ -d "$deepbondi" ]; then
+	cat "$deepbondi/etc/motd.header" > /etc/motd
+	"$deepbondi/bin/motd" >> /etc/motd
 
+	cat "$deepbondi/etc/motd.irc.header" /etc/motd "$deepbondi/etc/rules" > /etc/motd.irc
+else
+	echo Neither \$deepbondi nor /deepbondi is a directory.  I\'m scared\!
+fi
