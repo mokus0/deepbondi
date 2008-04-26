@@ -1,11 +1,17 @@
 #!/bin/sh
 
-motd_file=/deepbondi/fortune/past-motds
+deepbondi="${deepbondi:-/deepbondi}"
 
-echo '%' 	>>	"$motd_file"
-echo ''  	>>	"$motd_file"
+if [ -d "$deepbondi" ]; then
+	motd_file="$deepbondi/fortune/past-motds"
 
-cat 		>>	"$motd_file"
-echo ''		>>	"$motd_file"
+	echo '%' 	>>	"$motd_file"
+	echo ''  	>>	"$motd_file"
 
-strfile			"$motd_file"
+	cat 		>>	"$motd_file"
+	echo ''		>>	"$motd_file"
+
+	strfile			"$motd_file"
+else
+	echo Neither \$deepbondi nor /deepbondi is a directory.  I\'m scared\!
+fi
