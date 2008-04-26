@@ -8,7 +8,8 @@
 
 use strict;
 
-my $dict = "/deepbondi/dict/words";
+my $deepbondi = $ENV{"deepbondi"} || "/deepbondi";
+my $dict = "$deepbondi/dict/words";
 
 my %modemap = (
 	"-a" => \&addWords,
@@ -16,7 +17,7 @@ my %modemap = (
 	"-D" => \&delGrep,
 	"-r" => \&grepWords,
 	"-g" => \&grepWords,
-	"-n" => \&anagram,	# requires "an" anagram generator in /deepbondi/bin
+	"-n" => \&anagram,	# requires "an" anagram generator in $PATH
 );
 
 my $mode = "-g";
@@ -163,7 +164,7 @@ sub catch_INT_restore_old {
     die "SIGTERM: check integrity of dictfile!";
 }
 
-my $an = "/deepbondi/bin/an";
+my $an = "an";
 my $ct = "4";
 my $grepPipe = "";
 
