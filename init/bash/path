@@ -1,0 +1,84 @@
+#
+#  <path>
+#    Copyright 2007 James Cook - All Rights Reserved.
+#
+#  Originally based on MIT Project Athena's TCSH scripts, circa 1990.
+#  These have long since taken on a life of their own.
+#  
+#  "path" runs before "interactive", and only once (on the "login" shell)
+#
+
+#
+# Set $PATH.  Starts with /deepbondi/bin, and glues bits on.
+#   If this is CYGWIN, preserves existing $PATH too, since
+#   there's so much crap there
+#
+
+# TODO: use $os here
+if uname | grep -q ^CYGWIN; then
+	WINDOWS_PATH="$PATH"
+	
+	# convert environment variables use here to cygwin paths
+	if [ X"$GHC_HOME" != X ]; then
+		export GHC_HOME=`cygpath "$GHC_HOME"`
+	fi
+	
+	if [ X"$JAVA_HOME" != X ]; then
+		export JAVA_HOME=`cygpath "$JAVA_HOME"`
+	fi
+fi
+
+#initial core
+PATH=""
+
+# append whatever actually exists, of these options:
+for path in ~/bin \
+	"$deepbondi/bin/$os/$arch"  "$deepbondi/bin/$os"  "$deepbondi/bin"  \
+	"$deepbondi/sbin/$os/$arch" "$deepbondi/sbin/$os" "$deepbondi/sbin" \
+	/Developer/Tools \
+	"${GHC_HOME:-/nonexistent}/bin" \
+	"${JAVA_HOME:-/nonexistent}/bin" \
+	/usr/games \
+	{/usr/local/,/opt/local/,/,/usr/}{,X11*/,mysql/}{bin,sbin,texbin}; do
+        if [ -d "$path" ]; then
+                PATH="$PATH":"$path"
+        fi
+done
+
+# append original windows paths - necessary for windows
+# command-line programs as well as for DLLs
+if uname | grep -q ^CYGWIN; then
+	PATH="$PATH:$WINDOWS_PATH"
+fi
+
+export PATH
+
+#
+#  Similar treatment for MANPATH
+#
+MANPATH=""
+
+for manpath in ~/man {/usr/local/,/opt/local/,/,/usr/}{,X11*/,mysql/}man ; do
+        if [ -d "$manpath" ]; then
+                MANPATH="$MANPATH":"$manpath"
+        fi
+done
+
+export MANPATH
+
+#
+# Setup Fink, if installed
+#
+
+if [ -r "/sw/bin/init.sh" ]; then
+	source /sw/bin/init.sh
+fi
+
+
+#
+# Read user's custom path script
+#
+if [ -r "${user_bash_initdir}/path" ]; then
+	source "${user_bash_initdir}/path"
+fi
+

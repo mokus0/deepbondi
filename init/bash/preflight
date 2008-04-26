@@ -1,0 +1,59 @@
+#!/bin/sh
+#
+#  <preflight>
+#    Copyright 2008 James Cook - All Rights Reserved.
+#
+#
+
+#
+# find out where we live, assuming a sensible default
+#
+export deepbondi=${deepbondi:-/deepbondi}
+
+#
+# Locate user scripts, if any
+#
+bash_initdir=${bash_initdir:-${deepbondi}/init/bash}
+
+if [ -d ~/Library/init/bash ]; then
+	# nicer place, for mac users - easier to remember to back up
+	# (or to back up without specifically remembering)
+	user_bash_initdir=${user_bash_initdir:-~/Library/init/bash}
+fi
+
+# if still not set, use default
+user_bash_initdir=${user_bash_initdir:-~/.init/bash}
+
+#
+# set up some useful environment variables that are 
+# hard to get right in a portable way (and that we will want often)
+#
+export os=`uname`
+arch=`uname -p`
+if echo $arch | grep -q ' ' ; then
+	arch=`uname -m`
+fi
+export arch
+
+# create a "which"-like function, because 'which -s' isn't available
+# everywhere, and the redirects are annoying
+if which _this_name_better_not_exist_ > /dev/null 2>&1; then
+	# which is not reliable; use alternate means
+	if which _this_name_better_not_exist_ 2> /dev/null | grep -qv '^/'; then
+		function cmdExists {
+			which "$@" 2> /dev/null | grep -q '^/'
+		}
+	else
+		echo Warning: don\'t know how to make a reliable \"cmdExists\"
+		echo function on this system.  Making a dummy that always fails.
+
+		function cmdExists {
+			false
+		}
+	fi
+else
+	# which is ok, use it
+	function cmdExists {
+		which "$@" > /dev/null 2>&1
+	}
+fi

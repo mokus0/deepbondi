@@ -1,0 +1,41 @@
+#
+#  <interactive>
+#    Copyright 2008 James Cook - All Rights Reserved.
+#
+#  Originally based on MIT Project Athena's TCSH scripts, circa 1990.
+#  These have long since taken on a life of their own.
+#
+#  "interactive" sets up interactive shells.
+#
+
+# make the prompt !suck.
+PS1='[\u@\h \W]\$ '
+
+# shell behavior options
+shopt -s extglob
+shopt -s checkwinsize
+
+#
+# Environment Setup
+#
+if [ "${ENV_SET:-undef}" = "undef" ]; then
+	if [ -r "${bash_initdir}/environment" ] \
+		&& [ ${#PS1} != 0 -o ${#XSESSION} != 0 ]; then
+		source "${bash_initdir}/environment"
+	fi
+fi
+	
+if [ -r "${bash_initdir}/aliases" ]; then
+	source "${bash_initdir}/aliases"
+fi
+
+if [ -r "${bash_initdir}/completions" ]; then
+	source "${bash_initdir}/completions"
+fi
+
+#
+# user interactive script
+#
+if [ -r "${user_bash_initdir}/interactive" ]; then
+	source "${user_bash_initdir}/interactive"
+fi
