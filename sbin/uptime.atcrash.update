@@ -5,9 +5,13 @@
 #
 #
 
+deepbondi="${deepbondi:-/deepbondi}"
 
-/bin/rm -f /deepbondi/etc/uptime.tmp
-/usr/bin/uptime > /deepbondi/etc/uptime.tmp
+if [ -d "$deepbondi" ]; then
+	/bin/rm -f "$deepbondi/etc/uptime.tmp"
+	/usr/bin/uptime > "$deepbondi/etc/uptime.tmp"
 
-/bin/mv -f /deepbondi/etc/uptime.tmp /deepbondi/etc/uptime.atcrash
-
+	/bin/mv -f "$deepbondi/etc/uptime.tmp" "$deepbondi/etc/uptime.atcrash"
+else
+	echo Neither \$deepbondi nor /deepbondi is a directory.  I\'m scared\!
+fi
