@@ -59,7 +59,7 @@ export PATH="${PATH#:}"
 #
 MANPATH=""
 
-for manpath in ~/man {/usr/local/,/opt/local/,/,/usr/}{,X11*/,mysql/}man ; do
+for manpath in ~/man {/usr/local/,/opt/local/,/,/usr/}{,X11*/,mysql/}{,share/}man ; do
         if [ -d "$manpath" ]; then
                 MANPATH="$MANPATH":"$manpath"
         fi
