@@ -34,24 +34,22 @@ complete -A setopt -A variable set unset
 complete -A binding bind
 
 # Files by extension
-complete -o dirnames -A file -X '!*gz' gunzip
-complete -o dirnames -A file -X '!*[g.][Zz]' uncompress zcat gzcat
-complete -o dirnames -A file -X '!*t[gba][zr]*' tar gtar gnutar
-complete -o dirnames -A file -X '!*.zip' unzip
-complete -o dirnames -A file -X '!*[.l]hs' runhaskell runghc ghc ghci runhugs hugs
+complete -o plusdirs -f -X '!*gz' gunzip
+complete -o plusdirs -f -X '!*[g.][Zz]' uncompress zcat gzcat
+complete -o plusdirs -f -X '!*t[gba][zr]*' tar gtar gnutar
+complete -o plusdirs -f -X '!*.zip' unzip
+complete -o plusdirs -f -X '!*[.l]hs' runhaskell runghc ghc ghci runhugs hugs
+complete -o plusdirs -f -X '!*.java' javac
 
 # Hosts
 complete -A hostname ftp ncftp telnet ping traceroute ssh rlogin rsh
 
 # Users and Groups
-complete -A user -o filenames chown
-complete -A user su
+complete -ufo plusdirs -X '_*' chown
+complete -gfo plusdirs -X '_*' chgrp
+complete -uco plusdirs su sudo
+complete -ufo plusdirs inplace
 
-#
-# Misc
-#
-
-complete -G '*.java' -o dirnames javac
 
 # darcs completions, if darcs is installed
 if cmdExists darcs; then
