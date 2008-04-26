@@ -15,7 +15,7 @@ getopts("s:", \%opts);
 my $size = (defined ($opts{'s'})) ? ($opts{'s'}) : 8;
 
 sub getMotd {
-	open MOTD, "/deepbondi/bin/motd | /deepbondi/bin/chomp |";
+	open MOTD, "motd | chomp |";
 	
 	my @motd = <MOTD>;
 	
