@@ -17,7 +17,8 @@
 
 use strict;
 
-require "/deepbondi/pm/hilite.pm";
+use lib (($ENV{deepbondi} || "/deepbondi") . "/pm");
+require "hilite.pm";
 
 my ($fg, $bg, $mode) = map {if ($_ eq "") {undef} else {$_}} @ARGV;
 
