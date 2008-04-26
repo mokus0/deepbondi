@@ -7,7 +7,8 @@
 
 use strict;
 
-require "/deepbondi/pm/hilite.pm";
+use lib (($ENV{deepbondi} || "/deepbondi") . "/pm");
+require "hilite.pm";
 
 my $arp = "/usr/sbin/arp";
 
