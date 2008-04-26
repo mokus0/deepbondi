@@ -55,12 +55,12 @@ complete -G '*.java' -o dirnames javac
 
 # darcs completions, if darcs is installed
 if cmdExists darcs; then
-	source /deepbondi/init/bash/darcs_completion
+	source /deepbondi/init/bash/completions.darcs
 fi
 
 # svn completions, if svn is installed
 if cmdExists svn; then
-	source /deepbondi/init/bash/svn_completion
+	source /deepbondi/init/bash/completions.svn
 fi
 
 #
