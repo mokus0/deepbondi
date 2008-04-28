@@ -35,10 +35,16 @@ user_bash_initdir=${user_bash_initdir:-~/.init/bash}
 # set up some useful environment variables that are 
 # hard to get right in a portable way (and that we will want often)
 #
-export os=`uname`
-arch=`uname -p`
+uname -o 2>&1 >/dev/null
+if [ $? == 0 ]; then
+	export os=`uname -o`
+else
+	export os=`uname`
+fi
+
+arch=`uname -m`
 if echo $arch | grep -q ' ' ; then
-	arch=`uname -m`
+	arch=`uname -p`
 fi
 export arch
 
