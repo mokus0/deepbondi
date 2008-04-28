@@ -16,8 +16,6 @@
 
 # TODO: use $os here
 if uname | grep -q ^CYGWIN; then
-	WINDOWS_PATH="$PATH"
-	
 	# convert environment variables use here to cygwin paths
 	if [ X"$GHC_HOME" != X ]; then
 		export GHC_HOME=`cygpath "$GHC_HOME"`
@@ -48,7 +46,7 @@ done
 # append original windows paths - necessary for windows
 # command-line programs as well as for DLLs
 if uname | grep -q ^CYGWIN; then
-	PATH="$PATH:$WINDOWS_PATH"
+	PATH="$PATH:$path_orig"
 fi
 
 # strip the leading :

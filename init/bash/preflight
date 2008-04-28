@@ -6,6 +6,13 @@
 #
 
 #
+#  Save current path (in case it's needed later) and set
+#  path to a minimalist default
+#
+path_orig=$PATH
+PATH=/bin:/usr/bin
+
+#
 # find out where we live, assuming a sensible default
 #
 export deepbondi=${deepbondi:-/deepbondi}
