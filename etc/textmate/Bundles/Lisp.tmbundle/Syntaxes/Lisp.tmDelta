@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>changed</key>
@@ -12,6 +12,9 @@
 			<string>mud</string>
 			<string>el</string>
 			<string>mtl</string>
+			<string>ope</string>
+			<string>opd</string>
+			<string>sms</string>
 		</array>
 	</dict>
 	<key>deleted</key>
