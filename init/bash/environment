@@ -11,8 +11,10 @@ export ENV_SET=yes
 # default pager
 export PAGER=less
 
-# default character set
-export LANG=en_US.UTF-8
+# default character set (but not on obsd, where locale isn't all there)
+if [ "$os" != "OpenBSD" ]; then
+	export LANG=en_US.UTF-8
+fi
 
 # preload CVSROOT with deepbondi's main repo, and make cvs use ssh
 export CVSROOT=:ext:archive.deepbondi.net:/archive/cvs
