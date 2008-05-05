@@ -9,6 +9,16 @@
 #  and from several other sources.
 #
 
+# 'plusdirs' check: bash before 3.0-6 didn't support -o plusdirs;
+#  detect whether it likes it, and substitute 'dirnames' otherwise.
+#  use a real command whose completions we'll set later, so as not
+#  to clutter the completion-space.
+if complete -o plusdirs cd >/dev/null 2>&1 ; then
+	plusdirs=plusdirs
+else
+	plusdirs=dirnames
+fi
+
 # Directories
 complete -A directory cd chdir popd pushd rmdir mkdir
 
@@ -34,21 +44,21 @@ complete -A setopt -A variable set unset
 complete -A binding bind
 
 # Files by extension
-complete -o plusdirs -f -X '!*gz' gunzip
-complete -o plusdirs -f -X '!*[g.][Zz]' uncompress zcat gzcat
-complete -o plusdirs -f -X '!*t[gba][zr]*' tar gtar gnutar
-complete -o plusdirs -f -X '!*.zip' unzip
-complete -o plusdirs -f -X '!*[.l]hs' runhaskell runghc ghc ghci runhugs hugs
-complete -o plusdirs -f -X '!*.java' javac
+complete -o $plusdirs -f -X '!*gz' gunzip
+complete -o $plusdirs -f -X '!*[g.][Zz]' uncompress zcat gzcat
+complete -o $plusdirs -f -X '!*t[gba][zr]*' tar gtar gnutar
+complete -o $plusdirs -f -X '!*.zip' unzip
+complete -o $plusdirs -f -X '!*[.l]hs' runhaskell runghc ghc ghci runhugs hugs
+complete -o $plusdirs -f -X '!*.java' javac
 
 # Hosts
 complete -A hostname ftp ncftp telnet ping traceroute ssh rlogin rsh
 
 # Users and Groups
-complete -ufo plusdirs -X '_*' chown
-complete -gfo plusdirs -X '_*' chgrp
-complete -uco plusdirs su sudo
-complete -ufo plusdirs inplace
+complete -ufo $plusdirs -X '_*' chown
+complete -gfo $plusdirs -X '_*' chgrp
+complete -uco $plusdirs su sudo
+complete -ufo $plusdirs inplace
 
 
 # darcs completions, if darcs is installed
