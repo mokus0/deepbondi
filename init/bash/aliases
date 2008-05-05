@@ -78,6 +78,8 @@ fi
 #
 if cmdExists gls; then
   alias ls='gls --color=auto'
+elif ls -G >/dev/null 2>&1; then
+  alias ls='ls -G'
 elif ls --color=auto >/dev/null 2>&1; then
   alias ls='ls --color=auto'
 elif cmdExists colorls; then
