@@ -20,8 +20,7 @@ PATH=/bin:/usr/bin
 #   there's so much crap there
 #
 
-# TODO: use $os here
-if uname | grep -q ^CYGWIN; then
+if [ "$os" = "Cygwin" ]; then
 	# convert environment variables use here to cygwin paths
 	if [ X"$GHC_HOME" != X ]; then
 		export GHC_HOME=`cygpath "$GHC_HOME"`
@@ -51,7 +50,7 @@ done
 
 # append original windows paths - necessary for windows
 # command-line programs as well as for DLLs
-if uname | grep -q ^CYGWIN; then
+if [ "$os" = "Cygwin" ]; then
 	PATH="$PATH:$path_orig"
 fi
 
