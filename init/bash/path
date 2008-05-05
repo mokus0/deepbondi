@@ -9,6 +9,12 @@
 #
 
 #
+#  Save current path
+#
+path_orig="$PATH"
+PATH=/bin:/usr/bin
+
+#
 # Set $PATH.  Starts with $deepbondi/bin, and glues bits on.
 #   If this is CYGWIN, preserves existing $PATH too, since
 #   there's so much crap there
