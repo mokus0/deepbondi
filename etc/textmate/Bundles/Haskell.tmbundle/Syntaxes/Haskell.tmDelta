@@ -47,8 +47,12 @@
 				<string>#typeDecl</string>
 			</dict>
 			<dict>
+				<key>include</key>
+				<string>#typeDeclCommaThing</string>
+			</dict>
+			<dict>
 				<key>begin</key>
-				<string>^\s*(foreign)\s+((import\s+ccall)\s*("[^"]*")\s*|(export\s+ccall)\s)</string>
+				<string>^\s*(foreign)\s+((import\s+(?:stdcall|ccall))\s*("[^"]*")\s*|(export\s+(?:stdcall|ccall))\s)</string>
 				<key>beginCaptures</key>
 				<dict>
 					<key>1</key>
@@ -350,6 +354,42 @@
 				<dict>
 					<key>include</key>
 					<string>#blockComment</string>
+				</dict>
+			</array>
+		</dict>
+		<key>repository.typeDeclCommaThing</key>
+		<dict>
+			<key>begin</key>
+			<string>\G\s*([a-z_][a-zA-Z0-9'_]*|\([|!%$+\-.,=&lt;/&gt;]+\))\s*(,)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>meta.function.type-declaration.haskell</string>
+				</dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.haskell</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.separator.comma.haskell</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>^</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#typeDecl</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#typeDeclCommaThing</string>
 				</dict>
 			</array>
 		</dict>
