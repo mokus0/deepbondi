@@ -28,18 +28,27 @@ user_bash_initdir=${user_bash_initdir:-~/.init/bash}
 # set up some useful environment variables that are 
 # hard to get right in a portable way (and that we will want often)
 #
-uname -o >/dev/null 2>&1
-if [ $? == 0 ]; then
-	export os=`uname -o`
-else
-	export os=`uname`
-fi
-
-arch=`uname -m`
-if echo $arch | grep -q ' ' ; then
-	arch=`uname -p`
-fi
-export arch
+# do it in a function so we can use a local $PATH (is there another
+# way to use local here that will allow environment vars to escape?)
+#
+function __preflight_getOS {
+	local PATH=/bin:/sbin:/usr/bin:/usr/sbin
+	
+	uname -o >/dev/null 2>&1
+	if [ $? == 0 ]; then
+		export os=`uname -o`
+	else
+		export os=`uname`
+	fi
+	
+	arch=`uname -m`
+	if echo $arch | grep -q ' ' ; then
+		arch=`uname -p`
+	fi
+	export arch
+}
+__preflight_getOS
+unset __preflight_getOS
 
 # create a "which"-like function, because 'which -s' isn't available
 # everywhere, and the redirects are annoying
