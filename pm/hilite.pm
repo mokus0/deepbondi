@@ -29,6 +29,7 @@ our $fgBase = "3";
 our $bgBase = "4";
 
 our %colors = (
+   "black" => "0",
 	"red" => "1",
 	"green" => "2",
 	"yellow" => "3",
