@@ -12,7 +12,7 @@ _darcs()
     COMPREPLY=()
 
     if (($COMP_CWORD == 1)); then
-        COMPREPLY=( $( darcs --commands | grep "^$cur" ) )
+        COMPREPLY=( $( darcs --commands | grep "^$cur" | tr -d '\r' ) )
         return 0
     fi
 
