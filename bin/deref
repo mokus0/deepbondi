@@ -1,0 +1,63 @@
+#!/usr/bin/perl
+#
+#  <deref>
+#    Copyright 2008 Cook, J. MR  SSD, Inc. - All Rights Reserved.
+#
+#
+
+use strict;
+
+use Getopt::Std;
+
+my %opts;
+getopts("np:r:s", \%opts);
+
+my $root = $opts{'r'} || "/";
+my $pwd  = $opts{'p'} || `pwd`;
+my $stripRoot = defined $opts{'s'} || !defined $opts{'n'};
+
+chomp $root; chomp $pwd;
+
+$root =~ s{/+}{/}g;
+$root =~ s{/(\./)+}{/}g;
+$root =~ s{/*$}{/};
+
+$pwd =~ s{/+}{/}g;
+$pwd =~ s{/(\./)+}{/}g;
+$pwd =~ s{/*$}{/};
+
+sub deref {
+    my ($path, $pwd, $depth) = @_;
+    
+    die "<loop?>" if $depth >= 100;
+    
+    if ($path =~ m{^/}) {
+        if ($stripRoot && index($path, $root) == 0) {
+            $path = substr($path, length($root) - 1);
+        }
+        
+        $path = $root . "/" . $path;
+    } else {
+        $path = $pwd . "/" . $path;
+    }
+    
+    $path =~ s{/+}{/}g;
+    $path =~ s{/(\./)+}{/}g;
+    
+    my $link = readlink $path;
+    
+    if (defined $link) {
+        $path =~ m{^(.*)/[^/]+$} or die "this should always match";
+        my $pwd = $1;
+        
+        # TODO :  add loop-test
+        return deref($link, $pwd, $depth + 1);
+    } else {
+        return $path;
+    }
+}
+
+for my $path (@ARGV) {
+    $path = deref($path, $pwd);
+    print "$path\n";
+}
