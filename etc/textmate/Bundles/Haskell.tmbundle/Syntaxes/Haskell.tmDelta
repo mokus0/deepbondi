@@ -90,7 +90,7 @@
 			</dict>
 			<dict>
 				<key>match</key>
-				<string>\b(module|where|import(\s+qualified)?|data|type|case|of|let|in|instance|deriving|class|newtype|default|hiding|as)\b</string>
+				<string>\b(module|where|import(\s+qualified)?|data(\s+(family|instance))?|type(\s+(family|instance))?|case|of|let|in|instance|deriving|class|newtype|default|hiding|as)\b</string>
 				<key>name</key>
 				<string>keyword.other.haskell</string>
 			</dict>
