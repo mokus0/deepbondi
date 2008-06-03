@@ -37,6 +37,10 @@ function __preflight_getOS {
 	uname -o >/dev/null 2>&1
 	if [ $? == 0 ]; then
 		export os=`uname -o`
+		
+		if echo $os | grep -q '/' ; then
+			export os=`uname`
+		fi
 	else
 		export os=`uname`
 	fi
