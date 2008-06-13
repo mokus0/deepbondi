@@ -15,6 +15,11 @@
 			<string>ope</string>
 			<string>opd</string>
 			<string>sms</string>
+			<string>omd</string>
+			<string>omt</string>
+			<string>fed</string>
+			<string>clp</string>
+			<string>rid</string>
 		</array>
 	</dict>
 	<key>deleted</key>
