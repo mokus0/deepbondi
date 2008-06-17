@@ -17,7 +17,6 @@ import System.Environment
 import System.Exit
 
 import qualified Data.Map as M
-import qualified Data.Set as S
 
 import Control.Arrow
 import Data.Monoid
