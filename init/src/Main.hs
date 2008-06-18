@@ -16,75 +16,55 @@
  -        - precompiled binary
  -        - "runhugs -98"
  -        - "runhaskell"
+ -
+ -      I think I would like to eliminate the command-line processing in
+ -      favor of strict configuration-by-environment.
  -}
 
 module Main where
 
 import System.Info
-import Util.GetOpts
-import Data.Monoid
-import Control.Monad
-import Data.Maybe
 import Data.Version
-import System
 
-data Options =
-        Options { setPath               :: Maybe Bool
-                , interactive           :: Maybe Bool
-                } deriving (Eq, Show)
+import Control.Monad
 
-defaultOptions = Options { setPath      = Just True
-                         , interactive  = Just True
-                         }
+import Util.GetOpts
 
-instance Monoid Options where
-        mempty  = Options { setPath     = Nothing
-                          , interactive = Nothing
-                          }
-        mappend a b -- note reverse order; b overrides a
-                = Options { setPath     = setPath b     `mplus` setPath a
-                          , interactive = interactive b `mplus` interactive a
-                          }
+import Shell.Basics
+import Shell.Bash
 
-options :: [OptSpec Options]
-options = [ Flag 'r'    "rc"                    (mempty { setPath     = Just False })
-          , Flag 'p'    "profile"               (mempty { setPath     = Just True  })
-          , Flag 'i'    "interactive"           (mempty { interactive = Just True  })
-          , Flag 'n'    "non-interactive"       (mempty { interactive = Just False })
+import Actions.Preflight
+import Actions.Path
+import Actions.Interactive
+
+data Options = 
+        Options { shell         :: Maybe String
+                , shellVersion  :: Maybe String
+                }
+
+defaultOptions =
+        Options { shell         = Just "bash"
+                , shellVersion  = Nothing
+                }
+
+options :: [OptSpec (Options -> IO Options)]
+options = [ Param 's' "shell"           (\sh opts -> return $ opts {shell = Just sh})
+          , Param 'v' "shell-version"   (\v  opts -> return $ opts {shellVersion = Just v})
           ]
 
-usage = mapM putStrLn [ ""
-                      , "Usage:  I'm not telling you, read the source!"
-                      , ""
-                      ]
+usage = putStrLn "No usage help yet.  Use the source, Luke."
 
 main = do
-        (optList, args) <- getOpts options usage
+        (opts, args) <- getOpts options usage
+        opts <- foldM (flip ($)) defaultOptions opts
+        -- need an existential type and some lookups
+        let sh = unknownBash
         
-        when (not (null args)) $ do
-                putStrLn ("Error: I don't know what to do with this: " ++ unwords args)
-                usage
-                exitWith (ExitFailure (-1))
+        comment sh ("init script generator compiled by " ++ compilerName ++ " " ++ showVersion compilerVersion)
         
-        let opts = mconcat (defaultOptions:optList)
-        let optSet f = fromJust (f opts)
+        export sh "os" os
+        export sh "arch" arch
         
-        comment ("init script generator compiled by " ++ compilerName ++ " " ++ showVersion compilerVersion)
-        
-        export "os" os
-        export "arch" arch
-        
-        when (optSet setPath)     (comment "path")
-        when (optSet interactive) (comment "interactive")
-
-
--- operations that need to be abstracted and checked for proper escaping
-comment :: String -> IO ()
-comment str = mapM_ putStrLn ["# " ++ line | line <- lines str]
-
-setEnv var val = putStrLn (var ++ "=" ++ val)
-export var val = putStr "export " >> setEnv var val
-
-echo :: [String] -> IO ()
-echo = putStrLn . unwords . ("echo":)
-
+        preflight   sh
+        path        sh
+        interactive sh
