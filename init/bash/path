@@ -38,7 +38,7 @@ PATH=""
 for path in ~/bin \
 	"$deepbondi/bin/$os/$arch"  "$deepbondi/bin/$os"  "$deepbondi/bin"  \
 	"$deepbondi/sbin/$os/$arch" "$deepbondi/sbin/$os" "$deepbondi/sbin" \
-	/Developer/Tools \
+	/Developer/{usr/bin,Tools} \
 	"${GHC_HOME:-/nonexistent}/bin" \
 	"${JAVA_HOME:-/nonexistent}/bin" \
 	/usr/games \
