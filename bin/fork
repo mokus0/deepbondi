@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+#
+#  <fork>
+#    Copyright 2008 Cook, J. MR  SSD, Inc. - All Rights Reserved.
+#
+#
+
+use strict;
+
+if (my $child = fork()) {
+    # we are parent
+    exit 0;
+}
+
+system @ARGV;
