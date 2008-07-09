@@ -7,6 +7,17 @@
 
 use strict;
 
+use Getopt::Std;
+
+my %opts;
+getopts ("q", \%opts);
+
+if ($opts{"q"}) {
+    open STDIN, "<", "/dev/null";
+    open STDOUT, ">", "/dev/null";
+    open STDERR, ">", "/dev/null";
+}
+
 if (my $child = fork()) {
     # we are parent
     exit 0;
