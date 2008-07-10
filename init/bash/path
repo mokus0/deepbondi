@@ -42,7 +42,7 @@ for path in ~/bin \
 	"${GHC_HOME:-/nonexistent}/bin" \
 	"${JAVA_HOME:-/nonexistent}/bin" \
 	/usr/games \
-	{/usr/local/,/opt/local/,/,/usr/}{,X11*/,mysql/}{bin,sbin,texbin}; do
+	{/usr/local/,/opt/*/,/,/usr/}{,X11*/,mysql/}{bin,sbin,texbin}; do
         if [ -d "$path" ]; then
                 PATH="$PATH":"$path"
         fi
@@ -62,7 +62,8 @@ export PATH="${PATH#:}"
 #
 MANPATH=""
 
-for manpath in ~/man {/usr/local/,/opt/local/,/,/usr/}{,X11*/,mysql/}{,share/}man ; do
+for manpath in ~/man \
+	{/usr/local/,/opt/*/,/,/usr/}{,X11*/,mysql/}{,share/}man ; do
         if [ -d "$manpath" ]; then
                 MANPATH="$MANPATH":"$manpath"
         fi
