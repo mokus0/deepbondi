@@ -10,12 +10,20 @@ use strict;
 use Getopt::Std;
 
 my %opts;
-getopts ("q", \%opts);
+getopts ("qx", \%opts);
 
 if ($opts{"q"}) {
     open STDIN, "<", "/dev/null";
     open STDOUT, ">", "/dev/null";
     open STDERR, ">", "/dev/null";
+}
+
+if ($opts{"x"}) {
+    my ($host, @rest) = split / /, $ENV{"SSH_CONNECTION"};
+    
+    if (defined($host) && $host ne "") {
+        $ENV{"DISPLAY"} = $host . ":0";
+    }
 }
 
 if (my $child = fork()) {
