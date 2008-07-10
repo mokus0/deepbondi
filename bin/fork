@@ -10,7 +10,7 @@ use strict;
 use Getopt::Std;
 
 my %opts;
-getopts ("qx", \%opts);
+getopts ("qwW:x", \%opts);
 
 if ($opts{"q"}) {
     open STDIN, "<", "/dev/null";
@@ -28,6 +28,12 @@ if ($opts{"x"}) {
 
 if (my $child = fork()) {
     # we are parent
+    if ($opts{"W"}) {
+        sleep ($opts{"W"});
+    } elsif ($opts{"w"}) {
+        sleep 3;
+    }
+    
     exit 0;
 }
 
