@@ -27,17 +27,17 @@ umask 022
 export LSCOLORS="GxFxCxDxBxEgEdabagacad"
 export CLICOLOR=yes
 
-# configure darcs ssh id, if suitable things exist
-if [ -f ~/.ssh/darcs-id ]; then
-	export DARCS_SSH="ssh -i ~/.ssh/darcs-id"
-fi
-
 # enable darcs-client, if installed
 if cmdExists darcs-client; then
 	export DARCS_APPLY_HTTP="darcs-client apply"
 	export DARCS_APPLY_DARCS="darcs-client apply"
 	export DARCS_GET_DARCS="darcs-client get"
 	export DARCS_MGET_DARCS="darcs-client mget"
+	
+	# configure darcs ssh id, if suitable things exist
+	if [ -f ~/.ssh/darcs-id ]; then
+		export DARCS_SSH="ssh -i ~/.ssh/darcs-id"
+	fi
 fi
 
 #
