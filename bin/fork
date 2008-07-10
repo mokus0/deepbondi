@@ -31,4 +31,4 @@ if (my $child = fork()) {
     exit 0;
 }
 
-system @ARGV;
+exec @ARGV;
