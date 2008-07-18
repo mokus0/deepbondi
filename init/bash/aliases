@@ -32,7 +32,7 @@ function r/eal { clear; }
 function c {
 	# if there's a real program called "c", call it
 	if cmdExists c; then
-		`which c` "$@"
+		command c "$@"
 	# otherwise, if we were called without args, rig up the trap door
 	elif [ X"$*" == X ]; then
 		echo "$0: c: command not found"
