@@ -10,7 +10,7 @@ use strict;
 use Getopt::Std;
 
 my %opts;
-getopts ("qwW:x", \%opts);
+getopts ("qwW:xd:", \%opts);
 
 if ($opts{"q"}) {
     open STDIN, "<", "/dev/null";
@@ -22,7 +22,7 @@ if ($opts{"x"}) {
     my ($host, @rest) = split / /, $ENV{"SSH_CONNECTION"};
     
     if (defined($host) && $host ne "") {
-        $ENV{"DISPLAY"} = $host . ":0";
+        $ENV{"DISPLAY"} = $host . ":" . ($opts{"d"} || "0");
     }
 }
 
