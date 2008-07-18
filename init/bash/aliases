@@ -57,7 +57,7 @@ if [ X"$os" == XDarwin ]; then
 			echo
 		fi
 		
-		disktool "$@"
+		command disktool "$@"
 	}
 	
 	alias eject='diskutil eject'
