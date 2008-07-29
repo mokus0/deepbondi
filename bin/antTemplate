@@ -1,0 +1,56 @@
+#!/usr/bin/perl
+#
+#  <antTemplate>
+#    Copyright 2008 James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+
+my ($project) = @ARGV;
+
+my $year = `date +%Y`;
+chomp $year;
+
+my $fullName = `fullName -n`;
+
+my $srcDir = "src";
+my $buildDir = "build";
+my $distDir = "dist";
+
+open OUTFILE, ">", "build.xml";
+
+print OUTFILE <<ANT;
+<project name="$project" default="compile" basedir=".">
+  <description>
+     $project: (c) $year $fullName.
+     I'm too lame to describe my project.
+  </description>
+
+  <property name="src" location="$srcDir"/>
+  <property name="build" location="$buildDir"/>
+  <property name="dist" location="$distDir"/>
+  
+  <target name="init">
+    <tstamp/>
+    <mkdir dir="\${build}"/>
+  </target>
+  
+  <target name="compile" depends="init">
+    <javac srcdir="\${src}" destdir="\${build}"/>
+  </target>
+
+  <target name="dist" depends="compile">
+    <mkdir dir="\${dist}/lib"/>
+    
+    <jar jarfile="\${dist}/lib/$project-\${DSTAMP}.jar" basedir="\${build}"/>
+  </target>
+  
+  <target name="clean">
+    <delete dir="\${build}"/>
+    <delete dir="\${dist}"/>
+  </target>
+</project>
+ANT
+
+close OUTFILE;
