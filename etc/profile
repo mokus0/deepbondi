@@ -1,8 +1,10 @@
 # System-wide profile for bash
 
-. ${deepbondi:-/deepbondi}/init/bash/preflight
-. ${deepbondi:-/deepbondi}/init/bash/path
-
-if [ "${#PS1}" != 0 ]; then
-	. ${deepbondi:-/deepbondi}/init/bash/interactive
+if [ -x "$BASH" ]; then
+	. ${deepbondi:-/deepbondi}/init/bash/preflight
+	. ${deepbondi:-/deepbondi}/init/bash/path
+	
+	if [ "${#PS1}" != 0 ]; then
+		. ${deepbondi:-/deepbondi}/init/bash/interactive
+	fi
 fi
