@@ -49,7 +49,6 @@ complete -o $plusdirs -f -X '!*[g.][Zz]' uncompress zcat gzcat
 complete -o $plusdirs -f -X '!*t[gba][zr]*' tar gtar gnutar
 complete -o $plusdirs -f -X '!*.zip' unzip
 complete -o $plusdirs -f -X '!*[.l]hs' runhaskell runghc ghc ghci runhugs hugs
-complete -o $plusdirs -f -X '!*.java' javac
 
 # Hosts
 complete -A hostname ftp ncftp telnet ping traceroute ssh rlogin rsh
