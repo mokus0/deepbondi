@@ -1,0 +1,74 @@
+#!/usr/bin/perl
+#
+#  <javaTemplate>
+#    Copyright 2007 James Cook - All Rights Reserved.
+#
+#
+
+use strict;
+
+my ($file, $package) = @ARGV;
+
+# strip extension, set default ext
+$file =~ s/\.(java)$//i;
+my $ext = $1 || "java";
+
+# convert '.'s to '/'s in filename
+$file =~ s{\.}{/}g;
+
+# get the class name
+$file =~ m{([^/]+)$};
+my $class = $1;
+
+# construct package name for import declaration;
+#   use ARGV[2] ($package) if defined, otherwise use $file
+
+my @packageparts;
+
+if (!defined($package)) {
+	@packageparts = split m{/}, $file;
+	
+	# discard the class name
+	pop @packageparts;
+} else {
+	@packageparts = split m{\.}, $package;
+}
+
+# mangle the name components to make sure they're valid
+# package identifiers
+@packageparts = grep {$_ ne ""} @packageparts;
+@packageparts = map {s/[^a-zA-Z0-9]/_/g; $_} @packageparts;
+
+$package = join ".", @packageparts;
+
+# create the enclosing directory if needed
+open DIRNAME, "-|", "dirname", $file or die "Can't open `dirname` utility";
+my $dirname = <DIRNAME>;
+chomp $dirname;
+close DIRNAME;
+
+if (! -d $dirname) {
+    system "mkdir", "-p", $dirname;
+    
+    die "Failed to make dir $dirname" if (! -d $dirname);
+}
+
+open OUTFILE, ">", "$file.$ext";
+
+# get info that will appear in the output header comments
+my $year = `date +%Y`;
+chomp $year;
+
+my $fullName = `fullName -n`;
+
+# finally, write the file
+
+print OUTFILE <<JAVA;
+
+package $package;
+
+public class $class {
+
+}
+
+JAVA
