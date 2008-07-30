@@ -63,9 +63,12 @@ my $fullName = `fullName -n`;
 
 # finally, write the file
 
-print OUTFILE <<JAVA;
+print OUTFILE <<JAVA if ($package ne "");
 
 package $package;
+JAVA
+
+print OUTFILE <<JAVA;
 
 public class $class {
 
