@@ -16,10 +16,6 @@ alias lsd='ls -ld'
 
 alias hexdump='hexdump -C'
 
-# toggle keymaps in X11 by typing 'aoeu' or 'asdf'
-alias asdf='xmodmap ${deepbondi}/init/X11/keymaps/dvorak.pke >&/dev/null'
-alias aoeu='xmodmap ${deepbondi}/init/X11/keymaps/qwerty.pke >&/dev/null'
-
 #
 # aliases to catch various common typos
 #
