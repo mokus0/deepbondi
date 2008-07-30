@@ -7,7 +7,7 @@
 
 use strict;
 
-my ($project) = @ARGV;
+my ($project, $main) = @ARGV;
 
 my $year = `date +%Y`;
 chomp $year;
@@ -18,6 +18,10 @@ my $srcDir = "src";
 my $buildDir = "build";
 my $distDir = "dist";
 
+unless (defined $main) {
+  $main = "Main";
+}
+
 open OUTFILE, ">", "build.xml";
 
 print OUTFILE <<ANT;
@@ -27,9 +31,23 @@ print OUTFILE <<ANT;
      I'm too lame to describe my project.
   </description>
 
+  <property environment="env"/>
+  
   <property name="src" location="$srcDir"/>
   <property name="build" location="$buildDir"/>
   <property name="dist" location="$distDir"/>
+  
+  <path id="build.classpath.path">
+  </path>
+  <property name="build.classpath" refid="build.classpath.path"/>
+  
+  <path id="run.classpath.path">
+    <pathelement path="\${build.classpath}"/>
+    <pathelement path="\${build}"/>
+  </path>
+  <property name="run.classpath" refid="run.classpath.path"/>
+  
+  <property name="main" value="$main"/>
   
   <target name="init">
     <tstamp/>
@@ -38,12 +56,23 @@ print OUTFILE <<ANT;
   
   <target name="compile" depends="init">
     <javac srcdir="\${src}" destdir="\${build}"/>
+    <classpath>
+      <pathelement path="\${build.classpath}"/>
+    </classpath>
   </target>
 
   <target name="dist" depends="compile">
     <mkdir dir="\${dist}/lib"/>
     
     <jar jarfile="\${dist}/lib/$project-\${DSTAMP}.jar" basedir="\${build}"/>
+  </target>
+  
+  <target name="run" depends="compile">
+    <java classname="\${main}">
+      <classpath>
+	<pathelement path="\${run.classpath}"/>
+      </classpath>
+    </java>
   </target>
   
   <target name="clean">
