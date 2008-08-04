@@ -87,6 +87,13 @@ elif env CLICOLOR_FORCE=1 ls -Gd / 2>/dev/null | hasEscapes; then
   alias ls='ls -G'
 fi
 
+if echo foo | grep --color=yes -e foo 2>/dev/null | hasEscapes; then
+  # possibly unreasonable assumption here: assuming grep and egrep
+  # always act the same...
+  alias grep='grep --color=auto'
+  alias egrep='egrep --color=auto'
+fi
+
 #
 # Read user's aliases
 #
