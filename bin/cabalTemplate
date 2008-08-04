@@ -50,7 +50,7 @@ open OUTFILE, ">", $file;
 
 print OUTFILE <<CABAL;
 name:                   $noExt
-version:                0.001
+version:                0.0.0.1
 stability:              experimental
 
 cabal-version:          >= 1.2
