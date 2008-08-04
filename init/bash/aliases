@@ -73,13 +73,18 @@ fi
 # various conditionally defined aliases
 #
 if cmdExists gls; then
+  # use gls if the user went to the trouble of installing it
   alias ls='gls --color=auto'
-elif ls -G >/dev/null 2>&1; then
-  alias ls='ls -G'
-elif ls --color=auto >/dev/null 2>&1; then
-  alias ls='ls --color=auto'
 elif cmdExists colorls; then
+  # likewise 'colorls'
   alias ls='colorls'
+elif env CLICOLOR_FORCE=1 ls -d / 2>/dev/null | hasEscapes; then
+  : # no alias; ls already makes color (note that CLICOLOR_FORCE does
+    # not imply CLICOLOR, so this test is valid - at least, on my ls)
+elif ls --color=yes -d / 2>/dev/null | hasEscapes; then
+  alias ls='ls --color=auto'
+elif env CLICOLOR_FORCE=1 ls -Gd / 2>/dev/null | hasEscapes; then
+  alias ls='ls -G'
 fi
 
 #
