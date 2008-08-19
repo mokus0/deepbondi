@@ -28,11 +28,11 @@ user_bash_initdir=${user_bash_initdir:-~/.init/bash}
 # set up some useful environment variables that are 
 # hard to get right in a portable way (and that we will want often)
 #
-command -p uname -o >/dev/null 2>&1
+os=`command -p uname -o 2>/dev/null`
 if [ $? == 0 ]; then
-	export os=`command -p uname -o`
+	export os
 	
-	if command -p echo $os | command -p grep -q '/' ; then
+	if echo $os | command -p grep -q '/' ; then
 		export os=`command -p uname`
 	fi
 else
