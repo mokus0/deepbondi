@@ -32,7 +32,7 @@ os=`command -p uname -o 2>/dev/null`
 if [ $? == 0 ]; then
 	export os
 	
-	if expr "$os" : '.*/' >/dev/null ; then
+	if command -p expr "$os" : '.*/' >/dev/null ; then
 		export os=`command -p uname`
 	fi
 else
@@ -40,7 +40,7 @@ else
 fi
 
 arch=`command -p uname -m`
-if echo $arch | command -p grep -q ' ' ; then
+if command -p expr "$arch" : '.* ' >/dev/null ; then
 	arch=`command -p uname -p`
 fi
 export arch
