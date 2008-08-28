@@ -12,6 +12,11 @@
  -      
  -      (this also behaves rationally if "HERE" occurs in the output of Main)
  -      
+ -      This also works on at least bash 3.2.17:
+ -      $ eval "`runhaskell Main`"
+ -      
+ -      (Note the double-quotes around the backquoted expression - they are critical)
+ -      
  -      Order of preference for how this should execute (based primarily on speed):
  -        - precompiled binary
  -        - "runhugs -98"
