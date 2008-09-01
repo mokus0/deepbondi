@@ -18,7 +18,7 @@
  -      (Note the double-quotes around the backquoted expression - they are critical)
  -      
  -      Order of preference for how this should execute (based primarily on speed):
- -        - precompiled binary
+ -        - precompiled binary (if up-to-date)
  -        - "runhugs -98"
  -        - "runhaskell"
  -
