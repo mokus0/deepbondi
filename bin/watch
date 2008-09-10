@@ -10,6 +10,10 @@
 use strict;
 use Getopt::Std;
 
+if (-f "/usr/bin/watch") {
+	exec "/usr/bin/watch", @ARGV;
+}
+
 my %opts;
 getopts("t:", \%opts);
 
