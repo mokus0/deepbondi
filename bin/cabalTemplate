@@ -42,8 +42,12 @@ HASKELL
 
 my $srcDir = ".";
 
+if (! -x "$dirname/src") {
+    $srcDir = "src" if mkdir "$dirname/src";
+}
+
 if (-d "$dirname/src") {
-        $srcDir = "src";
+    $srcDir = "src";
 }
 
 open OUTFILE, ">", $file;
@@ -68,3 +72,19 @@ Library
 CABAL
 
 close OUTFILE;
+
+if (! -x "$dirname/_darcs") {
+    my $cwd = `pwd`;
+    chomp $cwd;
+    
+    chdir $dirname
+    and (system "darcs", "initialize") == 0
+    and open BORINGFILE, ">>", "_darcs/prefs/boring"
+    and print BORINGFILE "(^|/)dist(/|\$)\n"
+    and close BORINGFILE;
+    
+    chdir $cwd;
+}
+
+# warning; if extending here, be aware that the previous part
+# only makes a very rudimentary effort to ensure that the PWD is unchanged.
