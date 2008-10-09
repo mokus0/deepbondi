@@ -55,10 +55,11 @@ print OUTFILE <<ANT;
   </target>
   
   <target name="compile" depends="init">
-    <javac srcdir="\${src}" destdir="\${build}"/>
-    <classpath>
-      <pathelement path="\${build.classpath}"/>
-    </classpath>
+    <javac srcdir="\${src}" destdir="\${build}">
+      <classpath>
+        <pathelement path="\${build.classpath}"/>
+      </classpath>
+    </javac>
   </target>
 
   <target name="dist" depends="compile">
