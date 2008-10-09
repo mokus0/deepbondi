@@ -14,8 +14,6 @@ alias l='ls -lg'
 alias ll='ls -lag'
 alias lsd='ls -ld'
 
-alias hexdump='hexdump -C'
-
 #
 # handy things
 #
