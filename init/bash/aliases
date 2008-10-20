@@ -17,6 +17,17 @@ alias lsd='ls -ld'
 alias hexdump='hexdump -C'
 
 #
+# handy things
+#
+function forever {
+	"$@" && forever "$@"
+}
+
+function withDelay {
+	sleep 1 && "$@"
+}
+
+#
 # aliases to catch various common typos
 #
 # "r/eal" = "clear" with right hand off-by-one on dvorak
