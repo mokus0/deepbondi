@@ -27,6 +27,11 @@ function withDelay {
 	sleep 1 && "$@"
 }
 
+function noFail {
+	"$@"
+	true
+}
+
 #
 # aliases to catch various common typos
 #
