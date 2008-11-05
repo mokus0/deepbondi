@@ -42,6 +42,7 @@ for path in ~/bin \
 	"${GHC_HOME:-/nonexistent}/bin" \
 	"${JAVA_HOME:-/nonexistent}/bin" \
 	/usr/games \
+	/Library/Frameworks/*.framework/Versions/{Current,!(Current)}/usr/bin \
 	{/usr/local/,/opt/*/,/,/usr/}{,X11/,X11R6/,mysql/}{bin,sbin,texbin}; do
         if [ -d "$path" ]; then
                 PATH="$PATH":"$path"
