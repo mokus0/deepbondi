@@ -8,8 +8,6 @@
 # pattern matching enabled (use 'shopt -s extglob progcomp' to enable
 # these if they are not already enabled).
 
-shopt -s extglob
-
 # Tree helper functions which only use bash, to ease readability.
 
 # look for value associated to key from stdin in K/V hash file format
