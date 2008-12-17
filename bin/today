@@ -1,12 +1,10 @@
 #!/bin/sh
 #
 #	<today>
-#		Redirect STDIN to a file named "YYYY-MM-DD".
+#		Output the current date formatted as "YYYY-MM-DD" for use as a filename.
 #		Optionally also adds an extension (do not include the '.')
 #
 
 datestamp=`date +'%Y-%m-%d'`
 extension=${1:+.}$1
-file=$datestamp$extension
-
-exec cat > $file
+echo "$datestamp$extension"
