@@ -80,7 +80,8 @@ if cmdExists ghci; then
 	function :b { ghci -e ":browse $*"; }
 	function :i { ghci -e ":info $*"; }
 	function :t { ghci -e ":type $*"; }
-	alias :q=exit
+	function :l { pushd "$@"; }
+	function :q { popd 2>/dev/null || exit; }
 fi
 
 #
