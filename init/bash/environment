@@ -33,26 +33,26 @@ if cmdExists darcs-client; then
 	export DARCS_APPLY_DARCS="darcs-client apply"
 	export DARCS_GET_DARCS="darcs-client get"
 	export DARCS_MGET_DARCS="darcs-client mget"
+fi
+
+# configure darcs ssh id, if suitable things exist
+if [ -f ~/.ssh/darcs-id ]; then
+	# unfortunately this doesn't work well because darcs won't
+	# expand the ~.  I could use $HOME, but darcs won't strip quotes if
+	# i include them, and it won't protect spaces if I don't...
 	
-	# configure darcs ssh id, if suitable things exist
-	if [ -f ~/.ssh/darcs-id ]; then
-		# unfortunately this doesn't work well because darcs won't
-		# expand the ~.  I could use $HOME, but darcs won't strip quotes if
-		# i include them, and it won't protect spaces if I don't...
+	if expr "$HOME" : '.*[ ()&<>]' >/dev/null 2>&1 ; then
+		# because darcs-client handles things differently, we cannot simply
+		# test for the space, because other things could potentially do a 
+		# lot of damage if blindly fed to a shell.  I don't know by what
+		# means darcs-client invokes this, actually.
 		
-		if expr "$HOME" : '.*[ ()&<>]' >/dev/null 2>&1 ; then
-			# because darcs-client handles things differently, we cannot simply
-			# test for the space, because other things could potentially do a 
-			# lot of damage if blindly fed to a shell.  I don't know by what
-			# means darcs-client invokes this, actually.
-			
-			echo 1>&2 Warning: your home directory path contains spaces, so darcs cannot be properly
-			echo 1>&2 passed the -i option to use your darcs-id crypto key.
-			
-			export DARCS_SSH="ssh -i ~/.ssh/darcs-id"
-		else
-			export DARCS_SSH="ssh -i $HOME/.ssh/darcs-id"
-		fi
+		echo 1>&2 Warning: your home directory path contains spaces, so darcs cannot be properly
+		echo 1>&2 passed the -i option to use your darcs-id crypto key.
+		
+		export DARCS_SSH="ssh -i ~/.ssh/darcs-id"
+	else
+		export DARCS_SSH="ssh -i $HOME/.ssh/darcs-id"
 	fi
 fi
 
