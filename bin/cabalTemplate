@@ -19,6 +19,11 @@ my $dirname = <DIRNAME>;
 chomp $dirname;
 close DIRNAME;
 
+if (! defined $file) {
+    $file = `basename \`pwd\``;
+    chomp $file;
+}
+
 my $noExt = $file;
 $noExt =~ s/\.cabal$//i;
 
@@ -62,7 +67,11 @@ build-type:             Simple
 
 author:                 $fullName <your email here>
 maintainer:             $fullName <your email here>
+license:                Unspecified
+homepage:               /dev/null
 
+category:               Unclassified
+synopsis:               I'm too lame to describe my project
 description:            I'm too lame to describe my project
 
 Library
