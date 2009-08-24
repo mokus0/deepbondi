@@ -87,10 +87,16 @@ if (! -x "$dirname/_darcs") {
     chomp $cwd;
     
     chdir $dirname
-    and (system "darcs", "initialize") == 0
-    and open BORINGFILE, ">>", "_darcs/prefs/boring"
+    and 0 == system "darcs", "initialize"
+    and rename "_darcs/prefs/boring", ".boring"
+    and open BORINGFILE, ">>", ".boring"
     and print BORINGFILE "(^|/)dist(/|\$)\n"
-    and close BORINGFILE;
+    and close BORINGFILE
+    and 0 == system "darcs add .boring"
+    and 0 == system "darcs setpref boringfile .boring"
+    and 0 == system "darcs record -a -m 'initializing repository' -A 'cabalTemplate script'"
+    and 0 == system "darcs add Setup.lhs src *.cabal"
+    or die "Failed to record initial darcs patch";
     
     chdir $cwd;
 }
