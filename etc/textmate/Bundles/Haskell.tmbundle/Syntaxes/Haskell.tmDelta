@@ -52,7 +52,7 @@
 			</dict>
 			<dict>
 				<key>begin</key>
-				<string>^\s*(foreign)\s+((import\s+(?:stdcall|ccall))\s*("[^"]*")\s*|(export\s+(?:stdcall|ccall))\s)</string>
+				<string>^\s*(foreign)\s+((import\s+(?:stdcall|ccall|prim)(?:\s+(?:safe|unsafe))?)\s*("[^"]*")\s*|(export\s+(?:stdcall|ccall))\s)</string>
 				<key>beginCaptures</key>
 				<dict>
 					<key>1</key>
