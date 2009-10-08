@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>changed</key>
@@ -233,7 +233,7 @@
 					</dict>
 					<dict>
 						<key>begin</key>
-						<string>(qr)\s*([^\s\w\'\{\[\(\&lt;])</string>
+						<string>(qr)\s*([^\s\w\'\{\[\(\&lt;_])</string>
 						<key>captures</key>
 						<dict>
 							<key>0</key>
@@ -257,7 +257,7 @@
 								<key>comment</key>
 								<string>This is to prevent thinks like qr/foo$/ to treat $/ as a variable</string>
 								<key>match</key>
-								<string>\$(?=[^\s\w\'\{\[\(\&lt;])</string>
+								<string>\$(?=[^\s\w\'\{\[\(\&lt;_])</string>
 								<key>name</key>
 								<string>keyword.control.anchor.perl</string>
 							</dict>
