@@ -49,12 +49,6 @@ if (! -d $dirname) {
 
 open OUTFILE, ">", "$file.$ext";
 
-# get info that will appear in the output header comments
-my $year = `date +%Y`;
-chomp $year;
-
-my $fullName = `fullName -n`;
-
 # if this is a "Main" make it executable
 if ($module eq "Main") {
 	chmod 0755, $file;
@@ -63,6 +57,12 @@ if ($module eq "Main") {
 # finally, write the file
 
 if ($ext =~ m/lhs/i) {
+# get info that will appear in the output header comments
+my $year = `date +%Y`;
+chomp $year;
+
+my $fullName = `fullName -n`;
+
 print OUTFILE <<LITERATE_HASKELL
 \\documentclass[10pt]{article}
 %include polycode.fmt
@@ -97,11 +97,6 @@ if ($module eq "Main") {
 print OUTFILE "#!/usr/bin/env runhaskell\n";
 }
 print OUTFILE <<HASKELL
-{-
- -      ``$file''
- -      (c) $year $fullName
- -}
-
 module $module where
 
 HASKELL
