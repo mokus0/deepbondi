@@ -1,0 +1,45 @@
+#!/bin/bash
+#
+#   Run darcs with the same args for all darcs repos under the current dir.
+#   $DARCS_ALL_USE_CWD_VERSION can be set to:
+#       "TOP" to cause a 'darcs-all' script in the current dir to be run
+#             instead of this script (for example, the ghc source dist
+#             includes a darcs-all script).
+#       "ANYWHERE" to cause a 'darcs-all' script in any subdir to take over 
+#             and do the processing for that subtree.
+#   If unset or set to anything else, darcs-all scripts will be ignored.
+#   Obviously, use DARCS_ALL_USE_CWD_VERSION cautiously if at all.
+#
+
+declare -a ARGS
+ARGS=("$@")
+
+# if user's env permits it and there's a ./darcs-all, run it instead
+if [ X"$DARCS_ALL_USE_CWD_VERSION" = XTOP -a -x ./darcs-all ]; then
+    exec ./darcs-all "$@"
+fi
+
+go() {
+    # if user's env permits it and there's a ./darcs-all, run it instead
+    if [ X"$DARCS_ALL_USE_CWD_VERSION" = XANYWHERE -a -x ./darcs-all ]; then
+        # (exec only terminates the current subshell)
+        exec ./darcs-all "$@"
+    fi
+    
+    # otherwise, run darcs and then recurse
+    if [ -d _darcs ]; then
+        echo "darcs-all: in `pwd`:"
+        darcs "${ARGS[@]}"
+    fi
+        
+    for d in */; do (
+        # don't recurse into subdirs called "_darcs" or "depracted" (or 
+        # dirs that don't exist, typically caused by unmatched "*/"):
+        if [ \( X"$d" != X_darcs/ \) -a \( X"$d" != Xdepracted/ \) -a \( -d "$d" \) ]; then
+            cd "$d"
+            go
+        fi
+    ) done
+}
+
+go
