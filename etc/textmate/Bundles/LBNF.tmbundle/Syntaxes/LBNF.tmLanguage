@@ -14,15 +14,11 @@
 	<array>
 		<dict>
 			<key>include</key>
-			<string>#comments</string>
+			<string>#comment</string>
 		</dict>
 		<dict>
 			<key>include</key>
-			<string>#literals</string>
-		</dict>
-		<dict>
-			<key>include</key>
-			<string>#reserved.words</string>
+			<string>#pragma</string>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -31,7 +27,68 @@
 	</array>
 	<key>repository</key>
 	<dict>
-		<key>blockComment</key>
+		<key>category</key>
+		<dict>
+			<key>name</key>
+			<string>entity.name.type.lbnf</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#reserved.categories</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>[A-Za-z][A-Za-z0-9_]*</string>
+					<key>name</key>
+					<string>entity.name.category.lbnf</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(\[)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.square-bracket.begin.lbnf</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(\])</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.square-bracket.end.lbnf</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#category</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>comment</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#comment.line</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#comment.block</string>
+				</dict>
+			</array>
+		</dict>
+		<key>comment.block</key>
 		<dict>
 			<key>begin</key>
 			<string>{-</string>
@@ -51,11 +108,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#blockCommentContent</string>
+					<string>#comment.block.content</string>
 				</dict>
 			</array>
 		</dict>
-		<key>blockCommentContent</key>
+		<key>comment.block.content</key>
 		<dict>
 			<key>begin</key>
 			<string>{-</string>
@@ -75,25 +132,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#blockCommentContent</string>
+					<string>#comment.block.content</string>
 				</dict>
 			</array>
 		</dict>
-		<key>comments</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#dashComment</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#blockComment</string>
-				</dict>
-			</array>
-		</dict>
-		<key>dashComment</key>
+		<key>comment.line</key>
 		<dict>
 			<key>begin</key>
 			<string>(--)[ -]?</string>
@@ -124,6 +167,24 @@
 				<dict>
 					<key>include</key>
 					<string>#identifier</string>
+				</dict>
+			</array>
+		</dict>
+		<key>literal</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#literal.char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#literal.integer</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#literal.string</string>
 				</dict>
 			</array>
 		</dict>
@@ -170,34 +231,325 @@
 				</dict>
 			</array>
 		</dict>
-		<key>literals</key>
+		<key>pragma</key>
 		<dict>
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>include</key>
-					<string>#literal.char</string>
+					<key>begin</key>
+					<string>\b(comment)\b</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.pragma.comment.lbnf</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(;)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.semicolon.lbnf</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>pragma.comment.lbnf</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#comment</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#literal</string>
+						</dict>
+					</array>
 				</dict>
 				<dict>
-					<key>include</key>
-					<string>#literal.integer</string>
+					<key>begin</key>
+					<string>\b(internal)\b</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.pragma.internal.lbnf</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(?&lt;=;)</string>
+					<key>name</key>
+					<string>pragma.internal.lbnf</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#rule</string>
+						</dict>
+					</array>
 				</dict>
 				<dict>
-					<key>include</key>
-					<string>#literal.string</string>
+					<key>begin</key>
+					<string>\b((?:position\s+)?token)(?:\s+([A-Za-z][A-Za-z0-9_]*))?\b</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.pragma.token.lbnf</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.category.lbnf</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>markup.list.regexp.lbnf</string>
+					<key>end</key>
+					<string>(;)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.semicolon.lbnf</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>pragma.token.lbnf</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#comment</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#token.reg</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\b(entrypoints)\b</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.pragma.entrypoints.lbnf</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(;)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.semicolon.lbnf</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>pragma.entrypoints.lbnf</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#comment</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#category</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\b((?:separator|terminator)(?:\s+nonempty)?)\b</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.pragma.separator.lbnf</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(;)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.semicolon.lbnf</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>pragma.separator.lbnf</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#comment</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#category</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#literal.string</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\b(coercions)\b</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.pragma.coercions.lbnf</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(;)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.semicolon.lbnf</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>pragma.coercions.lbnf</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#comment</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#category</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#literal.integer</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\b(rules)(?:\s+([A-Za-z][A-Za-z0-9_]*))?\b(?:\s*(::=))</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.pragma.rules.lbnf</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.category.lbnf</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.double-colon-equals.lbnf</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(;)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.semicolon.lbnf</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>pragma.rules.lbnf</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#comment</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#rules.rhs</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\b(layout(?:\s+(?:stop|toplevel))?)\b</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.pragma.layout.lbnf</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(;)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.semicolon.lbnf</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>pragma.layout.lbnf</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#comment</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#literal.string</string>
+						</dict>
+					</array>
 				</dict>
 			</array>
 		</dict>
-		<key>reserved.labels</key>
+		<key>production</key>
 		<dict>
+			<key>name</key>
+			<string>meta.production.lbnf</string>
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>match</key>
-					<string>\b_\b</string>
-					<key>name</key>
-					<string>support.label.wildcard.lbnf</string>
+					<key>include</key>
+					<string>#literal</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>#category</string>
+				</dict>
+			</array>
+		</dict>
+		<key>reserved.categories</key>
+		<dict>
+			<key>patterns</key>
+			<array>
 				<dict>
 					<key>match</key>
 					<string>Double</string>
@@ -230,33 +582,10 @@
 				</dict>
 			</array>
 		</dict>
-		<key>reserved.symbols</key>
-		<dict>
-			<key>match</key>
-			<string>::=|[;.\[\]_():,|\-*+?\{\}]</string>
-			<key>name</key>
-			<string>keyword.operator.lbnf</string>
-		</dict>
-		<key>reserved.words</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>match</key>
-					<string>\b(char|coercions|comment|digit|entrypoints|eps|internal|layout|letter|lower|nonempty|position|rules|separator|stop|terminator|token|toplevel|upper)\b</string>
-					<key>name</key>
-					<string>keyword.other.lbnf</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#reserved.labels</string>
-				</dict>
-			</array>
-		</dict>
 		<key>rule</key>
 		<dict>
 			<key>begin</key>
-			<string>([A-Za-z][A-Za-z0-9_]+)|(\[\]|\(:\))\s*(\.)</string>
+			<string>([A-Za-z][A-Za-z0-9_]+)|(\[\]|\(:\)|\(:\[\]\))|(_)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -272,22 +601,225 @@
 				<key>3</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.period.rule-thingy.lbnf</string>
+					<string>support.label.wildcard.lbnf</string>
 				</dict>
 			</dict>
 			<key>end</key>
 			<string>(;)</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.semicolon.lbnf</string>
+				</dict>
+			</dict>
 			<key>name</key>
 			<string>meta.rule.lbnf</string>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#literals</string>
+					<string>#comment</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#comments</string>
+					<string>#rule.part.cat</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#rule.part.production</string>
+				</dict>
+			</array>
+		</dict>
+		<key>rule.part.cat</key>
+		<dict>
+			<key>begin</key>
+			<string>(\.)\s*</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.period.lbnf</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>meta.rule.part.cat.lbnf</string>
+			<key>end</key>
+			<string>(?=::=)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#comment</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#category</string>
+				</dict>
+			</array>
+		</dict>
+		<key>rule.part.production</key>
+		<dict>
+			<key>begin</key>
+			<string>(::=)\s*</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.double-colon-equals.lbnf</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>meta.rule.part.production.lbnf</string>
+			<key>end</key>
+			<string>(?=;)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#comment</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#production</string>
+				</dict>
+			</array>
+		</dict>
+		<key>rules.rhs</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\|</string>
+					<key>name</key>
+					<string>operator.separator.rules.lbnf</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#literal.string</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#category</string>
+				</dict>
+			</array>
+		</dict>
+		<key>token.reg</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#comment</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#literal.char</string>
+				</dict>
+				<dict>
+					<key>comment</key>
+					<string>constant.language.token.lbnf</string>
+					<key>match</key>
+					<string>\b(eps|digit|letter|upper|lower)\b</string>
+					<key>name</key>
+					<string>string.regexp.token.lbnf</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(\()</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.parentheses.begin.lbnf</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(\))</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.parentheses.end.lbnf</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#token.reg</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(\[)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.square-bracket.begin.lbnf</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(\])</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.square-bracket.end.lbnf</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#literal.string</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>(\{)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.brace.begin.lbnf</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(\})</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.brace.end.lbnf</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#literal.string</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>[|\-*+?]</string>
+					<key>name</key>
+					<string>operator.regex.token.lbnf</string>
 				</dict>
 			</array>
 		</dict>
