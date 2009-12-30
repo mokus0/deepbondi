@@ -1,0 +1,54 @@
+#!/usr/bin/env osascript -l AppleScript
+-- usage:
+-- excel_sheeter <excel_file> <excel_file> ...
+-- 
+-- Uses Excel to open the given files, extract every worksheet from them,
+-- and save them back into the same directory as the workbook they came from.
+-- 
+-- Generates intermediate files typically named "Workbook" with arbitrary
+-- numbers appended.  This is because excel's applescript support is psychotic,
+-- It might be fixable but I'm not gonna bang my head any more.
+-- 
+
+on run argv
+--    set theOutputDir to (do shell script "pwd") as POSIX file
+    
+    repeat with arg in argv
+        tell application "Finder" 
+            set theInput to ((arg as POSIX file) as alias)
+            set theInputName to the name of theInput
+            set theOutputDir to the container of theInput
+        end tell
+        
+        tell application "Microsoft Excel"
+            set default save format to CSV file format
+        
+            open theInput
+            set theBook to workbook (the name of the last workbook)
+            set theSheets to every worksheet of theBook
+        
+            repeat with theSheet in theSheets
+                set theName to the name of theSheet
+                
+                set newBook to make new workbook
+                
+                set newSheet to duplicate theSheet to sheet 1 of newBook
+                close newBook without saving
+                
+                set newBook to workbook (the name of the last workbook)
+                
+                save newBook
+                set theOldPath to the full name of newBook
+                close newBook without saving
+                
+                tell application "Finder"
+                    set theNewPath to move {theOldPath as alias} to theOutputDir
+                    set the name of theNewPath to ({theInputName, " - ", theName, ".csv"} as string)
+                end tell
+            end repeat
+        
+            close theBook without saving
+        end tell
+    end repeat
+
+end run
