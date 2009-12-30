@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+# takes supplied arg and runs it on $PATH, with each path
+# component presented and interpreted on a single line.
+# for example, one useful command is "grep -v ..."
+
+use strict;
+
+my @cmd = @ARGV;
+my $path = $ENV{"PATH"};
+
+open STDOUT, "|-", "sed", 's/:$//';
+open STDOUT, "|-", "tr", "\n", ":";
+open STDOUT, "|-", @cmd;
+open STDOUT, "|-", "tr", ":", "\n";
+print $path;
+
+close STDOUT;
