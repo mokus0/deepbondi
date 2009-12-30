@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+#
+# works like xargs but with slightly more predictable arg mangling (due to
+#       fact that the args never pass through a pipe and are therefore not
+#       subject to mangling at all)
+#
+# usage:
+#   mapM command common-args \; arg1 arg2 arg3
+# is the same as:
+#   command common-args arg1
+#   command common-args arg2
+#   command common-args arg3
+#
+
+use strict;
+
+my @command;
+my @args = @ARGV;
+
+while (@args && ($_ = shift @args) ne ";") {
+    push @command, $_;
+}
+
+foreach my $arg (@args) {
+    my @sys = (@command, $arg);
+    my $r = system @sys;
+    
+    if ($r == -1) {
+        print STDERR "mapM: $sys[0]: $!\n";
+    } 
+    
+    if ($r != 0) {
+        exit ($r >> 8);
+    }
+}
+
+exit 0;
