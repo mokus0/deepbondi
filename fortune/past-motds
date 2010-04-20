@@ -1625,3 +1625,7 @@ use tools ... and yet you won't?
                idea, even if its origin is as an abstraction over
                something else.
 
+%
+
+Specifications are like programs - if they're not tested, there's no reason to believe they are right.
+
