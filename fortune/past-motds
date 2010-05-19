@@ -1629,3 +1629,10 @@ use tools ... and yet you won't?
 
 Specifications are like programs - if they're not tested, there's no reason to believe they are right.
 
+%
+
+Java seems to have been designed to strike a careful balance between making
+the type system as obstructive as possible while minimizing any actual
+guarantees of correctness.
+    -- Casey McCann
+
