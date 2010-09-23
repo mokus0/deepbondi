@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+#  <sortHsImports>
+#    Copyright 2010 James Cook - All Rights Reserved.
+#
+#
+
+runhaskell ${deepbondi:-/deepbondi}/bin/sortHsImports.hs
