@@ -1718,3 +1718,14 @@ language that the repetitive CPU brain can understand.
 
     -- Heinrich Apfelmus, paraphrasing Luke Palmer
 
+%
+
+I have never read the Church-Turing thesis as “C is Turing complete, so you
+might as well use C for all your programming tasks”. I read it almost the
+opposite way: “choose whatever language you want, because I can always write
+an interpreter for your language in my language”. Isn’t it great that we are
+able to choose between the uneasy handwaving of Perl and the frustrating
+precision of Agda?
+
+    -- Luke Palmer
+
