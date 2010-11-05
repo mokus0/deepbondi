@@ -44,30 +44,47 @@ EOF
 sub wrap {
     my @lines = @_;
     
+    # split all the lines in @lines on $delim, placing the results into
+    # one long list (@words)
     my @words;
     for my $line (@lines) {
         my @lineWords = split $delim, $line;
+        @lineWords = grep {length $_ > 0} @lineWords;
         push @words, @lineWords;
     }
     
+    # making use of the globals $col (output column position) and @wordBuf
+    # (not-yet-returned words) iterate through @words, adding each word to
+    # @wordBuf and flushing the @wordBuf into @lines every time a word would
+    # put the $col position over $outWidth.
     @lines = ();
     for my $word (@words) {
         my $wLen = length $word;
         if ($wLen + $col >= $outWidth) {
-            my $outLine = join ' ', @wordBuf;
-            @wordBuf = ();
-            
-            push @lines, $outLine;
-            $col = 0;
+            # flush @wordBuf and reset $col
+            push @lines, flush();
         } else {
+            # count one space
             $col++;
         }
         
+        # record $word
         push @wordBuf, $word;
         $col += $wLen;
     }
     
+    # return the list of lines that were completed by this batch of text
     return \@lines;
+}
+
+# reset @wordBuf and $col and return all the words in @wordBuf as a single line 
+sub flush {
+    my $outLine = join ' ', @wordBuf;
+    
+    @wordBuf = ();
+    $col = 0;
+    
+    return $outLine
 }
 
 sub main {
@@ -83,7 +100,7 @@ sub main {
         map { print "$_\n" } @wrapped;
     }
     
-    print (join " ", @wordBuf);
+    print (join " ", flush());
     print "\n";
     return 0;
 }
