@@ -1651,7 +1651,6 @@ perhaps someone along the line should have learned to read.
 Or someone else learn to write.
     -- Roger Hindley
 
-v v v v v v v
 %
 
 Advocating Object-Oriented Programming is like advocating 
@@ -1679,7 +1678,7 @@ Pants-Oriented Clothing.
 
 Simplicity is hard to build, easy to use, and hard to charge for. 
 Complexity is easy to build, hard to use, and easy to charge for. 
-    ‚Äî Chris Sacca
+    -- Chris Sacca
 
 %
 
@@ -1699,14 +1698,14 @@ Complexity is easy to build, hard to use, and easy to charge for.
 
 %
 
-Both bridges accomplish daring feats, but Maillart‚Äôs possesses the added
-virtue of making its achievement look effortless‚Äîand because we sense it
-isn‚Äôt, we wonder at it and admire it all the more. The bridge is endowed
+Both bridges accomplish daring feats, but Maillart's possesses the added
+virtue of making its achievement look effortless‚ and because we sense it
+isn't, we wonder at it and admire it all the more. The bridge is endowed
 with a subcategory of beauty we can refer to as elegance, a quality present
 whenever a work of architecture succeeds in carrying out an act of
-resistance‚Äîholding, spanning, sheltering‚Äîwith grace and economy as well
-as strength; when it has the modesty not to draw attention to the
-difficulties it has surmounted.‚Äù
+resistance -- holding, spanning, sheltering -- with grace and economy as 
+well as strength; when it has the modesty not to draw attention to the
+difficulties it has surmounted.
     -- Alain de Botton, "The Architecture of Happiness"
 
 %
@@ -1720,10 +1719,10 @@ language that the repetitive CPU brain can understand.
 
 %
 
-I have never read the Church-Turing thesis as “C is Turing complete, so you
-might as well use C for all your programming tasks”. I read it almost the
-opposite way: “choose whatever language you want, because I can always write
-an interpreter for your language in my language”. Isn’t it great that we are
+I have never read the Church-Turing thesis as "C is Turing complete, so you
+might as well use C for all your programming tasks". I read it almost the
+opposite way: "choose whatever language you want, because I can always write
+an interpreter for your language in my language". Isn’t it great that we are
 able to choose between the uneasy handwaving of Perl and the frustrating
 precision of Agda?
 
@@ -1731,12 +1730,13 @@ precision of Agda?
 
 %
 
-The code should tell you how...the comments should tell you why... ‚Äì Richard Ev 
+The code should tell you how...the comments should tell you why...
+-- Richard E
 
 %
 
 XML is like violence. If it isn't working for you, you're not using 
-enough of it. :) ‚Äì Mikeage
+enough of it. :) -- Mikeage
 
 %
 
