@@ -1789,3 +1789,19 @@ I invented the term Object-Oriented, and I can tell you I did not
 have C++ in mind.
     -- Alan Kay
 
+%
+
+The simplest thing that we can do right now is to rethink how we
+document libraries. Automatic documentation tools like Javadoc and Rdoc
+are good for producing thick stacks of paper, but not so hot at actually
+telling library users the things they need to know. They are the source
+of most of the world's "newRecordAddedHook is called when a new record
+is added" documentation. They can be useful, but they are no substitute
+for actually writing about the library: single-page summaries that
+answer the three key questions: what the library does, why you should
+use it, and how to do so. For bonus points, the one-page summary should
+avoid using the word "enterprise" (unless it's a library of Star Trek
+ships) and "innovative."
+
+    -- Mike Taylor, "Tangled Up in Tools"
+
