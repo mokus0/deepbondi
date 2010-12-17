@@ -1803,3 +1803,41 @@ ships) and "innovative."
 
     -- Mike Taylor, "Tangled Up in Tools"
 
+%
+
+But defensive programming is a double-edged sword—from the point of view of
+debugging, it just makes our lives harder. It transforms what would otherwise
+be simple and obvious bugs into bugs that are obscure, difficult to detect,
+and difficult to diagnose. We may want our software to be as robust as
+possible in production, but it’s much easier to debug fragile software that
+falls over immediately when a bug manifests.
+
+A common example is the almost universal for loop idiom, in which, instead of
+writing this:
+
+    for (i = 0; i != iteration_count; ++i)
+      «Body of loop»
+
+we write the following defensive version:
+
+    for (i = 0; i < iteration_count; ++i)
+      «Body of loop»
+
+In almost all cases, both loops behave identically, iterating from zero to
+iteration_count - 1. So, why do so many of us automatically write the second,
+not the first?
+
+The reason is because if the body of the loop happens to assign to i so that
+it becomes larger than iteration_count, the first version of our loop won’t
+terminate. By using < in our test instead of !=, we can guarantee that the
+loop will terminate if this happens.
+
+The problem with this is that if the loop index does become larger than
+iteration_count, it almost certainly means that the code contains a bug. And
+whereas with the first version of the code we would immediately notice that it
+did (because the software hung inside an infinite loop), now it may not be at
+all obvious. It will probably bite us at some point in the future and be very
+difficult to diagnose.
+
+    -- paul_butcher on Lambda the Ultimate (node 4147)
+
