@@ -10,5 +10,6 @@ Some of the odd and/or useful things included:
     export PATH="\`path grep -v foo/bar\`"
 
  - `join`: packs its arguments into a string in the format expected for a `PATH` or `CLASSPATH` variable, including selecting the right delimiter for the platform (`:` for *NIX, ';' for Windows).
+- `await`: just waits until the named file/files exists/exist.  Mostly useful for throwing together big ugly shell one-liners which need to wait for a file to exist or a filesystem to mount, etc..
 
 This code is primarily for my own use, but If you like it you're free to use it in any way you wish.  If you have suggestions or improvements I'd also be glad to hear about them.  This code is provided as-is, without any warrantee, express or implied - not even the implied warrantees of merthantability or fitness for a particular purpose.
