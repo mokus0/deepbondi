@@ -1841,3 +1841,48 @@ difficult to diagnose.
 
     -- paul_butcher on Lambda the Ultimate (node 4147)
 
+%
+
+wren ng thornton says:
+February 19, 2011 at 12:01 am
+
+Computer languages seem to evolve on a much slower scale since their
+semantics are firmly grounded in their interpretation by silicone, but
+if you look at the evolution of programming languages over the years you
+will see the same pattern of development that occurs when pidgins become
+creolized, when natural language moves from cuneiform record keeping to
+the age of mass publication, or when children learn language in
+general— a movement away from concatenative sorts of structure and
+towards term-based structures, as well as the development of pervasive
+structural moods and morphologies which are holistically integrated and
+intuitively understandable rather than ad-hoc and inexplicable.
+
+I’d be hesitant to call the old languages like assembler, Fortran, or
+Cobol “languages” in the colloquial sense and not a technical or
+metaphorical sense. But more modern languages like Haskell and Perl
+resemble natural language far more than they’re given credit for. One
+of the problematic issues here is that there are some very old
+discourses at stake here, both for and against the idea of
+programming/computer/mathematical languages as languages; and
+unfortunately, I think some of the past advocates for the idea have done
+more damage to its reputation than the critics (because those advocates
+are typically more interested in mathematizing natural language than in
+languagifying mathematical formalisms).
+
+%
+
+Wittgenstein, Philosophical Investigations, 18:
+
+Do not be troubled by the fact that languages (2) and (8) consist only
+of orders. If you want to say that this shews them to be incomplete,
+ask yourself whether our language is complete;---whether it was so
+before the symbolism of chemistry and the notation of the
+infinitesimal calculus were incorporated in it; for these are, so to
+speak, suburbs of our language. (And how many houses or streets does
+it take before a town begins to be a town?) Our language can be seen
+as an ancient city: a
+maze of little streets and squares, of old and new houses, and of
+houses with additions from various periods; and this surrounded by a
+multitude of new boroughs with straight regular streets and uniform
+houses.
+

@@ -1,0 +1,87 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $deepbondi = $ENV{"deepbondi"} || "deepbondi";
+my $scriptBasename = "remote";
+my $scriptName = "$deepbondi/bin/$scriptBasename";
+
+my @args = @ARGV;
+
+sub usage {
+    for my $msg (@_) {
+        print "$0: $msg\n";
+    }
+    
+    print <<END_USAGE;
+
+    Usage: 
+        $scriptBasename host [cmd [args ...]]
+
+    Or symlink the script as the host name:
+        ln -s \"$scriptName\" host
+        host [cmd [args ...]]
+    
+    This script connects to a remote host, sets up the environment for
+    XAuth-based remote X11 connections, and then either starts the specified
+    command or a bash shell.  If the former, it is assumed that the command
+    is intended to start an X11 application, so the connection is immediately
+    backgrounded.  If this is not the desired behaviour, you should
+    probably just use ssh directly.
+    
+END_USAGE
+    
+    exit -1;
+}
+
+# The remote host name is either the invocation name of the program, or if
+# the program is invoked as $scriptName, the first argument
+my $targetHost = "$0";
+if (lc $targetHost eq lc $scriptName) {
+    # invoked as self, not as a hostname-symlink
+    $targetHost = shift @args or usage("no target host specified");
+}
+
+$targetHost =~ s#.+/##g; 
+
+my $cookie = `get-local-xauth`;
+chomp $cookie;
+
+my @cmd = ("ssh", $targetHost);
+
+# if forcing execution of a remote command, tell SSH to background itself,
+# otherwise request a pseudo-terminal
+push @cmd, @args ? "-f" : "-t";
+
+# no more flags for ssh
+push @cmd, "--";
+
+# set DISPLAY based on SSH_CONNECTION.  This can only be done on the 
+# remote side, because the local side has no way of knowing what its
+# ip will be from there
+push @cmd, 'export DISPLAY="${SSH_CONNECTION%% *}:0";';
+
+# set the xauth for $DISPLAY if one is known
+if ($cookie ne "") {
+    push @cmd, qq/xauth add "\$DISPLAY" MIT-MAGIC-COOKIE-1 "$cookie";/;
+}
+
+# unset SSH_ORIGINAL_COMMAND because it may contain the xauth cookie
+push @cmd, 'unset SSH_ORIGINAL_COMMAND;';
+
+# if extra args were passed, use those as the remote command, 
+# otherwise use "bash -li"
+push @cmd, (@args) ? @args : ("bash", "-li");
+
+# run it
+exec @cmd;
+
+# for debugging purposes, comment out the exec line and this will print
+# the argument list:
+my $n = 0;
+for my $w (@cmd) {
+    print "$n: $w\n";
+    $n++;
+}
+
+exec @cmd;
