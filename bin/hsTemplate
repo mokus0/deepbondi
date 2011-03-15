@@ -10,7 +10,7 @@ use strict;
 my ($file, $module) = @ARGV;
 
 # strip extension, set default ext
-$file =~ s/\.(l?hs(-boot)?)$//i;
+$file =~ s/\.(l?hsc?(-boot)?)$//i;
 my $ext = $1 || "hs";
 
 # convert '.'s to '/'s in filename
