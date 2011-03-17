@@ -1,0 +1,45 @@
+#!/bin/bash
+#
+#   Run git with the same args for all git repos under the current dir.
+#   $GIT_ALL_USE_CWD_VERSION can be set to:
+#       "TOP" to cause a 'git-all' script in the current dir to be run
+#             instead of this script (for example, the ghc source dist
+#             includes a git-all script).
+#       "ANYWHERE" to cause a 'git-all' script in any subdir to take over 
+#             and do the processing for that subtree.
+#   If unset or set to anything else, git-all scripts will be ignored.
+#   Obviously, use GIT_ALL_USE_CWD_VERSION cautiously if at all.
+#
+
+declare -a ARGS
+ARGS=("$@")
+
+# if user's env permits it and there's a ./git-all, run it instead
+if [ X"$GIT_ALL_USE_CWD_VERSION" = XTOP -a -x ./git-all ]; then
+    exec ./git-all "$@"
+fi
+
+go() {
+    # if user's env permits it and there's a ./git-all, run it instead
+    if [ X"$GIT_ALL_USE_CWD_VERSION" = XANYWHERE -a -x ./git-all ]; then
+        # (exec only terminates the current subshell)
+        exec ./git-all "$@"
+    fi
+    
+    # otherwise, run git and then recurse
+    if [ -d .git ]; then
+        echo "git-all: in `pwd`:"
+        git "${ARGS[@]}"
+    fi
+        
+    for d in */; do (
+        # don't recurse into subdirs called ".git" or "depracted" (or 
+        # dirs that don't exist, typically caused by unmatched "*/"):
+        if [ \( X"$d" != X.git/ \) -a \( X"$d" != Xdepracted/ \) -a \( -d "$d" \) ]; then
+            cd "$d"
+            go
+        fi
+    ) done
+}
+
+go
