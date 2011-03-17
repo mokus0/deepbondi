@@ -2,6 +2,7 @@ This is my collection of shell utilities, login scripts, etc., that I've accumul
 
 Some of the odd and/or useful things included:
 
+ - `gitignore`: a script that generates a .gitignore file based on a list of templates from github's `gitignore` repo.
  - `excel_sheeter`: a script that takes an excel workbook and uses AppleScript to tell excel to open it up and save each sheet as a separate CSV file.  For obvious reasons, this command is only placed into the `PATH` on Mac OS systems.
  - `hilite`: kind of like a super-lightweight `grep` that simply colors occurrences of a pattern without otherwise altering the stream.
  - `deref`: tracks down the path of the real file on disk referred to by an arbitrarily-long chain of symlinks.
