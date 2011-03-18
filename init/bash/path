@@ -35,7 +35,7 @@ fi
 PATH=""
 
 # append whatever actually exists, of these options:
-for path in ~/bin ~/.cabal/bin \
+for path in ~/bin ~/.cabal/bin {~,}/Library/Haskell/bin \
 	"$deepbondi/bin/$os/$arch"  "$deepbondi/bin/$os"  "$deepbondi/bin"  \
 	"$deepbondi/sbin/$os/$arch" "$deepbondi/sbin/$os" "$deepbondi/sbin" \
 	/Developer/{usr/bin,Tools} \
