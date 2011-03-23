@@ -84,6 +84,8 @@ if cmdExists ghci; then
 	function :q { popd 2>/dev/null || exit; }
 fi
 
+alias hasEscapes="grep -q '[[:cntrl:]]'"
+
 #
 # various conditionally defined aliases
 #
