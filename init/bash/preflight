@@ -11,6 +11,18 @@
 export deepbondi=${deepbondi:-/deepbondi}
 
 #
+# Ensure PATH is set to a sensible default; sometimes ssh starts
+# remote shells with a very anemic PATH, which makes some programs 
+# (notably darcs and git) fail because they can't find their remote
+# commands.
+#
+if [ -z "$(echo \"$PATH\" | grep -q \"local\")" ]; then
+    if [ "$(id -u)" -ne 0 ]; then
+        export PATH=/deepbondi/bin:/opt/local/bin:/usr/local/bin:$PATH
+    fi
+fi
+
+#
 # Locate user scripts, if any
 #
 bash_initdir=${bash_initdir:-${deepbondi}/init/bash}
