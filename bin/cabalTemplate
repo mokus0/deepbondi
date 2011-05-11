@@ -82,12 +82,18 @@ CABAL
 
 close OUTFILE;
 
-if (! -x "$dirname/_darcs") {
-    my $cwd = `pwd`;
-    chomp $cwd;
-    
+my $cwd = `pwd`;
+chomp $cwd;
+
+if (! -x "$dirname/_darcs" && ! -x "$dirname/.git") {
     chdir $dirname
     and 0 == system "darcs", "initialize"
+    or die "Failed to initialize darcs repository";
+    chdir $cwd;
+}
+
+if (-x "$dirname/_darcs" ) {
+    chdir $dirname
     and rename "_darcs/prefs/boring", ".boring"
     and open BORINGFILE, ">>", ".boring"
     and print BORINGFILE "(^|/)dist(/|\$)\n"
@@ -97,6 +103,17 @@ if (! -x "$dirname/_darcs") {
     and 0 == system "darcs record -a -m 'initializing repository' -A 'cabalTemplate script'"
     and 0 == system "darcs add Setup.lhs src *.cabal"
     or die "Failed to record initial darcs patch";
+    
+    chdir $cwd;
+}
+
+if (-x "$dirname/.git" ) {
+    chdir $dirname
+    and 0 == system "gitignore Global/OSX Haskell > .gitignore"
+    and 0 == system "git add .gitignore"
+    and 0 == system "git commit -m 'initializing repository' --author='cabalTemplate script <bitbucket\@dev.null>'"
+    and 0 == system "git add Setup.lhs src *.cabal"
+    or die "Failed to record initial git commit";
     
     chdir $cwd;
 }
