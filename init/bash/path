@@ -34,6 +34,10 @@ fi
 #initial core
 PATH=""
 
+if [ -x /usr/libexec/java_home ]; then
+    export JAVA_HOME="$( /usr/libexec/java_home )"
+fi
+
 # append whatever actually exists, of these options:
 for path in ~/bin ~/.cabal/bin {~,}/Library/Haskell/bin \
 	"$deepbondi/bin/$os/$arch"  "$deepbondi/bin/$os"  "$deepbondi/bin"  \
