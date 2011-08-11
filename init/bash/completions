@@ -76,6 +76,10 @@ if cmdExists git; then
     PS1=${PS1/\\W/'\W$(__git_ps1 " (%s)")'}
 fi
 
+if cmdExists cabal; then
+    source ${deepbondi}/init/bash/completions.cabal
+fi
+
 #
 # Read user's completions
 #
