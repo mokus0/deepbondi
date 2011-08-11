@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>λ</string>
+	<string>ψ</string>
 	<key>name</key>
-	<string>λ</string>
+	<string>ψ</string>
 	<key>scope</key>
 	<string>source.agda</string>
 	<key>tabTrigger</key>
-	<string>lambda</string>
+	<string>psi</string>
 	<key>uuid</key>
-	<string>256FE3A2-5623-4665-BAB2-3FAADCDC4727</string>
+	<string>EC701EF9-F3AE-49DC-B282-F084FD1699B1</string>
 </dict>
 </plist>
