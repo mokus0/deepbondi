@@ -1939,3 +1939,13 @@ doing something good just in case you might miss an opportunity to do
 something perfect later.
     -- Brent Yorgey
 
+%
+
+<NihilistDandy> Is there anything the Cafe doesn't talk about at some point? :D
+<Botje> monad slash fiction.
+<merijn> New life goal!
+<NihilistDandy> Botje: Oh, baby, let's do it applicative style
+<merijn> Slowly the IO monad traced its fingers across State, I'll show you what I can 
+         fmap into you...
+<NihilistDandy> Ooh, unsafePerformIO, unsafePerformIO
+
