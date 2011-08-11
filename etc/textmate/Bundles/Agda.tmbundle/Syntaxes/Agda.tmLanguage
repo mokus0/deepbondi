@@ -53,7 +53,7 @@
 		<key>blockComment</key>
 		<dict>
 			<key>begin</key>
-			<string>{- </string>
+			<string>{-</string>
 			<key>captures</key>
 			<dict>
 				<key>0</key>
@@ -63,7 +63,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string> -}</string>
+			<string>-}</string>
 			<key>name</key>
 			<string>comment.block.agda</string>
 		</dict>
@@ -107,6 +107,6 @@
 	<key>scopeName</key>
 	<string>source.agda</string>
 	<key>uuid</key>
-	<string>5763C764-5649-40EB-8053-D1312A0C188E</string>
+	<string>D4DB4FD3-9973-43F6-870E-2B23A41F6B34</string>
 </dict>
 </plist>

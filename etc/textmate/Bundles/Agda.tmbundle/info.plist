@@ -2,9 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>deleted</key>
+	<array>
+		<string>5763C764-5649-40EB-8053-D1312A0C188E</string>
+	</array>
 	<key>name</key>
 	<string>Agda</string>
+	<key>ordering</key>
+	<array>
+		<string>26E569FA-4FAC-4EA6-B127-CFAC7161E315</string>
+		<string>0C767D35-E7C9-4637-8432-1662EC94B1C8</string>
+		<string>F5ACEA28-4712-4E41-8247-A623208023CF</string>
+		<string>F900C3F3-ADA5-4215-9E72-12814189DD2A</string>
+		<string>256FE3A2-5623-4665-BAB2-3FAADCDC4727</string>
+		<string>0EC47F28-4FF1-4C0D-9557-12649EB40EC4</string>
+		<string>57ED9628-EF96-48D6-9794-CD8835F629D5</string>
+		<string>6B4E11A5-32DF-40EB-84FD-361439672727</string>
+		<string>E48841D9-041C-4DF3-8DA7-1B96EEB9770F</string>
+		<string>78C5FDF9-E613-4E57-BEA6-B59559A5A547</string>
+		<string>7EF17352-C3A3-49CB-9C37-A1F70651D148</string>
+		<string>8CA18FCD-592A-458C-84A8-C2C4E020218C</string>
+		<string>CAF7EC0C-20FB-4236-82D9-3349FE38661E</string>
+		<string>B723387D-7631-477F-A018-088F410D8BE7</string>
+		<string>BA1092F2-99B1-4056-8E33-286853E93A1D</string>
+	</array>
 	<key>uuid</key>
-	<string>A24BEA69-9BD3-456F-8E4E-B7EAAA0C036E</string>
+	<string>47BB291F-0C5A-4763-AF08-B4BF79F6E775</string>
 </dict>
 </plist>
