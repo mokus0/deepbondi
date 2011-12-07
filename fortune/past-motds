@@ -1962,3 +1962,25 @@ sent Ham, and his descendants mustered and bred.
 
     -- Richard Whately
 
+%
+
+I like to think of it in terms of the following fairy tale. Long ago,
+if you were a shepherd and wanted to see if two finite sets of sheep
+were isomorphic, the most obvious way would be to look for an
+isomorphism. In other words, you would try to match each sheep in herd A
+with a sheep in herd B. But one day, along came a shepherd who invented
+decategorification. This person realized you could take each set and
+"count" it, setting up an isomorphism between it and some set of
+"numbers", which were nonsense words like "one, two, three, four,..."
+specially designed for this purpose. By comparing the resulting numbers,
+you could see if two herds were isomorphic without explicitly
+establishing an isomorphism!
+
+According to this fairy tale, decategorification started out as the
+ultimate stroke of mathematical genius. Only later did it become a
+matter of dumb habit, which we are now struggling to overcome through
+the process of "categorification".
+
+    -- John Baez
+    [ http://math.ucr.edu/home/baez/week99.html#tale ]
+
