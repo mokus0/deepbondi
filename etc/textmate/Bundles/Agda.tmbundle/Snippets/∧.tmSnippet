@@ -9,7 +9,7 @@
 	<key>scope</key>
 	<string>source.agda</string>
 	<key>tabTrigger</key>
-	<string>meet</string>
+	<string>/\</string>
 	<key>uuid</key>
 	<string>AC738D45-ADDC-466A-9137-70494C4DCE9F</string>
 </dict>

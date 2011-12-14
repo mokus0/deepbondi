@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>∨</string>
+	<string>δ</string>
 	<key>name</key>
-	<string>∨</string>
+	<string>δ</string>
 	<key>scope</key>
 	<string>source.agda</string>
 	<key>tabTrigger</key>
-	<string>\/</string>
+	<string>delta</string>
 	<key>uuid</key>
-	<string>ECC5CB6D-6E02-4BEB-B3D7-418B9F8A8176</string>
+	<string>C309C418-BCA0-4855-8C8E-AE1FCD25CDBA</string>
 </dict>
 </plist>
