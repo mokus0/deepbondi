@@ -87,8 +87,8 @@ chomp $cwd;
 
 if (! -x "$dirname/_darcs" && ! -x "$dirname/.git") {
     chdir $dirname
-    and 0 == system "darcs", "initialize"
-    or die "Failed to initialize darcs repository";
+    and 0 == system "git", "init"
+    or die "Failed to initialize git repository";
     chdir $cwd;
 }
 
