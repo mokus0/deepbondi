@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec fortune "${deepbondi:-/deepbondi}/fortune/past-motds" | tee ~/.last_motd
+exec misfortune "${deepbondi:-/deepbondi}/fortune/past-motds" | tee ~/.last_motd

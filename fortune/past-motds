@@ -1500,6 +1500,7 @@ not worth stating, and to end with something so paradoxical that no one
 will believe it."
 
         -- Bertrand Russell
+
 %
 
 Fortunately, the Slashdot Hive Mind has a safety shutdown when the story
@@ -1576,6 +1577,7 @@ jury, ammo. Use in that order.
 %
 
 ... or as we say in Soviet Kanuckistan, "No fucking way, eh!"
+
 %
 
 It is by the juice of the coffee bean that thoughts acquire speed, the
@@ -1661,7 +1663,7 @@ For instance, take the two words "fuming" and "furious." Make up your mind
 that you will say both words, but leave it unsettled which you will say
 first. Now open your mouth and speak. If your thoughts incline ever so
 little towards "fuming," you will say "fuming-furious;" if they turn, by
-even a hair’s breadth, towards "furious," you will say "furious-fuming;"
+even a hair's breadth, towards "furious," you will say "furious-fuming;"
 but if you have the rarest of gifts, a perfectly balanced mind, you will
 say "frumious."
     -- Lewis Carroll
@@ -1697,7 +1699,7 @@ Complexity is easy to build, hard to use, and easy to charge for.
 %
 
 Both bridges accomplish daring feats, but Maillart's possesses the added
-virtue of making its achievement look effortless‚ and because we sense it
+virtue of making its achievement look effortless- and because we sense it
 isn't, we wonder at it and admire it all the more. The bridge is endowed
 with a subcategory of beauty we can refer to as elegance, a quality present
 whenever a work of architecture succeeds in carrying out an act of
@@ -1708,7 +1710,7 @@ difficulties it has surmounted.
 
 %
 
-The fundamental unit of a computer program is not a function; it’s whatever
+The fundamental unit of a computer program is not a function; it's whatever
  that I think solves my problem most elegantly. I only have to
 make sure that it can be translated (preferably automatically) into a
 language that the repetitive CPU brain can understand.
@@ -1720,7 +1722,7 @@ language that the repetitive CPU brain can understand.
 I have never read the Church-Turing thesis as "C is Turing complete, so you
 might as well use C for all your programming tasks". I read it almost the
 opposite way: "choose whatever language you want, because I can always write
-an interpreter for your language in my language". Isn’t it great that we are
+an interpreter for your language in my language". Isn't it great that we are
 able to choose between the uneasy handwaving of Perl and the frustrating
 precision of Agda?
 
