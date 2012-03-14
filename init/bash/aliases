@@ -113,6 +113,11 @@ if echo foo | grep --color=yes -e foo 2>/dev/null | hasEscapes; then
   alias egrep='egrep --color=auto'
 fi
 
+if cmdExists misfortune; then
+    alias fortune=misfortune
+    alias strfile=misfortune-strfile
+fi
+
 #
 # Read user's aliases
 #
