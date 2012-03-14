@@ -3,18 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>begin
-  ${1:?}
-↓⟨ ${3:?} ⟩
-  ${2:$1}
-∎</string>
+	<string>₇</string>
 	<key>name</key>
-	<string>begin</string>
+	<string>₇</string>
 	<key>scope</key>
 	<string>source.agda</string>
 	<key>tabTrigger</key>
-	<string>begin</string>
+	<string>_7</string>
 	<key>uuid</key>
-	<string>CEEB5238-7967-4FC1-85E1-3D7B87CE176F</string>
+	<string>26D58C25-CB7B-4B3D-ABD8-AC9BCF32594F</string>
 </dict>
 </plist>
