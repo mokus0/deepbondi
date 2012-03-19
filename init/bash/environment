@@ -8,6 +8,10 @@
 
 export ENV_SET=yes
 
+export HISTCONTROL=ignoreboth
+export VISUAL=vi
+export EDITOR=vi
+
 # default pager
 export PAGER=less
 
