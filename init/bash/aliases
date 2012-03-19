@@ -116,6 +116,10 @@ fi
 if cmdExists misfortune; then
     alias fortune=misfortune
     alias strfile=misfortune-strfile
+    MISFORTUNE_PATH_NORMAL="$(misfortune --path):${deepbondi:-deepbondi}/fortune:${HOME}/.misfortune"
+    MISFORTUNE_PATH_OFFENSIVE="$(misfortune -o --path):${deepbondi:-deepbondi}/fortune:${HOME}/.misfortune"
+    MISFORTUNE_PATH_ALL="$(misfortune -a --path):${deepbondi:-deepbondi}/fortune:${HOME}/.misfortune"
+    export MISFORTUNE_PATH_ALL MISFORTUNE_PATH_NORMAL MISFORTUNE_PATH_OFFENSIVE
 fi
 
 #
