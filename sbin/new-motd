@@ -3,15 +3,16 @@
 deepbondi="${deepbondi:-/deepbondi}"
 
 if [ -d "$deepbondi" ]; then
-	motd_file="$deepbondi/fortune/past-motds"
+        motd_file="$deepbondi/fortune/past-motds"
 
-	echo '%' 	>>	"$motd_file"
-	echo ''  	>>	"$motd_file"
+        echo '%'        >>      "$motd_file"
+        echo ''         >>      "$motd_file"
 
-	cat 		>>	"$motd_file"
-	echo ''		>>	"$motd_file"
+        cat             >>      "$motd_file"
+        echo ''         >>      "$motd_file"
 
-	strfile			"$motd_file"
+        strfile                 "$motd_file"
+        misfortune-strfile      "$motd_file"
 else
-	echo Neither \$deepbondi nor /deepbondi is a directory.  I\'m scared\!
+        echo Neither \$deepbondi nor /deepbondi is a directory.  I\'m scared\!
 fi
