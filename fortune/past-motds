@@ -2012,6 +2012,7 @@ Sᴍᴀʟʟ ᴄᴀᴘꜱ ʟᴏᴄᴋ ɪꜱ ᴄʀᴜɪꜱᴇ ᴄᴏɴᴛʀᴏʟ �
 
 %
 
+<<<<<<< HEAD
 The best programming is on par with performing neurosurgery on humans,
 we don't put neurosurgeons in a cubicle from 9 to 5 and measure them by
 how many hours they sat in the surgery room chair. We don't force them
@@ -2056,4 +2057,44 @@ the real world.
 Asking "When will I ever use math?" is like jogging and asking, "When will I
 ever use these calf muscles?"
                 -- edw519 (HN comment)
+
+%
+
+The March of Progress
+
+1980: C 
+    printf("%10.2f", x);
+
+1988: C++
+    cout << setw(10) << setprecision(2) << showpoint << x;
+
+1996: Java
+    java.text.NumberFormat formatter = java.text.NumberFormat.getNumberInstance(); 
+    formatter.setMinimumFractionDigits(2); 
+    formatter.setMaximumFractionDigits(2); 
+    String s = formatter.format(x); 
+    for (int i = s.length(); i < 10; i++) System.out.print(' '); 
+    System.out.print(s);
+
+2004: Java
+    System.out.printf("%10.2f", x);
+
+2008: Scala and Groovy
+    printf("%10.2f", x)
+
+        -- Cay Horstmann (www.horstman.com)
+
+%
+
+READ CAREFULLY. By reading this fortune you agree, on behalf of your
+employer, to release me from all obligations and waivers arising from any
+and all NON-NEGOTIATED agreements, licenses, terms-of-service, shrinkwrap,
+clickwrap, browsewrap, confidentiality, non-disclosure, non-compete and
+acceptable use policies (“BOGUS AGREEMENTS”) that I have entered into
+with your employer, its partners, licensors, agents and assigns, in
+perpetuity, without prejudice to my ongoing rights and privileges. You
+further represent that you have the authority to release me from any BOGUS
+AGREEMENTS on behalf of your employer.
+
+    -- http://smallprint.netzoo.net/reag/
 
