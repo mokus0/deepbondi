@@ -84,6 +84,14 @@ if cmdExists ghci; then
 	function :q { popd 2>/dev/null || exit; }
 fi
 
+if cmdExists agda
+then
+    alias agdai="agda -I"
+    function agda {
+        command agda -i "$HOME/Library/Agda/lib/src" -i . "$@"
+    }
+fi
+
 function hasEscapes() {
     grep -q '[[:cntrl:]]'
 }
