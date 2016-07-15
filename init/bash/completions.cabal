@@ -18,7 +18,7 @@ _cabal()
     cmd[${COMP_CWORD}]="--list-options"
 
     # the resulting completions should be put into this array
-    COMPREPLY=( $( compgen -W "$( ${cmd[@]} )" -- $cur ) )
+    COMPREPLY=( $( compgen -W "$( "${cmd[@]}" )" -- "$cur" ) )
 }
 
 complete -F _cabal -o default cabal

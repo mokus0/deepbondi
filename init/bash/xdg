@@ -1,0 +1,44 @@
+# XDG environment defaults and search functions
+# source in sh or bash
+
+if [ -z "$XDG_DATA_HOME" ]; then
+    export XDG_DATA_HOME=$HOME/.local/share
+fi
+
+if [ -z "$XDG_DATA_DIRS" ]; then
+    export XDG_DATA_DIRS=/usr/local/share/:/usr/share/
+fi
+
+xdg_find_data_file() {
+    local file=$1
+    local IFS=:
+    for dir in "$XDG_DATA_HOME" $XDG_DATA_DIRS; do
+        if [ -e "$dir"/"$file" ]; then
+            printf "%s" "$dir"/"$file"; break;
+        fi
+    done
+}
+
+if [ -z "$XDG_CONFIG_HOME" ]; then
+    export XDG_CONFIG_HOME=$HOME/.config
+fi
+
+if [ -z "$XDG_CONFIG_DIRS" ]; then
+    export XDG_CONFIG_DIRS=/etc/xdg
+fi
+
+xdg_find_config_file() {
+    local file=$1
+    local IFS=:
+    for dir in "$XDG_CONFIG_HOME" $XDG_CONFIG_DIRS; do
+        if [ -e "$dir"/"$file" ]; then
+            printf "%s" "$dir"/"$file"; break;
+        fi
+    done
+}
+
+if [ -z "$XDG_CACHE_HOME" ]; then
+    export XDG_CACHE_HOME=$HOME/.cache
+fi
+
+# TODO: XDG_RUNTIME_DIR support

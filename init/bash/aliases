@@ -70,6 +70,11 @@ if [ X"$os" == XDarwin ]; then
 		command disktool "$@"
 	}
 	
+	function pbcheck {
+		pbpaste | pbcopy # remove all but the text pasteboard item
+		pbpaste | cat -v # display all the bytes
+	}
+	
 	alias eject='diskutil eject'
 fi
 

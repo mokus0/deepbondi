@@ -38,8 +38,12 @@ if [ -x /usr/libexec/java_home ]; then
     export JAVA_HOME="$( /usr/libexec/java_home )"
 fi
 
+if [ -d ~/.cargo ]; then
+    export CARGO_HOME=$HOME/.cargo
+fi
+
 # append whatever actually exists, of these options:
-for path in ~/bin ~/.cabal/bin {~,}/Library/Haskell/bin \
+for path in ~/bin ~/.cabal/bin ~/.cargo/bin {~,}/Library/Haskell/bin \
 	"$deepbondi/bin/$os/$arch"  "$deepbondi/bin/$os"  "$deepbondi/bin"  \
 	"$deepbondi/sbin/$os/$arch" "$deepbondi/sbin/$os" "$deepbondi/sbin" \
 	/Developer/{usr/bin,Tools} \

@@ -1,9 +1,4 @@
 #!/bin/bash
-#
-#  <preflight>
-#    Copyright 2008 James Cook - All Rights Reserved.
-#
-#
 
 #
 # find out where we live, assuming a sensible default
@@ -11,16 +6,29 @@
 export deepbondi=${deepbondi:-/deepbondi}
 
 #
-# Ensure PATH is set to a sensible default; sometimes ssh starts
-# remote shells with a very anemic PATH, which makes some programs 
-# (notably darcs and git) fail because they can't find their remote
-# commands.
+# set up some useful environment variables that are 
+# hard to get right in a portable way (and that we will want often)
 #
-if [ -z "$(echo \"$PATH\" | grep -q \"homebrew\")" -a -d /opt/homebrew ]; then
-    if [ "$(id -u)" -ne 0 ]; then
-        export PATH=/deepbondi/bin:/opt/homebrew/bin:$PATH
+os=$(command -p uname -o 2>/dev/null)
+if [ $? == 0 ]; then
+    if command -p expr "$os" : '.*/' >/dev/null ; then
+        os=$(command -p uname)
     fi
+else
+    os=$(command -p uname)
 fi
+
+arch=$(command -p uname -m)
+if command -p expr "$arch" : '.* ' >/dev/null ; then
+    arch=$(command -p uname -p)
+fi
+
+export os arch
+
+#
+# set up XDG environment
+#
+source "$deepbondi"/init/bash/xdg
 
 #
 # Locate user scripts, if any
@@ -36,26 +44,6 @@ fi
 # if still not set, use default
 user_bash_initdir=${user_bash_initdir:-~/.init/bash}
 
-#
-# set up some useful environment variables that are 
-# hard to get right in a portable way (and that we will want often)
-#
-os=`command -p uname -o 2>/dev/null`
-if [ $? == 0 ]; then
-	export os
-	
-	if command -p expr "$os" : '.*/' >/dev/null ; then
-		export os=`command -p uname`
-	fi
-else
-	export os=`command -p uname`
-fi
-
-arch=`command -p uname -m`
-if command -p expr "$arch" : '.* ' >/dev/null ; then
-	arch=`command -p uname -p`
-fi
-export arch
 
 # create a "which"-like function, because 'which -s' isn't available
 # everywhere, and the redirects are annoying
