@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 #
 #  <manifest>
-#    Copyright 2007 James Cook - All Rights Reserved.
 #
 #  This is a strange tool, to solve a strange (but not uncommon) problem:
 #    I have about 30 GB of data backed up from my laptop (in NY) to my

@@ -12,7 +12,7 @@ require "hilite.pm";
 my $gr = hilite::color("green");
 my $bl = hilite::color();
 
-my @ls = ("/bin/ls", "-d");
+my @ls = ("/bin/ls", "-d", "--");
 my $file = "/usr/bin/file";
 
 sub printLine {
@@ -48,7 +48,7 @@ while (<FILE>) {
 		my $descrip = $2;
 		
 		printLine ($file, $descrip)
-	} elsif (m/^([^:]+)(:.*)$/) {
+	} elsif (m/^(.+)(:.*)$/) {
 		# normal case
 		my $file = $1;
 		my $descrip = $2;

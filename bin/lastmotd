@@ -1,9 +1,4 @@
 #!/bin/sh
-#
-#  <lastmotd>
-#    Copyright 2002 James Cook - All Rights Reserved.
-#
-#
 
 if [ -f ~/.last_motd ]; then
 	exec cat ~/.last_motd

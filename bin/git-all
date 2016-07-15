@@ -28,7 +28,7 @@ go() {
     
     # otherwise, run git and then recurse
     if [ -d .git ]; then
-        echo "git-all: in `pwd`:"
+        echo "git-all: in $(pwd):"
         git "${ARGS[@]}"
     fi
         
@@ -42,4 +42,4 @@ go() {
     ) done
 }
 
-go
+go "$@"

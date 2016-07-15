@@ -1,22 +1,17 @@
 #!/bin/bash
 # C source file template
 
-hFile=`echo -n "$1"     | sed 's/\.[cmCM]$/.h/'`
-hFile=`echo -n "$hFile" | sed 's/\.cp$/.h/'`
-hFile=`echo -n "$hFile" | sed 's/\.cpp$/.h/'`
-hFile=`echo -n "$hFile" | sed 's/\.c\+\+$/.h/'`
+hFile=$(echo -n "$1"     | sed 's/\.[cmCM]$/.h/')
+hFile=$(echo -n "$hFile" | sed 's/\.cp$/.h/')
+hFile=$(echo -n "$hFile" | sed 's/\.cpp$/.h/')
+hFile=$(echo -n "$hFile" | sed 's/\.c\+\+$/.h/')
 
-cFile=`basename "$1"`
-includeFile=`basename "$hFile"`
+includeFile=$(basename "$hFile")
 
-if [ -f $hFile ]; then
+if [ -f "$hFile" ]; then
 	include="#include \"$includeFile\""
 fi
 
 cat > "$1" <<EOF
-	/*
-	 *  <$cFile>
-	 *    Copyright `date +%Y` `fullName -s` - All Rights Reserved.
-	 */
-
 $include
+EOF

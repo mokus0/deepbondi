@@ -5,6 +5,6 @@
 #		Optionally also adds an extension (do not include the '.')
 #
 
-datestamp=`date +'%Y-%m-%d'`
+datestamp=$(date +'%Y-%m-%d')
 extension=${1:+.}$1
 echo "$datestamp$extension"

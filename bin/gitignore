@@ -5,7 +5,7 @@ curl='curl'
 remote_git_url="https://github.com/github/gitignore.git"
 
 # if we have permission, use a local clone of github's "gitignore" repo
-local_clone_prefix="$deepbondi/etc"
+local_clone_prefix="${deepbondi:-/deepbondi}"/etc
 local_clone="$local_clone_prefix/gitignore"
 
 if [ -d "$local_clone" ]; then
@@ -14,8 +14,8 @@ if [ -d "$local_clone" ]; then
 else
     # if cache doesn't exist but can be created, then do so.
     # otherwise just hit the remote.
-    if [ \( ! -e "$local_clone" \) -a -w "$local_clone_prefix" ]; then
-        ( cd "$local_clone_prefix"; git clone -q "$remote_git_url" )
+    if [ \( ! -e "$local_clone" \) ] && [ -w "$local_clone_prefix" ]; then
+        ( cd "$local_clone_prefix" && git clone -q "$remote_git_url" )
         gitignore_base_url="file:$local_clone"
     else
         gitignore_base_url='https://github.com/github/gitignore/raw/master'
