@@ -35,7 +35,11 @@ fi
 PATH=""
 
 if [ -x /usr/libexec/java_home ]; then
-    export JAVA_HOME="$( /usr/libexec/java_home )"
+    if [ -n "$JAVA_VERSION" ]; then
+        export JAVA_HOME="$( /usr/libexec/java_home -v "$JAVA_VERSION" )"
+    else
+        export JAVA_HOME="$( /usr/libexec/java_home )"
+    fi
 fi
 
 if [ -d ~/.cargo ]; then
