@@ -1,0 +1,18 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"ARM Assembly",
+		"Package Control",
+		"Rust",
+		"RustAutoComplete",
+		"RustCodeFormatter",
+		"SystemVerilog",
+		"TOML",
+		"Verilog",
+		"VHDL"
+	]
+}

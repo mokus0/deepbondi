@@ -1,0 +1,11 @@
+{
+    // The full path to the racer binary. If racer is already
+    // in your system path, then this default will be fine.
+    "racer": "/Users/mokus/bin/racer-cargo",
+
+    // A list of search paths. This should generally just
+    // be the path to the rust compiler src/ directory.
+    "search_paths": [
+        "/Users/mokus/github/rust-lang/rust/src"
+    ]
+}
