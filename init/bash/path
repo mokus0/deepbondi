@@ -47,7 +47,7 @@ if [ -d ~/.cargo ]; then
 fi
 
 # append whatever actually exists, of these options:
-for path in ~/bin ~/.cabal/bin ~/.cargo/bin {~,}/Library/Haskell/bin \
+for path in ~/bin ~/.cabal/bin ~/.cargo/bin {~,}/Library/{Haskell,Python/*}/bin \
 	"$deepbondi/bin/$os/$arch"  "$deepbondi/bin/$os"  "$deepbondi/bin"  \
 	"$deepbondi/sbin/$os/$arch" "$deepbondi/sbin/$os" "$deepbondi/sbin" \
 	/Developer/{usr/bin,Tools} \
