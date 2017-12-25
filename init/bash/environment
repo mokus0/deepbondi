@@ -60,6 +60,11 @@ if [ -f ~/.ssh/darcs-id ]; then
 	fi
 fi
 
+# initialize PKG_CONFIG_PATH
+if cmdExists pkg-config; then
+    export PKG_CONFIG_PATH=$(pkg-config --variable pc_path pkg-config)
+fi
+
 #
 # Read user's environment
 #
