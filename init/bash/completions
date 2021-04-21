@@ -72,6 +72,7 @@ fi
 
 if cmdExists git; then
     source "$deepbondi"/init/bash/completions.git
+    source "$deepbondi"/init/bash/prompt.git
     # add $(__git_ps1 " (%s)") to PS1
     PS1=${PS1/\\W/'\W$(__git_ps1 " (%s)")'}
 fi

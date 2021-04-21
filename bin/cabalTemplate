@@ -109,7 +109,7 @@ if (-x "$dirname/_darcs" ) {
 
 if (-x "$dirname/.git" ) {
     chdir $dirname
-    and 0 == system "gitignore Global/OSX Haskell > .gitignore"
+    and 0 == system "gitignore Global/macOS Haskell > .gitignore"
     and 0 == system "git add .gitignore"
     and 0 == system "git commit -m 'initializing repository' --author='cabalTemplate script <bitbucket\@dev.null>'"
     and 0 == system "git add Setup.lhs src *.cabal"
