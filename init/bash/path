@@ -36,9 +36,13 @@ PATH=""
 
 if [ -x /usr/libexec/java_home ]; then
     if [ -n "$JAVA_VERSION" ]; then
-        export JAVA_HOME="$( /usr/libexec/java_home -v "$JAVA_VERSION" )"
+        export JAVA_HOME="$( /usr/libexec/java_home -v "$JAVA_VERSION" 2>/dev/null )"
     else
-        export JAVA_HOME="$( /usr/libexec/java_home )"
+        export JAVA_HOME="$( /usr/libexec/java_home 2>/dev/null )"
+    fi
+
+    if [ -z "$JAVA_HOME" ]; then
+    	unset JAVA_HOME
     fi
 fi
 

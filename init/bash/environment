@@ -12,6 +12,14 @@ export HISTCONTROL=ignoreboth
 export VISUAL=vi
 export EDITOR=vi
 
+export DO_NOT_TRACK=1
+export HOMEBREW_NO_ANALYTICS=1
+
+# fuckin apple, man...
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+export XZ_DEFAULTS="-T0"
+
 # default pager
 export PAGER=less
 
