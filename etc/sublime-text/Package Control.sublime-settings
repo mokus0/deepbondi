@@ -2,17 +2,28 @@
 	"bootstrapped": true,
 	"in_process_packages":
 	[
+		"RustCodeFormatter"
 	],
 	"installed_packages":
 	[
 		"ARM Assembly",
+		"CMake",
+		"CUDA C++",
+		"DashDoc",
+		"Fortran",
+		"Julia",
+		"LinkerScript",
 		"Package Control",
-		"Rust",
-		"RustAutoComplete",
+		"PowerShell",
+		"Protocol Buffer Syntax",
+		"Rust Enhanced",
 		"RustCodeFormatter",
+		"SCSS",
 		"SystemVerilog",
 		"TOML",
+		"TypeScript Syntax",
 		"Verilog",
-		"VHDL"
+		"VHDL",
+		"Vue Syntax Highlight"
 	]
 }

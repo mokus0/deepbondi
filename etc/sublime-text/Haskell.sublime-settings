@@ -1,0 +1,7 @@
+{
+	"extensions":
+	[
+		"hsc",
+		"hs-boot"
+	]
+}

@@ -1,13 +1,52 @@
 {
+	"added_words":
+	[
+		"refactored"
+	],
 	"always_show_minimap_viewport": true,
 	"detect_indentation": false,
 	"draw_white_space": "all",
-	"font_size": 24,
+	"file_exclude_patterns":
+	[
+		"*.pyc",
+		"*.pyo",
+		"*.exe",
+		"*.dll",
+		"*.obj",
+		"*.o",
+		"*.o.d",
+		"*.a",
+		"*.lib",
+		"*.so",
+		"*.dylib",
+		"*.ncb",
+		"*.sdf",
+		"*.suo",
+		"*.pdb",
+		"*.idb",
+		".DS_Store",
+		"*.class",
+		"*.psd",
+		"*.db",
+		"*.sublime-workspace"
+	],
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		".sourcemaps"
+	],
+	"font_size": 20,
+	"highlight_line": true,
 	"ignored_packages":
 	[
+		"RustCodeFormatter",
 		"Vintage"
 	],
 	"scroll_past_end": true,
+	"show_definitions": false,
 	"translate_tabs_to_spaces": true,
 	"trim_automatic_white_space": false
 }

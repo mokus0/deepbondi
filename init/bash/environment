@@ -15,6 +15,11 @@ export EDITOR=vi
 # default pager
 export PAGER=less
 
+# sigh... so many assholes, so little time to find all the ways they want you to 
+# tell them to stop acting like malware
+export HUSKY_SKIP_INSTALL=1
+export HUSKY_SKIP_HOOKS=1
+
 # default character set (but not on obsd, where locale isn't all there)
 if [ "$os" != "OpenBSD" ]; then
 	export LANG=en_US.UTF-8
